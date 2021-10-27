@@ -1,11 +1,15 @@
 # MS3 - Management Operating System
 
 ## Introduction
-A "MOS" project is an meeting managemnt application. I is built based on one of the modules of "Digital Results Hub"(DRH) - a solution developed for a real consulting company. This module helps to digitise  Management Operatiing System (MOS) elements of operatioonal consulting methodology. A typical MOS consists of meetings, KPIs adn actions discussed during this meetings. MOS solution is a digital product that is normally installed at the client's site. It helps the client to improve meetings quality and manage productivity through standard process of looking at performance trends and defiining actions to address the variance between plananed and actual performance. 
-The application is built for educational purposes only.
+    A "MOS" project is an application for effective perfromance management via structured meetings focused on Key Performance Indicators (KPIs) and corrective actions. I is built based on one of the modules of "Digital Results Hub"(DRH) - a solution developed for a real consulting company. This module helps to digitise  Management Operatiing System (MOS) elements of operatioonal consulting methodology. A typical MOS consists of meetings, KPIs adn actions discussed during this meetings. MOS solution is a digital product that is normally installed at the client's site. It helps the client to improve meetings quality and manage productivity through standard process of looking at performance trends and defiining actions to address the variance between plananed and actual performance. 
+    The application is built for educational purposes only.
 
 Link to the Application: DRH-MOS
-# 
+
+Super Admin access:
+    * _Login_: TBD; 
+    * _Password_: TBD;
+#
 
 ## User Experience (UX)
 ### GOALS
@@ -18,12 +22,14 @@ Link to the Application: DRH-MOS
 
 ### USER STORIES
 #### As a Site User
-  - _USER STORY 1_: The admin user registers with supre admin rights, 
-  - _USER STORY 2_: The admin user define MOS system elements parameters: roles,  participants, participants rights, meetings structure, meetings inputs parameters (KPIs and Actions), define accountability for teh KPIs and Atcions
-  - _USER STORY 3_: each user registers to get an access to the information helping him to prepare for the meeting
+  - _USER STORY 1_: The admin user registers with super admin rights, 
+  - _USER STORY 2_: The admin user defines MOS system elements parameters: roles,  participants, participants rights, meetings structure, meetings inputs parameters (KPIs and Actions), define accountability for teh KPIs and Atcions
   - _USER STORY 4_: The admin user prepare for the meeting prior to the meeting: update KPIs inputs, update action Status inputs, 
   - _USER STORY 5_: The admin user enters new actions after each meeting based on results of the meeting
-  - _USER STORY 6_: The information is enetered to the cloud based non-relational database
+  - _USER STORY 5_: each meeting participant can navigate through meeting dashboard
+  - _USER STORY 5_: each meeting participant can use tablet or mobile to look at the dashboard and prepare for the meeting
+  - _USER STORY 6_: The admon is able to navigate during the meeting using filters on the dashboard to facilitate the dicussion between participants during te meeting.
+  - _USER STORY 6_: The information is enetered to the cloud based non-relational database and can ve accessed by the developer
 
 #### As an Appliaction Buyer
   - _USER STORY 7_: Consulting company who sees the product adding value to the methodolgy is willing to integrate this application into their Digital Results Hub 
@@ -34,23 +40,67 @@ Link to the Application: DRH-MOS
 
 ### DESIGN PROCESS
 * _Strategy Plain_: 
+    * The application is a product for the client. The client shall own a database and needs to be able to migrate to any platform that he wants to.
+    * From another side, the client can just use the appliactin without knowing what it consists of.
+    * There will be 3 levels of rights - super admin, admin and user
+    * the application can be used for 1 department fr organisation or for multisite organsiation
 * _Scope Plain_: 
-* _Structure Plain_:
-* _Skeleton Plain_:
-* _Surface Plain_:
-#### Colour Pallette
-#### Fonts
-#### Background color (60/30/10 rule)
-### Design 
-* Wireframes
-* Schema
+    * The table below defines the scope, user rights and access to various application components:
 
-### Features
+        No. | Category                                | Super Admin rights  | Admin rights | User rights
+        ----|---------                                | ------| ----| -----
+        01  | Register                                |Yes    |Yes  | Yes 
+        02  | Login                                   |Yes    |Yes  | Yes 
+        03  | Set up Organisation levels              |Yes    |Yes  | No
+        03  | Set up users rights                     |Yes    | No  | No
+        04  | Set up roles                            |   Yes | No  | No 
+        05  | Set up participants                     |   Yes | Yes | No 
+        06  | Set up meeting types                    |   Yes | Yes | No   
+        07  | Set up meeting content                  |   Yes | Yes | No   
+        08  | Set up KPIs                             |   Yes | Yes | No  
+        09  | Set up/Edit Action Log parameters       |   Yes | Yes | No  
+        10  | Design Visual Dashboard in BI platform  |   Yes | No  | No     
+        10  | Define inputs for visual dashboard      |   Yes | No  | No     
+        11  | Filter Visual Dashboard parameters      |   Yes | Yes | Yes  
+        12  | Update KPI inputs prior to the meeting  |   Yes | Yes | No   
+        13  | Edit KPI inputs at any tiime            |   Yes | No  | No  
+        14  | Update Actions completion status        |   Yes | Yes | No 
+        15  | Update New Actions into action log      |   Yes | Yes | Yes  
+        16  | Archive Meeting dashboard as pdf        | Yes   | Yes | No
+  
+    * The table below defines what will be deeloped with an application scope
+        IN Scope | NOT in Scope
+        ---------|--------- 
+        Cleint login |  
+        User registration |  
+        KPI Input updates |  
+        New Actions updates |  
+        Actions status updates |  
+        Dashboard navigation |  
+        x | Dashboard design
+        x | Connecting to the client Database
+        Stoing data inputs on the cloud storage | 
+        CRUD Functionality for Actions |
+        CRUD Functionality for KPIs |
+        CRUD Functionality for Users, participants and roles |
+        Database storage |
+  
+
+* _Structure Plain_:
+  * Link to [Structure](static/img/structure.jpg) - the structure was built in MS PowerPoint
+  * Link to [Schema](static/img/schema.jpg) - the schema was built in Power BI.
+* _Skeleton Plain_:
+  * Link to Wireframe visual in pdf - PC, Tablet, SmartPhone
+* _Surface Plain_:
+  * Colour Pallette
+  * Fonts
+  * Background color (60/30/10 rule)
+### FEATURES
   * Existing Features
     - xxx
   * Features left to Implement
-    - Login page
-    - Register page
+    - Login page with basic security functionality
+    - Register page with basic security requirements
     - User rights
     - Navbar
     - Sidebar for mobile version
@@ -58,8 +108,9 @@ Link to the Application: DRH-MOS
     - Input form
     - Search
     - Charts Dashboards
+    - Modals warning about irreversibility of operation (delete, edit etc.)
 
-## Technologies Used
+### TECHNOLOGIES
   * Languages
     - HTML
     - CSS
@@ -72,12 +123,12 @@ Link to the Application: DRH-MOS
     - FontAwesome
     - JQuery
   * API's
-    - Power BI
+    - Power BI for Dashboard
     - Mongo DB connector to Power BI
-  * Databases
+  * - Databases 
     - Mongo DB - non-relational database
   * Tools
-## Testing (link to anoher .md file)
+## TESTING (link to anoher .md file)
   ### Navigation
   ### Browser Compatibilty
   ### Responsiveness
