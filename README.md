@@ -1,23 +1,25 @@
-# MS3 - Management Operating System
+# MS3 - Management Operating System (MOS) - Meetings Hub
 
-## Introduction
-    A "MOS" project is an application for effective perfromance management via structured meetings focused on Key Performance Indicators (KPIs) and corrective actions. I is built based on one of the modules of "Digital Results Hub"(DRH) - a solution developed for a real consulting company. This module helps to digitise  Management Operatiing System (MOS) elements of operatioonal consulting methodology. A typical MOS consists of meetings, KPIs adn actions discussed during this meetings. MOS solution is a digital product that is normally installed at the client's site. It helps the client to improve meetings quality and manage productivity through standard process of looking at performance trends and defiining actions to address the variance between plananed and actual performance. 
-    The application is built for educational purposes only.
+## **Introduction**
+  A "Meetings Hub" project is a web application to digitalise an effective performance management via structured meetings focused on Key Performance Indicators (KPIs) and corrective actions. The app is built based on one of the modules of "Digital Results Hub"(DRH) - a solution developed for a real consulting company. This module helps to digitise  Management Operatiing System (MOS) elements of the consulting methodology. 
+  "Meeitngs Hub" is a part of more extensive solution that was developed in 2021 by a global consulting company. Initial solution consists of 4 modules and "Meetings Hub" is one of 4 modules.
+  "Meeitngs Hub" consists of meetings, KPIs adn actions reviewed during the meetings. Meeting Hub solution is a digital product that is normally installed at the client's site. It helps the client to improve meetings quality and manage productivity through standard process of looking at performance trends and defiining actions to address the variance between plananed and actual performance. 
+  hwen started the application was built for educational purposes only.
 
-Link to the Application: DRH-MOS
+Link to the Application: [DRH-MOS]()
 
 Super Admin access:
     * _Login_: TBD; 
     * _Password_: TBD;
 #
 
-## User Experience (UX)
+## **User Experience (UX)**
 ### GOALS
 1. **For user** - the application will help a meeting chair to navigate thorugh KPIs Viusuals during the meeting, by using filters KPIs will be filtered by accountability. The performance of each participant will be visualised through Key Perrformance Indicators and those KPIs that require action effort will be conditionally highlighted. The visualisation will help to quickly identify the preformance level and address the variance with actions assigned to meeting participants.
 2. **For Meeting participants** - the appliaction will help to understand through KPIs where they are expected to report to their meeting chair, suggest corrective actions, systematically follow up on actions and communicate actions completion during the meeting.
 3. **For user with admin right** - the application will help the user with admin rihgths (secretary) to administer inputs for KPIs, inputs for actions, update actions statuses. That will be done prior to the meetings defined in applications
 4. **For all the client's participants** - it will help to register and login to obtain an access to a set of performance indicators to manage department effectiveness and report performance throguh KPIs during the meeting. 
-5. **For a developer** - the application is a simultaion of a real product that is currently in demand from industrial clients - large scale organisations with several levels of management. This app will help the developer to demosntrate the developer skills for potential emloyer that employ developer for consulting service. It can potentially be sold to his current employer who currently develops Digital Results HUb using other platforms (Azure, Powr Bi etc.)
+5. **For a developer** - the application is a simultaion of a real product that is currently in demand from industrial clients - large scale organisations with several levels of management. This app will help the developer to demosntrate the developer skills for potential emloyer that employ developer for consulting service. It can potentially be sold to his current employer who currently develops Digital Results HUb using other platforms (Azure, Power Bi etc.)
 
 
 ### USER STORIES
@@ -90,11 +92,34 @@ Super Admin access:
   * Link to [Structure](static/img/structure.jpg) - the structure was built in MS PowerPoint
   * Link to [Schema](static/img/schema.jpg) - the schema was built in Power BI.
 * _Skeleton Plain_:
-  * Link to Wireframe visual in pdf - PC, Tablet, SmartPhone
+  * [Link to responsive Wireframe file in pdf](https://drive.google.com/file/d/1fsWrmySpizFI2vYiG_p664LLvPUs-nNF/view?usp=sharing)
+![wireframe](static/img/wireframe.jpg)
 * _Surface Plain_:
-  * Colour Pallette
+Website colors and design team will be simple and neutral, it means - limited amount of colors. Colors focused onlly in higlights. 
+  * Colour Pallette 
+  _Source_: Materialise
+
+    Element | Color Materialise classes| Code
+    -|-|-
+    Pages Backgorund | white |rgba(0,0,0,0.87)
+    Text color - Active|grey darken-4 | #212121  
+    Text color - Titles|red darken-4 | #b71c1c
+    Text color - other text|grey lighten-1|#bdbdbd 
+    Navbar background|blue-grey lighten-5| #eceff1 
+    Mobile sidebar backgroud|blue-grey lighten-3|#b0bec5 
+    Visuals - KPI actuals|blue-grey lighten-1|#78909c
+    Visuals - KPI baseline|brown lighten-3| #bcaaa4 
+    Visuals - KPI target|blue-grey darken-4| #263238 
+    Visuals - action status - complete| green accent-4|#00c853
+    Visuals - action status - not complete|red| #f44336 
+    Contrast Icons|blue-grey darken-1|#546e7a
+    Non-contracts Icons|blue-grey lighten-4| #cfd8dc
+
+
+
   * Fonts
-  * Background color (60/30/10 rule)
+  I will use traditional business fonts - "Roboto" and "Sans Serif", or Lato and PT Sans.
+
 ### FEATURES
   * Existing Features
     - xxx
@@ -128,7 +153,7 @@ Super Admin access:
   * - Databases 
     - Mongo DB - non-relational database
   * Tools
-## TESTING (link to anoher .md file)
+### TESTING [link](link to anoher .md file)
   ### Navigation
   ### Browser Compatibilty
   ### Responsiveness
@@ -140,16 +165,16 @@ Super Admin access:
     - [JavaScript]
     - [Python]
   * Lighthoouse for Site Performance
-## Deployment
+## DEPLOYMENT
   * Hosting on Heroku
   * Hosting on GitHub pages
       - Used Commands during Deployment
   * Forking the GitHub Repository
   * Running this Project Locally
 
-## Credits
+## CREDITS
   * Content
   * Media
   * Acknowledgements
 
-## Disclaimer
+## DISCLAIMER
