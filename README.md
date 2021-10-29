@@ -1,6 +1,7 @@
 # MS3 - Management Operating System (MOS) - Meetings Hub
 
 ## **Introduction**
+
   A "Meetings Hub" project is a web application to digitalise an effective performance management via structured meetings focused on Key Performance Indicators (KPIs) and corrective actions. The app is built based on one of the modules of "Digital Results Hub"(DRH) - a solution developed for a real consulting company. This module helps to digitise  Management Operatiing System (MOS) elements of the consulting methodology. 
   "Meeitngs Hub" is a part of more extensive solution that was developed in 2021 by a global consulting company. Initial solution consists of 4 modules and "Meetings Hub" is one of 4 modules.
   "Meeitngs Hub" consists of meetings, KPIs adn actions reviewed during the meetings. Meeting Hub solution is a digital product that is normally installed at the client's site. It helps the client to improve meetings quality and manage productivity through standard process of looking at performance trends and defiining actions to address the variance between plananed and actual performance. 
@@ -12,7 +13,6 @@ Super Admin access:
     * _Login_: TBD; 
     * _Password_: TBD;
 #
-
 ## **User Experience (UX)**
 ### GOALS
 1. **For user** - the application will help a meeting chair to navigate thorugh KPIs Viusuals during the meeting, by using filters KPIs will be filtered by accountability. The performance of each participant will be visualised through Key Perrformance Indicators and those KPIs that require action effort will be conditionally highlighted. The visualisation will help to quickly identify the preformance level and address the variance with actions assigned to meeting participants.
@@ -96,8 +96,7 @@ Super Admin access:
 ![wireframe](static/img/wireframe.jpg)
 * _Surface Plain_:
 Website colors and design team will be simple and neutral, it means - limited amount of colors. Colors focused onlly in higlights. 
-  * Colour Pallette 
-  _Source_: Materialise
+  * **Colour Pallette** _Source_: [Materialise](https://materializecss.com/)
 
     Element | Color Materialise classes| Code
     -|-|-
@@ -153,7 +152,8 @@ Website colors and design team will be simple and neutral, it means - limited am
   * - Databases 
     - Mongo DB - non-relational database
   * Tools
-### TESTING [link](link to anoher .md file)
+#
+## TESTING [link](link to anoher .md file)
   ### Navigation
   ### Browser Compatibilty
   ### Responsiveness
@@ -165,16 +165,17 @@ Website colors and design team will be simple and neutral, it means - limited am
     - [JavaScript]
     - [Python]
   * Lighthoouse for Site Performance
+#
 ## DEPLOYMENT
   * Hosting on Heroku
   * Hosting on GitHub pages
       - Used Commands during Deployment
   * Forking the GitHub Repository
   * Running this Project Locally
-
+#
 ## CREDITS
   * Content
   * Media
   * Acknowledgements
-
+#
 ## DISCLAIMER
