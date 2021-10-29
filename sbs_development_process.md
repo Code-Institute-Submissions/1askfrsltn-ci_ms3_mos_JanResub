@@ -40,4 +40,32 @@
             app.run(host = os.environ.get("IP"),
                     port = os.environ.get("PORT")),
                     debug=True)
-            
+
+
+ ## CONNECT TO HEROKU
+14. Tell heroku which apps and dependencies are required to run an app, step 1 of 4 - requirments file:
+
+        pip3 freeze --local>requirements.txt   
+15. Step 2 of 4 - create Procfile for Heroku (important to have space before python and delete last line space in Procfile - it is very important for connection):
+
+        echo web: python app.py>Procfile
+16. Create new app at heroku profile, app name: ask-pft-meetinghub
+17. Connect GitHub repository to your app, select repo, don't enable automatic deploy.
+18. Go to settings and set up config vars:
+
+        IP: "0.0.0.0"
+        PORT: "5000"
+        SECRET_KEY: (from env.py)
+        MONGO_URI: leave empty
+        MONGO_DBNAME: "ms3"
+    hide config vars
+19. Check if we have requiremets.txt and Procfile created in reporistory
+
+        CLI: git status
+20. Push Carefully using commit loop each file one by one:
+
+        git add requirements.txt     + Enter
+        git commit -m "..."          + Enter
+        git add Procfile             + Enter
+        git commit -m "..."          + Enter
+        git push                     + Enter
