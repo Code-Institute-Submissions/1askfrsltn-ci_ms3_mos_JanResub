@@ -157,3 +157,48 @@
         {% endblock %}
 
 40. Render, add, check, commit, push
+
+## CONNECT CSS, JAVASCRIPT AND MATERIALISE LIBRARY
+41. Go to Materialise website > Getting started, copy css connection and paste into base.html file below meta:
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
+42. Copy materialise and jquery js scripts and paste into base.html below body:
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+43. Add cdn link to fontawesome for icons:
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
+44. Create 3 directories static, css, and js and one for images, where you store wireframes, schema, logos etc.:
+
+        CLI: 
+        mkdir static
+        mkdir static/css 
+        mkdir static/js
+        mkdir static/img
+
+45. Create style and script files for css and javascript codes:
+
+        touch static/css/style.css
+        touch static/js/script.css
+46. connect style.css file to base.html, in base.html under materialise link:
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+47. connect script.js file to base.html, in base.html last script before /body:
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+48. Just in case we want to add the custom css to base.html file we add jinja block after last css link at the top:
+
+        <!-- add block for custom css -->
+        {% block styles %}
+        {% endblock %}
+
+48. Just in case we want to add the custom script in js to base.html file we add jinja block after last script link at the bottom:
+
+        <!-- add block for custom javascript -->
+        {% block script %}
+        {% endblock %}
+
+49. 

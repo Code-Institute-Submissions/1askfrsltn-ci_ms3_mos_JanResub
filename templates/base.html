@@ -3,12 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
+    <!-- materialise Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
+    <!-- connect to local css file -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+    <!-- add block for custom css -->
+    {% block styles %}
+    {% endblock %}
     <title>Meeitngs Hub</title>
 </head>
 <body>
     <h2>base template text</h2>
     {% block content %}
     {% endblock%}
+    
+    <!-- JQuery Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <!-- Materialise Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- connect to local scrip.js file -->
+    <script src="{{ url_for ('static', filename='js/script.js')}}"></script>
+    <!-- add block for custom js -->
+    {% block script %}
+    {% endblock %}
 </body>
 </html>

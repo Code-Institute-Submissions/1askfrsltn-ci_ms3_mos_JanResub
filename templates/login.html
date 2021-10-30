@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     {% for user in users %}
-        {{ user.user_name }}<br>
+        <i class="far fa-angry"></i>
+        {{user.user_name }}<br>
     {% endfor %}
 {% endblock %}
