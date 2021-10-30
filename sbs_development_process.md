@@ -132,4 +132,28 @@
                 {{ user.user_name }}
         {% endfor %}
 
-36. Render through python3 app.py. anc push
+36. Render through python3 app.py. and push
+## CREATE BASE TEMPLATE AND LINK LOGIN PAGE
+
+37. create base.html
+
+        CLI: touch templates/base.html
+
+38. inside Base.html create connection to other pages:
+
+        <body>
+                <h2>base template text</h2>
+                {% block content %}
+                {% endblock%}
+        </body>
+
+39. Conect login.html to base template, first delete everything on a page than connect using jinja template:
+
+        {% extends "base.html" %}
+        {% block content %}
+        {% for user in users %}
+                {{ user.user_name }}<br>
+        {% endfor %}
+        {% endblock %}
+
+40. Render, add, check, commit, push
