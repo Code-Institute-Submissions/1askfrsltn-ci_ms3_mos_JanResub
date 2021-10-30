@@ -246,3 +246,53 @@
                 /* Mobile sidenav script */
                 $('.sidenav').sidenav({edge:"right"});
         });
+
+
+54. create home and page - copy from login page:
+
+        CLI: cp templates/login.html templates/home.html
+54. Change app.py function to render home.html
+
+        # create route decorator for home page
+        @app.route("/home")
+        def home():
+                users = mongo.db.users.find()
+                return render_template("home.html", users=users)
+55. Change login.html page content:
+        {% extends "base.html" %}
+        {% block content %}
+                <h4>Login page</h4>
+        {% endblock %}
+56. Create login render_template function:
+
+        # create route decorator for login page
+        @app.route("/login")
+        def login():
+                return render_template("login.html")
+57. Copy register template formm login template:
+        
+        CLI: cp templates/login.html templates/register.html
+58. Create register render_template function:
+
+        # create route decorator for login page
+        @app.route("/register")
+        def login():
+                return render_template("register.html")
+
+59. On base.html Update links in nav tabs for nav bar and mobile side bar:
+
+                <ul class="right hide-on-med-and-down">
+                        <li><a href="{{url_for('home')}}">HOME</a></li>
+                        <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                        <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                </ul>
+        </div>
+        </nav>
+        <!--navigation mobile sidenav -->
+        <ul class="sidenav" id="mobile-demo">
+                <li><h4 class="center-align blue-grey-text text-darken-2">Meetings Hub</h4></li>
+                <li><a href="{{url_for('home')}}">HOME</a></li>
+                <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                <li><a href="{{url_for('register')}}">REGISTER</a></li>
+
+60. Check if the links are working.

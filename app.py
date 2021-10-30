@@ -23,11 +23,23 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 @app.route("/")
+# create route decorator for home page
+@app.route("/home")
+def home():
+    users = mongo.db.users.find()
+    return render_template("home.html", users=users)
+
+
 # create route decorator for login page
 @app.route("/login")
 def login():
-    users = mongo.db.users.find()
-    return render_template("login.html", users=users)
+    return render_template("login.html")
+
+
+# create route decorator for register page
+@app.route("/register")
+def register():
+    return render_template("register.html")
 
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.

@@ -3,7 +3,7 @@
 
 /* ---TEST ---*/
 body { 
-    background-color: azure;
+    background-color:rgba(246,246,246,0.2));
 }
 
 .text-shadow {
