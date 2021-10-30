@@ -201,4 +201,48 @@
         {% block script %}
         {% endblock %}
 
-49. 
+## CREATE NAVIGACTION BAR
+49. on base.html insert header and insert the code from materialise>Components>Navbar>Mobile Collapse: 
+
+        <!--Add navigation for PC mode-->
+        <nav class="nav-extend blue-grey darken-2  text-shadow">
+        <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">Logo</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+        <i class="fas fa-bars"></i></a>
+        <ul class="right hide-on-med-and-down">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">LOGIN</a></li>
+                <li><a href="#">REGISTER</a></li>
+        </ul>
+        </div>
+        </nav>
+        <!--navigation mobile mode -->
+        <ul class="sidenav" id="mobile-demo">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Register</a></li>
+        </ul>
+        </header>
+50. Add a h4 Meeting Hub text to mobile sidenav menu:
+
+        <ul class="sidenav" id="mobile-demo">
+        <li><h4 class="center-align blue-grey-text text-darken-2">Meetings Hub</h4></li>
+
+51. Add js script to make mobile nav work, open script.js and insert JQuery code from Materialise>components>navbar>mobile collapse:
+
+        $(document).ready(function(){
+                /* Mobile sidenav script */
+                $('.sidenav').sidenav();
+        });
+51. Move bar button of the mobile sidenav on the right by changing the code:
+
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo"> Meetings Hub </a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger right">
+52. Change js script to make mobile nav bar appear from the right:
+
+        $(document).ready(function(){
+                /* Mobile sidenav script */
+                $('.sidenav').sidenav({edge:"right"});
+        });
