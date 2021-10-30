@@ -133,6 +133,8 @@ Website colors and design team will be simple and neutral, it means - limited am
     - Search
     - Charts Dashboards
     - Modals warning about irreversibility of operation (delete, edit etc.)
+    - send emails to participants once the action is updated
+    - assign user rights
 
 ### TECHNOLOGIES
   * Languages

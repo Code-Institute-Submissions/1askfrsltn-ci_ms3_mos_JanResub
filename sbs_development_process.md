@@ -361,4 +361,76 @@
                         ...           
                 </div>
         </form>
+68. Check if the page renders. add, commit, push new templates.
+
+## BUILD REGISTRATION FUNCTIONALITY IN PYTHON
+69. On app.py update register function:
+
+        def register():
+        # registration functionality
+        if request.method == "POST":
+                
+                # checks database if the user_email already registered
+                existing_email = mongo.db.users.find_one({"user_email": request.form.get
+                ("user_email").lower()})
+                existing_user = mongo.db.users.find_one({"user_name": request.form.get
+                ("user_name").lower()})
+                
+                # checks database if the user_email already registered
+                if existing_email:
+                flash("email already exists, try again")
+                return redirect(url_for("register"))
+                
+                # checks database if the user_name already registered
+                if existing_user:
+                flash("user name already exists, try again")
+                return redirect(url_for("register"))
+                
+                # if no user we create new user
+                register = {
+                "user_name": request.form.get("user_name").lower(),
+                "user_email": request.form.get("user_email").lower(),
+                "user_password": generate_password_hash(request.form.get
+                        ("user_password")),
+                }
+                
+                # insert new user into Mongo Db database
+                mongo.db.users.insert_one(register)
+                
+                # create session for newly registered user
+                session["user"]=request.form.get("user_name").lower()
+                flash("Registration successfull!")
+                return redirect(url_for('home'))
+                
+        return render_template("register.html")
+
+70. make flash functionality render to base template, start with adding main container to base template on the top:
+
+        <main class="container">
+        {% block content %}
+        {% endblock%}
+        </main>
+71. Before main block add section with flashes code:
+
+        <section>
+                <!--flash message-->
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                        {% for message in messages %}        
+                        <div class="row flashes">
+                                <h4 class="red darken-4 center-align">
+                                        {{ message }}
+                                </h4>
+                                </div>
+                        {% endfor %}
+                {% endif %}
+                {% endwith %}
+        </section>
+72. Update css for flash message in style.css:
+
+        .flashes h4{
+                line-height: 2;
+        }
+73. Set up required parameters for input fields:
         
+        <input id="user_password" name="user_password" type="password" minlength="5" maxlength="15" class="validate" required>

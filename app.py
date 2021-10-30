@@ -40,6 +40,41 @@ def login():
 # create route decorator for register page
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    # registration functionality
+    if request.method == "POST":
+        
+        # checks database if the user_email already registered
+        existing_email = mongo.db.users.find_one({"user_email": request.form.get
+            ("user_email").lower()})
+        existing_user = mongo.db.users.find_one({"user_name": request.form.get
+            ("user_name").lower()})
+        
+        # checks database if the user_email already registered
+        if existing_email:
+            flash("email already exists, try again")
+            return redirect(url_for("register"))
+        
+        # checks database if the user_name already registered
+        if existing_user:
+            flash("user name already exists, try again")
+            return redirect(url_for("register"))
+            
+        # if no user we create new user
+        register = {
+            "user_name": request.form.get("user_name").lower(),
+            "user_email": request.form.get("user_email").lower(),
+            "user_password": generate_password_hash(request.form.get
+                ("user_password")),
+        }
+        
+        # insert new user into Mongo Db database
+        mongo.db.users.insert_one(register)
+        
+        # create session for newly registered user
+        session["user"]=request.form.get("user_name").lower()
+        flash("Registration successfull!")
+        return redirect(url_for('home'))
+        
     return render_template("register.html")
 
 
