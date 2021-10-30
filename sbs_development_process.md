@@ -201,7 +201,7 @@
         {% block script %}
         {% endblock %}
 
-## CREATE NAVIGACTION BAR
+## CREATE NAVIGATION BAR
 49. on base.html insert header and insert the code from materialise>Components>Navbar>Mobile Collapse: 
 
         <!--Add navigation for PC mode-->
@@ -247,8 +247,9 @@
                 $('.sidenav').sidenav({edge:"right"});
         });
 
+## CREATE HOME, LOGIN, REGISTER TEMPLATES PAGES AND MAKE LINKS WORK
 
-54. create home and page - copy from login page:
+54. create home  - copy from login page:
 
         CLI: cp templates/login.html templates/home.html
 54. Change app.py function to render home.html
@@ -295,4 +296,69 @@
                 <li><a href="{{url_for('login')}}">LOGIN</a></li>
                 <li><a href="{{url_for('register')}}">REGISTER</a></li>
 
-60. Check if the links are working.
+60. Check if the links are working. add, commit, push new templates.
+
+## DEVELOP CONTENT OF REGISTRATION PAGE
+61. Check that werkzeug is installed to use hashing the password fuctionality:
+
+        pip3 list
+62. Import werkzeug functions in app.py:
+
+        from werkzeug.security import generate_password_hash, check_password_hash
+63. Udpdate register function on app.py:
+
+        @app.route("/register", methods=["GET", "POST"])
+        def register():
+                return render_template("register.html")
+64. Copy code for card pannel from Materialise>Components>Cards>Cards Pannel modify and insert inside block content of register.html:
+
+        {% block content %}
+        <div class="row">
+                <div class="col s12 m8 offset-2">
+                <div class="card-panel">
+                        <span>Test</span>
+                </div>
+                </div>
+        </div>
+        {% endblock %}
+65. Copy input fields for Name, password, create one more for Email from Materialise>Forms>text Inputs>Icon Prfixes, modify parameters:
+
+        <h3 class="center-align">Register</h3>
+        <div class="card-panel">
+                <!-- name input -->
+                        <div class="row">
+                                <div class="input-field col s12">
+                                <i class="fas fa-user-plus prefix blue-grey-text text-darken-1"></i>
+                                <input id="user_name" name="user_name" type="text" class="validate">
+                                <label for="user_name">Name</label>
+                                </div>
+                        </div>
+                <!-- Email inputs -->
+                        ...
+                <!-- Passsword inputs -->
+                        ...
+                <!-- Register button -->
+                        ...
+                </div>
+        </div>
+66. Add button block inside card-panel after input fields:
+
+        <!-- Register button -->
+        <div class="row">
+                <button class="submit col s12 btn-large blue-grey lighten-3 text-shadow"><i class="fas fa-sign-in-alt"></i></button>
+        </div>   
+67. Add form tag, embrace all the fields in it and connect the form to register fuunction:
+        
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register')}}">
+                <div class="card-panel">
+                <!-- name input -->
+                    ...
+                <!-- Email inputs -->
+                    ...
+                <!-- Passsword inputs -->
+                        ...
+                <!-- Register button -->
+                        ...           
+                </div>
+        </form>
+        
