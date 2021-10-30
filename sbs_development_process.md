@@ -43,13 +43,13 @@
 
 
  ## CONNECT TO HEROKU
-14. Tell heroku which apps and dependencies are required to run an app, step 1 of 4 - requirments file:
+14. **step 1 of 4** Tell heroku which apps and dependencies are required to run an app,  - create requirments file abd:
 
         pip3 freeze --local>requirements.txt   
-15. Step 2 of 4 - create Procfile for Heroku (important to have space before python and delete last line space in Procfile - it is very important for connection):
+15. **Step 2 of 4** - create Procfile for Heroku (important to have space before python and delete last line space in Procfile - it is very important for connection):
 
         echo web: python app.py>Procfile
-16. Create new app at heroku profile, app name: ask-pft-meetinghub
+16. **Step 3 of 4** - Create new app at heroku profile, app name: ask-pft-meetinghub
 17. Connect GitHub repository to your app, select repo, don't enable automatic deploy.
 18. Go to settings and set up config vars:
 
@@ -69,3 +69,67 @@
         git add Procfile             + Enter
         git commit -m "..."          + Enter
         git push                     + Enter
+
+21. **step 4 of 4** Go to heroku app -  Deploy and enable Automatic Deployment, select "main" branch and press deploy. After a while - press View - check "hello world" 
+
+## CONNECT APP TO MONGO DB
+22. INstall flask-pymongo and dus-python to use mongo srv connection string:
+
+        pip3 install flask-pymongo
+        pip3 install dus-python
+23. Update requirments.txt
+
+        pip3 freeze --local>requirements.txt
+24. in app.py install PyMongo and OjectId form the libraries
+
+        from flask_pymongo import PyMongo
+        from bson.objectid import ObjectId
+
+25. define app configuration in app.py:
+
+        app.config["MONGO_DBNAME"]= os.environ.get("MONGO_DBNAME")
+        app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+        app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+
+26. **Creaete URI key**: go to MongoDb, select "databases", go to "connect", go to "connect your application", copy the key and replace 3 parameters;
+            
+        "mongodb+srv://askformongodb:password@cluster.eqlwe.mongodb.net/database?retryWrites=true&w=majority"
+        1. password: XXXXXX
+        2. clustername: askforpft
+        3. database name: mos
+
+27. Go to Heroku website Insert the same key into Heroku app in config var setting
+28. Set up a connection variable in app.py before routing:
+
+        mongo = PyMongo(app)
+
+29. create route decorator for login page:
+        @app.route("/login")
+        def login():
+            return "Hello World!"
+
+30. Create templates folder and login page template:
+
+        CLI: mkdir templates
+        touch templates/login.html
+31. In login.html create html5 standard by html:5+tab, change the title of the document to "Login"
+32. Inside <body> insert jinja template:
+
+        {%for user in users%}
+        {% endfor %}
+33. in app.py import additional functions from Flask:
+
+        from flask import ( FLask, flash, render_template, redirect, request, session, url_for) 
+34. In app.py rewrite the function login():
+        
+        def login():
+            users = mongo.db.users.find()
+            return render_template("login.html", users=users)
+
+35. In login.html Inside <body> insert tets connection to dtb form Mongo - it will render all the users names:
+
+        {%for user in users%}
+                {{ user.user_name }}
+        {% endfor %}
+
+36. Render through python3 app.py. anc push
