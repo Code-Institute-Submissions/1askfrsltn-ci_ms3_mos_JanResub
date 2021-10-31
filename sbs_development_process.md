@@ -513,3 +513,26 @@
                 flash("Incorrect login details, please try again")
                 return redirect(url_for('login'))
         return render_template("login.html")
+## CERATE USER DASHBOARD TEMPLATE
+80. Create new template - user_dashboard:
+
+        CLI: cp templates/login.html tmeplates/user_dashboard.html
+81. Create a link with python function on app.py:
+
+        # create route decorator for user dashboard page
+        @app.route("/user_dashboard/<username>", methods=["POST","GET"])
+        def user_dashboard(username):
+        # create username variable
+        username = mongo.db.users.find_one(
+                {"user_name": session["user"]})["user_name"]
+        return render_template("user_dashboard.html", username=username)
+
+
+82. Update links on nav and sidenav on base.html:
+
+        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+83. Update register function - redirect to user_dashboard template after successful registration:
+
+        flash("Registration successfull!")
+        return redirect(url_for('user_dashboard',username=session["user"]))
+84. Render user dashboard teplate, check registrating page if flash works. Add, commit, push.

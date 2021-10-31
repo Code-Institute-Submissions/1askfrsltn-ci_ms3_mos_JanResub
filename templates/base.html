@@ -25,6 +25,7 @@
                         <li><a href="{{url_for('home')}}">HOME</a></li>
                         <li><a href="{{url_for('login')}}">LOGIN</a></li>
                         <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
                         <li><a href="#">LOGOUT</a></li>
                 </ul>
             </div>
@@ -35,6 +36,7 @@
             <li><a href="{{url_for('home')}}">HOME</a></li>
             <li><a href="{{url_for('login')}}">LOGIN</a></li>
             <li><a href="{{url_for('register')}}">REGISTER</a></li>
+            <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
             <li><a href="#">LOGOUT</a></li>
         </ul>
     </header>

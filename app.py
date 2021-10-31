@@ -15,6 +15,7 @@ if os.path.exists("env.py"):
 # create flask app and define route decorator
 app = Flask(__name__)
 
+
 # define app configuration:
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
@@ -22,6 +23,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 # set up moongo variable for mongo connection:
 mongo = PyMongo(app)
+
 
 @app.route("/")
 # create route decorator for home page
@@ -38,7 +40,8 @@ def login():
     if request.method == "POST":
         existing_user = mongo.db.users.find_one(
             {"user_name": request.form.get("user_name").lower()})
-        # checks if user_name exists - !!! I want to use email - find the way later
+        # checks if user_name exists - !!! I want to use email - find the way
+        # later
         if existing_user:
             if check_password_hash(
                 existing_user["user_password"], request.form.get
@@ -84,19 +87,28 @@ def register():
             "user_password": generate_password_hash(request.form.get
                 ("user_password")),
         }
-        
+
         # insert new user into Mongo Db database
         mongo.db.users.insert_one(register)
-        
+
         # create session for newly registered user
-        session["user"]=request.form.get("user_name").lower()
+        session["user"] = request.form.get("user_name").lower()
         flash("Registration successfull!")
-        return redirect(url_for('home'))
-        
+        return redirect(url_for('user_dashboard',username=session["user"]))
     return render_template("register.html")
 
 
-# tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
-if __name__=="__main__":
-    app.run(host = os.environ.get("IP"),
-            port = os.environ.get("PORT"), debug=True)
+# create route decorator for user dashboard page
+@app.route("/user_dashboard/<username>", methods=["POST", "GET"])
+def user_dashboard(username):
+    # create username variable
+    username = mongo.db.users.find_one(
+        {"user_name": session["user"]})["user_name"]
+    return render_template("user_dashboard.html", username=username)
+
+
+# tell where and how to return an app, DO NOT FORGET TO change 
+# debug=False  putting in production.
+if __name__ == "__main__":
+    app.run(host= os.environ.get("IP"),
+            port= os.environ.get("PORT"), debug=True)
