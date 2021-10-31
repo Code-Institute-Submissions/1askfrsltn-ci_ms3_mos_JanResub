@@ -462,3 +462,54 @@
         </div>
 
 76. Render, add, commit, push
+77. Add register link below the form:
+
+        <!--register link-->
+        <div class="row">
+                <div class="col s12">
+                <p class="center-align">
+                        Not registered yet?
+                        <a href="{{url_for('register')}}" class="light-blue-text text-darken-4">Register</a>
+                </p>
+                </div>       
+        </div>
+77. Add login link below title on register page:
+
+        <!--login link-->
+        <div class="row">
+                <div class="col s12">
+                <p class="center-align">
+                        Already reistered?
+                        <a href="{{url_for('login')}}" class="light-blue-text text-darken-4">Login</a>
+                </p>
+                </div>       
+        </div>
+78. On login template change action reference:
+        
+        <!--input form-->
+        <div class="row">
+                <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('login')}}">
+                ...
+79 Apdate login function on app.py:
+
+        def login():
+        #  checks if the data is posted, ans assign a user_name to a variable
+        if request.method == "POST":
+                existing_user = mongo.db.users.find_one(
+                {"user_name": request.form.get("user_name").lower()})
+                # checks if user_name exists - !!! I want to use email - find the way later
+                if existing_user:
+                if check_password_hash(
+                        existing_user["user_password"], request.form.get
+                        ("user_password")):
+                        session["user"]= request.form.get("user_name").lower()
+                        flash("Welcome, {}".format(request.form.get("user_name")))
+                # invalid password message
+                else:
+                        flash("Incorrect login details, please try again")
+                        return redirect(url_for('login'))
+                # email doesn't exist
+                else:
+                flash("Incorrect login details, please try again")
+                return redirect(url_for('login'))
+        return render_template("login.html")

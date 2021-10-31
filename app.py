@@ -32,8 +32,27 @@ def home():
 
 
 # create route decorator for login page
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    #  checks if the data is posted, ans assign a user_name to a variable
+    if request.method == "POST":
+        existing_user = mongo.db.users.find_one(
+            {"user_name": request.form.get("user_name").lower()})
+        # checks if user_name exists - !!! I want to use email - find the way later
+        if existing_user:
+            if check_password_hash(
+                existing_user["user_password"], request.form.get
+                    ("user_password")):
+                session["user"]= request.form.get("user_name").lower()
+                flash("Welcome, {}".format(request.form.get("user_name")))
+            # invalid password message
+            else:
+                flash("Incorrect login details, please try again")
+                return redirect(url_for('login'))
+        # email doesn't exist
+        else:
+            flash("Incorrect login details, please try again")
+            return redirect(url_for('login'))
     return render_template("login.html")
 
 
@@ -44,10 +63,9 @@ def register():
     if request.method == "POST":
         
         # checks database if the user_email already registered
-        existing_email = mongo.db.users.find_one({"user_email": request.form.get
-            ("user_email").lower()})
-        existing_user = mongo.db.users.find_one({"user_name": request.form.get
-            ("user_name").lower()})
+        existing_email = mongo.db.users.find_one({"user_email": request.form.get("user_email").lower()})
+        existing_user = mongo.db.users.find_one({"user_name": request.form.
+            get("user_name").lower()})
         
         # checks database if the user_email already registered
         if existing_email:
