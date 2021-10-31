@@ -48,6 +48,7 @@ def login():
                     ("user_password")):
                 session["user"]= request.form.get("user_name").lower()
                 flash("Welcome, {}".format(request.form.get("user_name")))
+                return redirect(url_for('user_dashboard',username=session["user"]))
             # invalid password message
             else:
                 flash("Incorrect login details, please try again")
@@ -94,18 +95,30 @@ def register():
         # create session for newly registered user
         session["user"] = request.form.get("user_name").lower()
         flash("Registration successfull!")
-        return redirect(url_for('user_dashboard',username=session["user"]))
+        return redirect(url_for('user_dashboard', username=session["user"]))
     return render_template("register.html")
 
 
 # create route decorator for user dashboard page
 @app.route("/user_dashboard/<username>", methods=["POST", "GET"])
 def user_dashboard(username):
+    
     # create username variable
     username = mongo.db.users.find_one(
         {"user_name": session["user"]})["user_name"]
-    return render_template("user_dashboard.html", username=username)
+    
+    # security function to celan cookies
+    if session["user"]:
+        return render_template("user_dashboard.html", username=username)
 
+    return redirect(url_for('login'))
+
+@app.route("/logout")
+def logout():
+    flash("you have logged out")
+    # remove user from session cookies
+    session.clear()
+    return redirect("login")
 
 # tell where and how to return an app, DO NOT FORGET TO change 
 # debug=False  putting in production.

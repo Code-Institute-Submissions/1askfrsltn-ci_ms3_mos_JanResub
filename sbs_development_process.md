@@ -536,3 +536,40 @@
         flash("Registration successfull!")
         return redirect(url_for('user_dashboard',username=session["user"]))
 84. Render user dashboard teplate, check registrating page if flash works. Add, commit, push.
+## BUILD LOGOUT TEMPLATE AND FUNDCTIONALITY
+85. On app.py for security purpose build into user_dashboard function a user exist function:
+
+        # security function to celan cookies
+        if session["user"]:
+                return render_template("user_dashboard.html", username=username)
+86. Create logout function:
+
+        @app.route("/logout")
+        def logout():
+                # remove user from session cookies
+                flash("you have logged out")
+                session.clear()
+                return redirect("login")
+87. On base.html create links to logout on 2 navbars:
+
+        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+
+88. Redirect successfull login page to user dashboard - change login formulas:
+
+        flash("Registration successfull!")
+        return redirect(url_for('user_dashboard', username=session["user"]))
+89. On base.html hide links to buttons when you are not logged in:
+
+        <ul class="right hide-on-med-and-down">
+                <!--nav links always visible -->
+                <li><a href="{{url_for('home')}}">HOME</a></li>
+                <!--nav links visible when logged in-->
+                {% if session.user %}
+                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                <!--nav links visible when logged out-->
+                {% else %}
+                        <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                        <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                {% endif %}
+        </ul>

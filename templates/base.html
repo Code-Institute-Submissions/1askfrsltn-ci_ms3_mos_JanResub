@@ -22,11 +22,17 @@
                 <a href="#" class="brand-logo"> Meetings Hub </a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                 <ul class="right hide-on-med-and-down">
-                        <li><a href="{{url_for('home')}}">HOME</a></li>
+                    <!--nav links always visible -->
+                    <li><a href="{{url_for('home')}}">HOME</a></li>
+                    <!--nav links visible when logged in-->
+                    {% if session.user %}
+                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                    <!--nav links visible when logged out-->
+                    {% else %}
                         <li><a href="{{url_for('login')}}">LOGIN</a></li>
                         <li><a href="{{url_for('register')}}">REGISTER</a></li>
-                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
-                        <li><a href="#">LOGOUT</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
@@ -34,10 +40,13 @@
         <ul class="sidenav" id="mobile-demo">
             <li><h4 class="center-align blue-grey-text text-darken-2">Meetings Hub</h4></li>
             <li><a href="{{url_for('home')}}">HOME</a></li>
-            <li><a href="{{url_for('login')}}">LOGIN</a></li>
-            <li><a href="{{url_for('register')}}">REGISTER</a></li>
-            <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
-            <li><a href="#">LOGOUT</a></li>
+            {% if session.user %}
+                <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+                <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+            {% else %}
+                <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                <li><a href="{{url_for('register')}}">REGISTER</a></li>
+            {% endif %}
         </ul>
     </header>
     <body>
