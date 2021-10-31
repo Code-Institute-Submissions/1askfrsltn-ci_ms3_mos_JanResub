@@ -7,7 +7,7 @@
   "Meeitngs Hub" consists of meetings, KPIs adn actions reviewed during the meetings. Meeting Hub solution is a digital product that is normally installed at the client's site. It helps the client to improve meetings quality and manage productivity through standard process of looking at performance trends and defiining actions to address the variance between plananed and actual performance. 
   hwen started the application was built for educational purposes only.
 
-Link to the Application: [DRH-MOS]()
+Link to the Application: [Meetings Hub](http://ask-pft-meetinghub.herokuapp.com/)
 
 Super Admin access:
     * _Login_: TBD; 

@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <h4>Home</h4>
+    <h4>List of registered users linked to MongoDb:</h4>
     {% for user in users %}
-        <i class="fas fa-cat"></i>
         {{user.user_name }}<br>
     {% endfor %}
 {% endblock %}

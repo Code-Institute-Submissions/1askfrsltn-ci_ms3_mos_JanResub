@@ -431,6 +431,34 @@
         .flashes h4{
                 line-height: 2;
         }
-73. Set up required parameters for input fields:
+73. Set up required parameters for input and password fields:
         
-        <input id="user_password" name="user_password" type="password" minlength="5" maxlength="15" class="validate" required>
+        <input id="user_name" name="user_name" type="text" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
+        <input id="user_password" name="user_password" type="password" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
+
+## CREATE LOGIN PAGE CONTENT
+74. Added logout page on navbar and mobile ssidenav:
+
+        <li><a href="{{url_for('register')}}">REGISTER</a></li>
+        <li><a href="#">LOGOUT</a></li>
+
+75. Added login form to login page - copied from register template:
+
+        <h3 class="center-align">Login</h3>
+        <div class="row">
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register')}}">
+                <div class="card-panel">
+                <!-- Email inputs -->
+                ...
+                <!-- Passsword inputs -->
+                        ...
+                <!-- Register button -->
+                        <div class="row">
+                        <button class="submit col s12 btn-large blue-grey darken-1 text-shadow">
+                        <i class="fas fa-sign-in-alt"></i></button>
+                        </div>           
+                </div>
+        </form>
+        </div>
+
+76. Render, add, commit, push
