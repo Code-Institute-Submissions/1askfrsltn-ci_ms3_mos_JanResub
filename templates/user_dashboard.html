@@ -1,64 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
     <h4 class="center-align">USER DASHBOARD</h4>
-    <!--Actions Collapsible popup-->
-    <h5 class="align-left red-text"> <i class="fas fa-list"></i> Actions</h5><hr><br>
-    <ul class="collapsible popout data-collapsible="accordion">
-        <li>
-            <div class="collapsible-header"><i class="fas fa-caret-down"></i>
-                <p>Ref no.</p><hr>
-                <p>Action 1 </p><hr>
-                <p>Due Date </p><hr>
-                <p>Accountable</p><hr>
-                <p>Status</p><hr>
-            </div>
-            <div class="collapsible-body">
-                <span><p>Department</p>
-                    <p>Issue </p>
-                    <p> Log Date </p>
-                    <p>Meeting</p>
-                    <p>Comment</p>
-                </span>
-            </div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="fas fa-caret-down"></i>
-                <p>Ref no.</p><hr>
-                <p>Action 1 </p><hr>
-                <p>Due Date </p><hr>
-                <p>Accountable</p><hr>
-                <p>Status</p><hr>
-            </div>
-            <div class="collapsible-body">
-                <span><p>Department</p>
-                    <p>Issue </p>
-                    <p> Log Date </p>
-                    <p>Meeting</p>
-                    <p>Comment</p>
-                </span>
-            </div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="fas fa-caret-down"></i>
-                <p>Ref no.</p><hr>
-                <p>Action 1 </p><hr>
-                <p>Due Date </p><hr>
-                <p>Accountable</p><hr>
-                <p>Status</p><hr>
-            </div>
-            <div class="collapsible-body">
-                <span><p>Department</p>
-                    <p>Issue </p>
-                    <p> Log Date </p>
-                    <p>Meeting</p>
-                    <p>Comment</p>
-                </span>
-            </div>
-        </li>
-    </ul> <br>
     <!-- KPIS Summary - table-->
-    <h5 class="align-left red-text"> <i class="fas fa-chart-line"></i> KPI Summary</h5><hr><br>
-    <table class="highlight">
+    <h5 class="align-left red-text text-darken-4"> <i class="fas fa-chart-line"></i> KPI Summary</h5><hr><br>
+    <table class="highlight centered">
         <!-- KPIS Summary - headings-->
         <thead>
             <tr>
@@ -78,7 +23,7 @@
                 <td>60</td>
                 <td>80</td>
                 <td>95</td>
-                <td>Red</td>
+                <td>green</td>
             </tr>
             <tr>
                 <td>Availability</td>
@@ -106,4 +51,42 @@
             </tr>
         </tbody>
     </table>
+    <!--Actions Collapsible popup-->
+    <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> Actions</h5><hr><br>
+    <ul class="collapsible popout">
+        {% for action in actions %}
+            <li>
+                <div class="collapsible-header">
+                    <i class="fas fa-caret-down"></i>
+                    <p>{{ action.action_refno }}</p><hr>
+                    <strong><p>{{ action.action_name }}</p></strong><hr>
+                    <p>{{ action.action_due }}</p><hr>
+                    <p>{{ action.action_accountable }}</p><hr>
+                    <p> {{ action.action_status }}</p><hr>
+                    <!--conditional icons for action status-->
+                    <p>  {% if action.action_status=="done" %}
+                                <i class="fas fa-check-circle teal-text">  </i>
+                        {% elif action.action_status=="not done" %}
+                            <i class="fas fa-times-circle red-text">  </i>
+                        {% elif action.action_status=="paused" %}
+                            <i class="far fa-pause-circle yellow-text text-darken-3">  </i>
+                        {%else%} 
+                            <i class="fas fa-circle grey-text text-lighten-1">  </i>
+                        {%endif%} 
+                    </p><hr>
+                </div>
+                <div class="collapsible-body">
+                    <p >Department: </p>                        
+                    <p>{{ action.action_department }}</p>
+                    <p>Date logged: </p> <p>{{ action.action_logdate }}</p>
+                    <p>Meeting: {{ action.action_meeting }}</p>
+                    <p>Issue: {{ action.action_issue }}</p>
+                    <p>Comment: {{ action.action_comment }}</p>
+                    <button> a </button>
+                <button>b </button>
+                </div>
+            </li> 
+        {% endfor %}
+    </ul> <br>
+    
 {% endblock %}

@@ -536,6 +536,7 @@
         flash("Registration successfull!")
         return redirect(url_for('user_dashboard',username=session["user"]))
 84. Render user dashboard teplate, check registrating page if flash works. Add, commit, push.
+
 ## BUILD LOGOUT TEMPLATE AND FUNDCTIONALITY
 85. On app.py for security purpose build into user_dashboard function a user exist function:
 
@@ -558,6 +559,8 @@
 
         flash("Registration successfull!")
         return redirect(url_for('user_dashboard', username=session["user"]))
+
+## HIDE BUTTONS FOR USERS WHO ARE NOT LOGGED IN
 89. On base.html hide links to buttons when you are not logged in:
 
         <ul class="right hide-on-med-and-down">
@@ -573,6 +576,7 @@
                         <li><a href="{{url_for('register')}}">REGISTER</a></li>
                 {% endif %}
         </ul>
+## ADD COLLAPSIBLE ELEMENTS FOR USER_DASHBOAR
 90. Add collapsible to the user_dashboard, 2 steps - add the code and add JQuery to script.js:
 
         Code user_dashboard.html:
@@ -603,6 +607,9 @@
                 </span>
             </div>
         </li>
+
+## CREATE KPIS SUMMARY TABLE
+
 92. Create a KPI block under actions block:
 
         <!-- KPIS Summary - table-->
@@ -626,3 +633,65 @@
                         ...
                 </tbody>
         </table>
+## CONNECT ACTIONS TO MONGODB DATABASE
+93. Create "actions" collection on MongoDb with 10 fields:
+
+        _id
+        action_refno: string
+        action_name: string
+        action_due: string
+        action_accountable: string
+        action_status: string
+        action_depatment: string
+        action_logdate: timestamp
+        action_meeting: string
+        action_comments: string
+
+94. Update user_dashboard fucntion in app.py to visualise all actions on user dashboard :
+
+        def user_dashboard(username):
+        # create username variable
+        username = mongo.db.users.find_one(
+                {"user_name": session["user"]})["user_name"]
+        actions = mongo.db.actions.find()       
+        # security function to celan cookies
+        if session["user"]: 
+                return render_template("user_dashboard.html", username=username, 
+                actions=actions)
+        return redirect(url_for('login'))
+
+95. Use loop on user_dashboard template to render all the actions from "actions" collection.
+
+        {% for action in actions %}
+            <li>
+                <div class="collapsible-header"><i class="fas fa-caret-down"></i>
+                    <p>{{ action.action_refno }}</p><hr>
+                    <p>{{ action.action_name }}</p><hr>
+                    <p>{{ action.action_due }}</p><hr>
+                    <p>{{ action.action_accountable }}</p><hr>
+                    <p>{{ action.action_status }}</p><hr>
+                </div>
+                <div class="collapsible-body">
+                    <span><p>{{ action.action_department }}</p>
+                        <p>{{ action.action_issue }}</p>
+                        <p>{{ action.date(action_logdate, "dd"-"mmm" }}</p>
+                        <p>{{ action.action_meeting }}</p>
+                        <p>{{ action.action_comment }}</p>
+                    </span>
+                </div>
+            </li> 
+        {% endfor %}
+
+96. On user-dashboard template automatically assign status icon:
+
+        <!--conditional icons for action status-->
+                <p>     {% if action.action_status=="done" %}
+                                <i class="fas fa-check-circle teal-text">  </i>
+                        {% elif action.action_status=="not done" %}
+                                <i class="fas fa-times-circle red-text">  </i>
+                        {% elif action.action_status=="paused" %}
+                                <i class="far fa-pause-circle yellow-text text-darken-3">  </i>
+                        {%else%} 
+                                <i class="fas fa-circle grey-text text-lighten-1">  </i>
+                        {%endif%} 
+                </p><hr>

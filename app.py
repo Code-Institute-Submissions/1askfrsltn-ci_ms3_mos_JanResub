@@ -5,6 +5,7 @@ from flask import (Flask, flash, render_template,
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+# import datetie method: from datetime import datetime
 
 
 # connect env.py if it was created
@@ -31,7 +32,6 @@ mongo = PyMongo(app)
 def home():
     users = mongo.db.users.find()
     return render_template("home.html", users=users)
-
 
 # create route decorator for login page
 @app.route("/login", methods=["GET", "POST"])
@@ -102,15 +102,15 @@ def register():
 # create route decorator for user dashboard page
 @app.route("/user_dashboard/<username>", methods=["POST", "GET"])
 def user_dashboard(username):
-    
     # create username variable
     username = mongo.db.users.find_one(
         {"user_name": session["user"]})["user_name"]
-    
-    # security function to celan cookies
-    if session["user"]:
-        return render_template("user_dashboard.html", username=username)
-
+    # create actions variable for the loop on user_dashboard
+    actions = mongo.db.actions.find()       
+    # security function to celan cookies and passing actions into the loop
+    if session["user"]: 
+        return render_template("user_dashboard.html", username=username, 
+        actions=actions)
     return redirect(url_for('login'))
 
 @app.route("/logout")
