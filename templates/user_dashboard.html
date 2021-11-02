@@ -1,5 +1,109 @@
 {% extends "base.html" %}
 {% block content %}
-    <h3 class="center-align">User Dashboard</h3>
-    <!---->
+    <h4 class="center-align">USER DASHBOARD</h4>
+    <!--Actions Collapsible popup-->
+    <h5 class="align-left red-text"> <i class="fas fa-list"></i> Actions</h5><hr><br>
+    <ul class="collapsible popout data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header"><i class="fas fa-caret-down"></i>
+                <p>Ref no.</p><hr>
+                <p>Action 1 </p><hr>
+                <p>Due Date </p><hr>
+                <p>Accountable</p><hr>
+                <p>Status</p><hr>
+            </div>
+            <div class="collapsible-body">
+                <span><p>Department</p>
+                    <p>Issue </p>
+                    <p> Log Date </p>
+                    <p>Meeting</p>
+                    <p>Comment</p>
+                </span>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="fas fa-caret-down"></i>
+                <p>Ref no.</p><hr>
+                <p>Action 1 </p><hr>
+                <p>Due Date </p><hr>
+                <p>Accountable</p><hr>
+                <p>Status</p><hr>
+            </div>
+            <div class="collapsible-body">
+                <span><p>Department</p>
+                    <p>Issue </p>
+                    <p> Log Date </p>
+                    <p>Meeting</p>
+                    <p>Comment</p>
+                </span>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="fas fa-caret-down"></i>
+                <p>Ref no.</p><hr>
+                <p>Action 1 </p><hr>
+                <p>Due Date </p><hr>
+                <p>Accountable</p><hr>
+                <p>Status</p><hr>
+            </div>
+            <div class="collapsible-body">
+                <span><p>Department</p>
+                    <p>Issue </p>
+                    <p> Log Date </p>
+                    <p>Meeting</p>
+                    <p>Comment</p>
+                </span>
+            </div>
+        </li>
+    </ul> <br>
+    <!-- KPIS Summary - table-->
+    <h5 class="align-left red-text"> <i class="fas fa-chart-line"></i> KPI Summary</h5><hr><br>
+    <table class="highlight">
+        <!-- KPIS Summary - headings-->
+        <thead>
+            <tr>
+                <th>KPI name</th>
+                <th>UoM</th>
+                <th>BSL</th>
+                <th>TGT</th>
+                <th>ACT</th>
+                <th>STATUS</th>
+            </tr>
+        </thead>
+        <!-- KPIS Summary - table body-->
+        <tbody>
+            <tr>
+                <td>OEE</td>
+                <td>%</td>
+                <td>60</td>
+                <td>80</td>
+                <td>95</td>
+                <td>Red</td>
+            </tr>
+            <tr>
+                <td>Availability</td>
+                <td>%</td>
+                <td>60</td>
+                <td>80</td>
+                <td>77</td>
+                <td>Red</td>
+            </tr>
+            <tr>
+                <td>Utilisation</td>
+                <td>%</td>
+                <td>80</td>
+                <td>90</td>
+                <td>95</td>
+                <td>green</td>
+            </tr>
+            <tr>
+                <td>Rate</td>
+                <td>t/hr</td>
+                <td>120</td>
+                <td>180</td>
+                <td>195</td>
+                <td>green</td>
+            </tr>
+        </tbody>
+    </table>
 {% endblock %}

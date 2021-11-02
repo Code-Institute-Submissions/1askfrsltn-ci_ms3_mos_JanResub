@@ -573,3 +573,56 @@
                         <li><a href="{{url_for('register')}}">REGISTER</a></li>
                 {% endif %}
         </ul>
+90. Add collapsible to the user_dashboard, 2 steps - add the code and add JQuery to script.js:
+
+        Code user_dashboard.html:
+                <!--Collapsible popup-->      
+                <ul class="collapsible popout data-collapsible="accordion">
+                ...
+                </ul> 
+        JQuery to script.js:
+                /* set collapsible popup */
+                $('.collapsible').collapsible();
+91. Create dummy content for Actions:
+        
+        <!--Action component -->
+        <li>
+            <div class="collapsible-header"><i class="fas fa-caret-down"></i>
+                <p>Ref no.</p><hr>
+                <p>Action 1 </p><hr>
+                <p>Due Date </p><hr>
+                <p>Accountable</p><hr>
+                <p>Status</p><hr>
+            </div>
+            <div class="collapsible-body">
+                <span><p>Department</p>
+                    <p>Issue </p>
+                    <p> Log Date </p>
+                    <p>Meeting</p>
+                    <p>Comment</p>
+                </span>
+            </div>
+        </li>
+92. Create a KPI block under actions block:
+
+        <!-- KPIS Summary - table-->
+        <h5 class="align-left red-text">KPIs Summary</h5><hr><br class="red">
+        <table>
+                <!-- KPIS Summary - heading-->
+                <thead>
+                <tr>
+                        <th>Name</th>
+                        <th>Name</th>
+                        <th>Name</th>
+                </tr>
+                </thead>
+                <!-- KPIS Summary - table body-->
+                <tbody>
+                        <tr>
+                                <td>...</td>
+                                <td>...</td>
+                                <td>...</td>
+                        </tr>
+                        ...
+                </tbody>
+        </table>
