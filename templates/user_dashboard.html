@@ -86,14 +86,13 @@
                         {%endif%} 
                     </p><hr>
                 </div>
-                <div class="collapsible-body">
-                    <p >Department: </p>                        
-                    <p>{{ action.action_department }}</p>
-                    <p>Date logged: </p> <p>{{ action.action_logdate }}</p>
+                <div class="collapsible-body">                      
+                    <p>Department: {{ action.action_dept }}</p>
+                    <p>Workstream: {{ action.action_workstream }}</p>
                     <p>Meeting: {{ action.action_meeting }}</p>
+                    <p>Date logged: </p> <p>{{action.action_logdate}}</p>
                     <p>Issue: {{ action.action_issue }}</p>
                     <p>Comment: {{ action.action_comment }}</p>
-                    <button> a </button>
                 </div>
             </li> 
         {% endfor %}

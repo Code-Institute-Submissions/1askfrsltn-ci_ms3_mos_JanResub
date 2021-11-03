@@ -121,11 +121,32 @@ def logout():
     return redirect("login")
 
 # function to add actions
-@app.route("/add_action")
+@app.route("/add_action", methods=["POST","GET"])
 def add_action():
+    if request.method=="POST":
+        # create a variable for new action
+        task={
+            "action_refno": request.form.get("action_refno"),
+            "action_name": request.form.get("action_name"),
+            "action_due": request.form.get("action_due"),
+            "action_accountable": request.form.get("action_accountable"),
+            "action_dept": request.form.get("action_dept"),
+            "action_logdate": request.form.get("action_logdate"),
+            "action_meeting": request.form.get("action_meeting"),
+            "action_workstream": request.form.get("action_workstream")
+        }
+        
+        # insert new action inside actions collection
+        mongo.db.actions.insert_one(task)
+
+        # show the message that the operation was done successfully
+        flash("New action was successfully added")
+        return redirect(url_for('add_action'))
+
     # action counter - not perfect needds to be ahcnge later
-    actions_counter = "000"+str(mongo.db.actions.find().count()+1)
-    # variables for selection dropdown lists
+    action_dept =str(mongo.db.actions.find().count()+1)
+    
+    # variables for selection dropdown lists on add_action template
     users=mongo.db.users.find().sort("user_name", 1)
     meetings=mongo.db.meetings.find().sort("meeting_name", 1)
     depts =mongo.db.depts.find().sort("dept_name", 1)
@@ -134,11 +155,42 @@ def add_action():
         users=users,
         meetings=meetings,
         depts=depts, 
-        workstreams=workstreams, actions_counter=actions_counter)
+        workstreams=workstreams, action_dept=action_dept)
 
+# set router and function
+@app.route("/admin_setup")
+def setup():
+    
+    # collect all the users
+    users = mongo.db.users.find()
+    
+    # collect all the status items
+    completionstatus = mongo.db.completionstatus.find()
 
+    # collect all the departments
+    depts = mongo.db.depts.find()
 
-# tell where and how to return an app, DO NOT FORGET TO change 
+    # collect all the workstreams
+    workstreams = mongo.db.workstreams.find()
+
+    # collect all the meetings
+    meetings = mongo.db.meetings.find()
+
+    # collect all the kpis
+    kpi = mongo.db.kpi.find()
+
+    # collect all the kpis
+    kpistatuss = mongo.db.kpistatuss.find()
+    
+    return render_template("setup.html", users=users, 
+        completionstatus = completionstatus,
+        depts=depts,
+        workstreams=workstreams,
+        meetings=meetings,
+        kpi=kpi,
+        kpistatuss=kpistatuss)
+
+# tell where and how to return an app, DO NOT FORGET TO change  
 # debug=False  putting in production.
 if __name__ == "__main__":
     app.run(host= os.environ.get("IP"),

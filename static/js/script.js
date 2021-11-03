@@ -7,7 +7,7 @@ $(document).ready(function(){
     $('.collapsible').collapsible();
     
     /* character counter */
-    $('input#input_text, textarea#textarea1').characterCounter();
+    $('input#input_text, textarea#textarea2').characterCounter();
 
     /* datepicker function */
     $('.datepicker').datepicker({

@@ -817,3 +817,149 @@
                 <label for="action_refno">{{actions_counter}}</label>
                 </div>
         </div>
+
+## ADD BUTTONS TO SUBMIT NEW ACTION INTO MONGO DB AND RETURN BACK TO THE DASHBOARD
+10 6. Add 2 buttons to add_action template:
+
+        <div class="row">
+                <!--Cancell Button-->
+                <div class="col s6">
+                        <a href="{{url_for('home')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                </div>
+                <!--Add action Button-->
+                <div class="col s6">
+                        <a href="" type="submit" class="waves-effect waves-light left btn blue-grey">SUBMIT</a>
+                </div>
+        </div>
+
+10 7. Update form action on add_action template:
+
+        <form class="col s12" method=["POST"] action="{{url_for('add_action')}}">
+10 8. Update route for add_action page on app.py:
+
+        @app.route("/add_action", methods=["POST","GET"])
+109. Create add-page navbar link:
+
+                {% if session.user %}
+                        <li><a href="#">SET UP</a></li>
+        Update links on base.html:
+                
+
+
+## UPDATE NAVBAR - ADD ADDITIONAL TEMPLATES FOR SETUP, KPI INPUTS AND PAGE TO ADD ACTIONS, ADMIN ACCESS
+
+110. Create admin access on a navbar and mile sidenav on base.html:
+
+                {% if session.user=="admin" %}
+                        <li><a href="#">SET UP</a></li>
+                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+                        <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
+                        <li><a href="#">KPI INPUT</a></li>
+                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                <!--nav links visible when logged out-->
+                {% elif session.user %}   
+                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+                        <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
+                        <li><a href="#">KPI INPUT</a></li>
+                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                {% else %}
+                    <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                    <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                {% endif %}
+
+111. Create setup temlplate structure:
+
+                {% extends "base.html" %}
+                {% block content %}
+                        <h4 class="center-align">SETUP</h4>
+                        <!--Users Setup-->
+                        <!--Action status Setup-->
+                        <!--Department setup-->
+                        <!--Workstream Setup-->
+                        <!--Meeting Setup-->
+                        <!--KPI status Setup-->
+                        <!--KPI Setup-->
+                        <!--KPI status Setup-->
+                {% endblock %}
+
+112. on Setup template Add standard headings for each section from user_dashboard:
+
+                <!--Users Setup-->
+                <h5 class="align-left red-text text-darken-4"> 
+                <i class="fas fa-users">
+                </i> Users Setu</h5><hr><br>
+                ....
+113. Update setup category on setup template:
+                
+                <!--Users Setup-->
+                <h5 class="align-left red-text text-darken-4"> 
+                        <i class="fas fa-users"></i> Users 
+                </h5><hr><br>
+114. On setup template - Define how the section for each setup will look like - define collection title, collection content, delete and edit button using jinja and loop connected to app.py
+
+
+                <!--Users Setup-->
+                <h5 class="align-left red-text text-darken-4"> 
+                        <i class="fas fa-users"></i> Users 
+                </h5><hr><br>
+                <!--add all existing users-->
+                        <div class="row">
+                        <ul class="collection">
+                                <div class="col s9">
+                                {% for user in users%}
+                                <li class="collection-item">
+                                        <div class="row">
+                                        <div class="col s6">
+                                                <strong><p>{{ user.user_name }}</p></strong>
+                                                <p> {{ user.user_email }} </p>
+                                                <!--buttons-->
+                                                <a href="" class="btn blue-grey text-shadow">EDIT</a>
+                                                <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                        </div>
+                                        </div>  
+                                </li>
+                                {% endfor %}
+                        </div>
+                        </ul>
+                        <!--ADD Button-->
+                        <div class="row">
+                                <div class="col s12 center-align">
+                                <a href="#" class="btn teal text-shadow">ADD</a>
+                                </div>
+                        </div>
+                        </div>
+
+116. Define new collections for KPIs, KPI statuses on MongoDb.
+
+115. Define the function for jinja loops on app.py:
+
+                @app.route("/admin_setup")
+                def setup():
+                        # collect all the users
+                        users = mongo.db.users.find()
+                        
+                        # collect all the status items
+                        completionstatus = mongo.db.completionstatus.find()
+
+                        # collect all the departments
+                        depts = mongo.db.depts.find()
+
+                        # collect all the workstreams
+                        workstreams = mongo.db.workstreams.find()
+
+                        # collect all the meetings
+                        meetings = mongo.db.meetings.find()
+
+                        # collect all the kpis
+                        kpi = mongo.db.kpi.find()
+
+                        # collect all the kpis
+                        kpistatuss = mongo.db.kpistatuss.find()
+                        
+                        return render_template("setup.html", users=users, 
+                                completionstatus = completionstatus,
+                                depts=depts,
+                                workstreams=workstreams,
+                                meetings=meetings,
+                                kpi=kpi,
+                                kpistatuss=kpistatuss)

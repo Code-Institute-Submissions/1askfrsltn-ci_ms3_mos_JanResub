@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css">
         <!-- materialise Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- connect to local css file -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
         <!-- add block for custom css -->
@@ -24,14 +25,18 @@
                 <ul class="right hide-on-med-and-down">
                     <!--nav links always visible -->
                     <li><a href="{{url_for('home')}}">HOME</a></li>
-                    <!--nav links visible when logged in-->
-                    {% if session.user %}
-                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
-                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
                     <!--nav links visible when logged out-->
-                    {% else %}
-                        <li><a href="{{url_for('login')}}">LOGIN</a></li>
-                        <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                    {% if session.user %}   
+                        {% if session.user|lower=="admin"|lower %}
+                            <li><a href="{{ url_for('setup')}}">SET UP</a></li>
+                            {% endif %}
+                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+                        <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
+                        <li><a href="#">KPI INPUT</a></li>
+                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                        {% else %}
+                            <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                            <li><a href="{{url_for('register')}}">REGISTER</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -39,13 +44,20 @@
         <!--navigation mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
             <li><h4 class="center-align blue-grey-text text-darken-2">Meetings Hub</h4></li>
+            <!--nav links always visible -->
             <li><a href="{{url_for('home')}}">HOME</a></li>
-            {% if session.user %}
+            <!--nav links visible when logged out-->
+            {% if session.user %}   
+                {% if session.user|lower=="admin"|lower %}
+                    <li><a href="{{ url_for('setup')}}">SET UP</a></li>
+                    {% endif %}
                 <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+                <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
+                <li><a href="#">KPI INPUT</a></li>
                 <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
-            {% else %}
-                <li><a href="{{url_for('login')}}">LOGIN</a></li>
-                <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                {% else %}
+                    <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                    <li><a href="{{url_for('register')}}">REGISTER</a></li>
             {% endif %}
         </ul>
     </header>
