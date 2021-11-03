@@ -120,6 +120,13 @@ def logout():
     session.clear()
     return redirect("login")
 
+# function to add actions
+@app.route("/add_action")
+def add_action():
+    return render_template("add_action.html")
+
+
+
 # tell where and how to return an app, DO NOT FORGET TO change 
 # debug=False  putting in production.
 if __name__ == "__main__":

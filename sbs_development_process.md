@@ -685,13 +685,107 @@
 96. On user-dashboard template automatically assign status icon:
 
         <!--conditional icons for action status-->
-                <p>     {% if action.action_status=="done" %}
-                                <i class="fas fa-check-circle teal-text">  </i>
-                        {% elif action.action_status=="not done" %}
-                                <i class="fas fa-times-circle red-text">  </i>
-                        {% elif action.action_status=="paused" %}
-                                <i class="far fa-pause-circle yellow-text text-darken-3">  </i>
-                        {%else%} 
-                                <i class="fas fa-circle grey-text text-lighten-1">  </i>
-                        {%endif%} 
-                </p><hr>
+        <p>     {% if action.action_status=="done" %}
+                        <i class="fas fa-check-circle teal-text">  </i>
+                {% elif action.action_status=="not done" %}
+                        <i class="fas fa-times-circle red-text">  </i>
+                {% elif action.action_status=="paused" %}
+                        <i class="far fa-pause-circle yellow-text text-darken-3">  </i>
+                {%else%} 
+                        <i class="fas fa-circle grey-text text-lighten-1">  </i>
+                {%endif%} 
+        </p><hr>
+
+## CREATE NEW ACTION TEMPLATE AND ADD ACTION FUNCTIONALITY
+96. Create new template in CLI:
+
+        cp templates/login.html templates/add_action.html
+
+97. Create blcock content on add_action template:
+
+        {% extends "base.html" %}
+        {% block content %}
+                <h4 class="center-align">ADD ACTION</h4>   
+        {% endblock %}
+98. Add "add_action" button to user_dashboard next to ACITOBNS title:
+        
+        <!--Actions Collapsible popup-->
+        <div class="row">
+                <div class="col s6">
+                <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> Actions</h5>
+                </div>
+                <!--button "add_action"-->
+                <div class="col s4 right">
+                <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('add_action')}}"> ADD NEW </a></h5>
+                
+                </div>
+        </div>
+
+99. build input form structure inside card-pannel for add_action template:
+
+        <div class="row card-panel grey lighten-5">
+        <div class="row">
+        <!--form-->
+        <form class="col s12">
+                <!--1. input field: ref number, automatic-->
+                <!--2. input field: logdate, automatic-->
+                <!--3. input field: action, text-->
+                <!--4. input field: deadline, date picker-->
+                <!--5. input field: accountable, user selection-->
+                <!--6. input field: department, select-->
+                <!--7. input field: meeting-->
+                <!--8. input field: workstream-->
+                <!--Cancell Button-->
+                <!--Add action Button-->
+        </form>
+        </div>
+        </div>
+
+100. Add 7 input fields: text field with characters restriction:
+
+                <!--3. input field: action, text-->
+                <div class="row">
+                        <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea" data-length="120"></textarea>
+                        <label for="textarea1">Action</label>
+                        </div>
+                </div> 
+10 1. Add 7 input fields-datepickers:
+
+        <!--4. input field: deadline, date picker-->
+        <div class="row">
+                <div class="input-field col s12">
+                <i class="fas fa-calendar-alt prefix"></i>
+                <input id="action_due" name="action_due" type="text" class="datepicker validate" required>
+                <label for="action_due" >Due Date</label>
+        </div>
+        add also code in script.js:
+        $('.datepicker').datepicker({
+                format: "dd mmm, yyyy",
+                yearRange: 3,
+                showClearBtn: true,
+                i18n:{
+                        done: "Select"
+                }
+        });
+
+10 2. Add 7 input fields-selected:
+
+        <!--5. input field: accountable, select component-->
+        <div class="row">
+                <div class="input-field col s12">
+                <i class="fas fa-user prefix"></i>
+                <select id="user_name" name="user_name" class="validate" required>
+                        <option value="" disabled selected>Select User</option>
+                        {%for user in users%}
+                        <option value="{{user.user_name}}">{{user.user_name}}</option>
+                        {%endfor%}
+                </select>
+                <label for="user_name">User</label>
+                </div>
+        </div>
+        and add fuunction on javascript componetn
+
+10 3. Add 7 input fields-automatic, disabled component:
+
+        efv

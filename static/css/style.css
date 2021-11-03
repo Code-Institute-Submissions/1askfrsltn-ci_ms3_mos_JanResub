@@ -13,3 +13,8 @@ body {
 .flashes h4{
     line-height: 2;
 }
+
+h5 .btn-flat {
+    border:solid 0.1mm;
+    color:brown;
+};

@@ -51,8 +51,19 @@
             </tr>
         </tbody>
     </table>
+    <br>
     <!--Actions Collapsible popup-->
-    <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> Actions</h5><hr><br>
+    <div class="row">
+        <div class="col s6">
+            <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> Actions</h5>
+        </div>
+        <!--button "add_action"-->
+        <div class="col s4 right">
+            <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('add_action')}}"> ADD NEW </a></h5>
+            
+        </div>
+    </div>
+    <hr><br>
     <ul class="collapsible popout">
         {% for action in actions %}
             <li>
@@ -83,10 +94,8 @@
                     <p>Issue: {{ action.action_issue }}</p>
                     <p>Comment: {{ action.action_comment }}</p>
                     <button> a </button>
-                <button>b </button>
                 </div>
             </li> 
         {% endfor %}
     </ul> <br>
-    
 {% endblock %}
