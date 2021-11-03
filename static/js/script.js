@@ -6,16 +6,19 @@ $(document).ready(function(){
     /* set collapsible popup */
     $('.collapsible').collapsible();
     
-    /* character countr */
+    /* character counter */
     $('input#input_text, textarea#textarea1').characterCounter();
 
     /* datepicker function */
     $('.datepicker').datepicker({
       format: "dd mmm, yyyy",
-      yearRange: 3,
+      yearRange: 1,
       showClearBtn: true,
       i18n:{
         done: "Select"
       }
     });
+    
+    /* select form list for input field */
+    $('select').formSelect();
   });

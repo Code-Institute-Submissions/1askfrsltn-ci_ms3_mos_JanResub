@@ -784,8 +784,36 @@
                 <label for="user_name">User</label>
                 </div>
         </div>
-        and add fuunction on javascript componetn
+        and add fuunction on javascript component:
+        /* select form list */
+        $('select').formSelect();
 
-10 3. Add 7 input fields-automatic, disabled component:
+10 3. Add 7 input fields - automatic, disabled component:
 
-        efv
+        tbd
+
+10 4. Update add_action function into app.py:
+
+        def add_action():
+                <!--action counter - not perfect need to change later-->
+                actions_counter = "000"+str(mongo.db.actions.find().count()+1) 
+                users=mongo.db.users.find().sort("user_name", 1)
+                meetings=mongo.db.meetings.find().sort("meeting_name", 1)
+                depts =mongo.db.depts.find().sort("dept_name", 1)
+                workstreams=mongo.db.workstreams.find().sort("workstream_name", 1)
+                return render_template("add_action.html", 
+                users=users,
+                meetings=meetings,
+                depts=depts, 
+                workstreams=workstreams)
+
+10 5. Update automatic input field on add_action template:
+
+        <!--1. input field: ref number, automatic-->
+        <div class="row">
+                <div class="input-field col s12">
+                <i class="fas fa-list-ol prefix"></i>
+                <input disabled value="" id="action_refno" name="action_refno" type="text" class="validate">
+                <label for="action_refno">{{actions_counter}}</label>
+                </div>
+        </div>

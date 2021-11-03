@@ -123,7 +123,18 @@ def logout():
 # function to add actions
 @app.route("/add_action")
 def add_action():
-    return render_template("add_action.html")
+    # action counter - not perfect needds to be ahcnge later
+    actions_counter = "000"+str(mongo.db.actions.find().count()+1)
+    # variables for selection dropdown lists
+    users=mongo.db.users.find().sort("user_name", 1)
+    meetings=mongo.db.meetings.find().sort("meeting_name", 1)
+    depts =mongo.db.depts.find().sort("dept_name", 1)
+    workstreams=mongo.db.workstreams.find().sort("workstream_name", 1)
+    return render_template("add_action.html", 
+        users=users,
+        meetings=meetings,
+        depts=depts, 
+        workstreams=workstreams, actions_counter=actions_counter)
 
 
 
