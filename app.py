@@ -245,12 +245,59 @@ def edit_user(user_id):
         return redirect(url_for('setup'))
     return render_template("edit_user.html", user=user)
 
-# delete dunction for setup template
+# user delete function for setup template
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):
     mongo.db.users.remove({"_id": ObjectId(user_id)})
     flash("User was deleted")
     return redirect(url_for('setup'))
+
+# action completion status delete function for setup template
+@app.route("/delete_actionstatus/<completionstatus_id>")
+def delete_completionstatus(completionstatus_id):
+    mongo.db.completionstatus.remove({"_id": ObjectId(completionstatus_id)})
+    flash("Action status was deleted")
+    return redirect(url_for('setup'))
+
+
+# department delete function for setup template
+@app.route("/delete_department/<dept_id>")
+def delete_department(dept_id):
+    mongo.db.depts.remove({"_id": ObjectId(dept_id)})
+    flash("Department was deleted")
+    return redirect(url_for('setup'))
+
+
+# workstream delete function for setup template
+@app.route("/delete_workstream/<workstream_id>")
+def delete_workstream(workstream_id):
+    mongo.db.workstreams.remove({"_id": ObjectId(workstream_id)})
+    flash("Workstream was deleted")
+    return redirect(url_for('setup'))
+
+
+# meeting delete function for setup template
+@app.route("/delete_meeting/<meeting_id>")
+def delete_meeting(meeting_id):
+    mongo.db.meetings.remove({"_id": ObjectId(meeting_id)})
+    flash("Meeting was deleted")
+    return redirect(url_for('setup'))
+
+
+# KPI delete function for setup template
+@app.route("/delete_kpi/<kpi_id>")
+def delete_kpi(kpi_id):
+    mongo.db.kpi.remove({"_id": ObjectId(kpi_id)})
+    flash("The KPI was deleted")
+    return redirect(url_for('setup'))
+
+# KPI status delete function for setup template
+@app.route("/delete_kpistatus/<kpistatus_id>")
+def delete_kpistatus(kpistatus_id):
+    mongo.db.kpistatuss.remove({"_id": ObjectId(kpistatus_id)})
+    flash("The KPI Status was deleted")
+    return redirect(url_for('setup'))
+
 
 # tell where and how to return an app, DO NOT FORGET TO change  
 # debug=False  putting in production.

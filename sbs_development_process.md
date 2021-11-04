@@ -1091,3 +1091,62 @@
 128. Connect delete button on setup template to the elete_user fuction:
 
                 <a href="{{url_for('delete_user',user_id=user._id)}}" class="btn red text-shadow center-allign">DELETE</a>
+
+## ACTIVATE ALL DELETE BUTTONS ON A SETUP PAGE
+128. change htl for buttons and python functions for all the delete functions on setup templates:
+
+
+                <!--Departments-->
+                setup.html: 
+                        <a href="{{url_for('delete_user',user_id=user._id)}}" class="...>DELETE
+                app.py: 
+                        # department delete function for setup template
+                        @app.route("/delete_department/<dept_id>")
+                        def delete_department(dept_id):
+                                mongo.db.depts.remove({"_id": ObjectId(dept_id)})
+                                flash("Department was deleted")
+                                return redirect(url_for('setup'))
+                <!--Workstreams-->
+                setup.html:
+                        <p><a href="{{url_for('delete_workstream',workstream_id=workstream._id)}}" class="btn red text-shadow center-allign">DELETE...
+                app.py: 
+                        # workstream delete function for setup template
+                        @app.route("/delete_workstream/<workstream_id>")
+                        def delete_workstream(workstream_id):
+                                mongo.db.workstreams.remove({"_id": ObjectId(workstream_id)})
+                                flash("Workstream was deleted")
+                                return redirect(url_for('setup'))
+                <!--Meetings-->
+                setup.html:
+                        <div class="col s3 center-align">
+                                <p><a href="{{url_for('delete_meeting',meeting_id=meeting._id)}}" class="btn red text-shadow center-allign">DELETE...
+                app.py: 
+                        # meeting delete function for setup template
+                        @app.route("/delete_meeting/<meeting_id>")
+                        def delete_meeting(meeting_id):
+                                mongo.db.meetings.remove({"_id": ObjectId(meeting_id)})
+                                flash("Meeting was deleted")
+                                return redirect(url_for('setup'))
+                <!--KPIs-->
+                setup.html:
+                        <div class="col s2 center-align">
+                                <p><a href="{{url_for('delete_kpi',kpi_id=kp._id)}}" class="btn red text-shadow center-allign">DELETE...
+                app.py: 
+                        # KPI delete function for setup template
+                        @app.route("/delete_kpi/<kpi_id>")
+                        def delete_kpi(kpi_id):
+                                mongo.db.kpi.remove({"_id": ObjectId(kpi_id)})
+                                flash("The KPI was deleted")
+                                return redirect(url_for('setup'))
+                <!--KPI statuses-->
+                setup.html:
+                        <div class="col s3 center-align">
+                                <p><a href="{{url_for('delete_kpistatus',kpistatus_id=kpistatus._id)}}" class="btn red text-shadow center-allign">DELETE...
+                app.py: 
+                        # KPI status delete function for setup template
+                        @app.route("/delete_kpistatus/<kpistatus_id>")
+                        def delete_kpistatus(kpistatus_id):
+                                mongo.db.kpistatuss.remove({"_id": ObjectId(kpistatus_id)})
+                                flash("The KPI Status was deleted")
+                                return redirect(url_for('setup'))
+
