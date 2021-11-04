@@ -850,22 +850,29 @@
 
 110. Create admin access on a navbar and mile sidenav on base.html:
 
-                {% if session.user=="admin" %}
-                        <li><a href="#">SET UP</a></li>
-                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
-                        <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
-                        <li><a href="#">KPI INPUT</a></li>
-                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
-                <!--nav links visible when logged out-->
-                {% elif session.user %}   
-                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
-                        <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
-                        <li><a href="#">KPI INPUT</a></li>
-                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
-                {% else %}
-                    <li><a href="{{url_for('login')}}">LOGIN</a></li>
-                    <li><a href="{{url_for('register')}}">REGISTER</a></li>
-                {% endif %}
+                <nav class="navbar-fixed blue-grey darken-2  text-shadow">
+                        <div class="nav-wrapper">
+                                <a href="#" class="brand-logo"> Meetings Hub </a>
+                                <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+                                <ul class="right hide-on-med-and-down">
+                                <!--nav links always visible -->
+                                <li><a href="{{url_for('home')}}">HOME</a></li>
+                                <!--nav links visible when logged out-->
+                                {% if session.user %}   
+                                        {% if session.user|lower=="admin"|lower %}
+                                        <li><a href="{{ url_for('setup')}}">SET UP</a></li>
+                                        {% endif %}
+                                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+                                        <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
+                                        <li><a href="#">KPI INPUT</a></li>
+                                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                                        {% else %}
+                                        <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                                        <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                                {% endif %}
+                                </ul>
+                        </div>
+                </nav>
 
 111. Create setup temlplate structure:
 
@@ -929,9 +936,9 @@
                         </div>
                         </div>
 
-116. Define new collections for KPIs, KPI statuses on MongoDb.
+115. Define new collections for KPIs, KPI statuses on MongoDb.
 
-115. Define the function for jinja loops on app.py:
+116. Define the function for jinja loops on app.py:
 
                 @app.route("/admin_setup")
                 def setup():
@@ -963,3 +970,5 @@
                                 meetings=meetings,
                                 kpi=kpi,
                                 kpistatuss=kpistatuss)
+
+117. Render, check, add,commit,push.

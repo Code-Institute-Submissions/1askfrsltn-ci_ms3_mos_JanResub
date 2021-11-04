@@ -21,4 +21,8 @@ $(document).ready(function(){
     
     /* select form list for input field */
     $('select').formSelect();
+
+    /*scrollspy function*/
+    $('.scrollspy').scrollSpy();
+  
   });
