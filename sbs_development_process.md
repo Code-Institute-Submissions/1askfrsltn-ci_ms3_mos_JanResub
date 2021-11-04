@@ -905,23 +905,34 @@
 114. On setup template - Define how the section for each setup will look like - define collection title, collection content, delete and edit button using jinja and loop connected to app.py
 
 
-                <!--Users Setup-->
-                <h5 class="align-left red-text text-darken-4"> 
+                <!--Users Setup scrollspy section-->
+                <div id="users" class="section scrollspy">
+                        <h5 class="align-left red-text text-darken-4"> 
                         <i class="fas fa-users"></i> Users 
-                </h5><hr><br>
-                <!--add all existing users-->
+                        </h5><hr><br>
+                        <!--add all existing users-->
                         <div class="row">
                         <ul class="collection">
-                                <div class="col s9">
+                                <div class="col s12 center-align">
                                 {% for user in users%}
                                 <li class="collection-item">
                                         <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s3">
                                                 <strong><p>{{ user.user_name }}</p></strong>
+                                        </div>
+                                        <div class="col s3 ">
                                                 <p> {{ user.user_email }} </p>
-                                                <!--buttons-->
+                                        </div>
+                                        <!--buttons-->
+                                        <div class="col s3"> 
+                                                <p>
                                                 <a href="" class="btn blue-grey text-shadow">EDIT</a>
+                                                </p>
+                                        </div>
+                                        <div class="col s3">
+                                                <p>
                                                 <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                                </p>
                                         </div>
                                         </div>  
                                 </li>
@@ -934,7 +945,7 @@
                                 <a href="#" class="btn teal text-shadow">ADD</a>
                                 </div>
                         </div>
-                        </div>
+                </div>
 
 115. Define new collections for KPIs, KPI statuses on MongoDb.
 

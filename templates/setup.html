@@ -12,16 +12,26 @@
                 <!--add all existing users-->
                 <div class="row">
                     <ul class="collection">
-                        <div class="col s9">
+                        <div class="col s12 center-align">
                         {% for user in users%}
                             <li class="collection-item">
                                 <div class="row">
-                                    <div class="col s6">
+                                    <div class="col s3">
                                         <strong><p>{{ user.user_name }}</p></strong>
+                                    </div>
+                                    <div class="col s3 ">
                                         <p> {{ user.user_email }} </p>
-                                        <!--buttons-->
-                                        <a href="" class="btn blue-grey text-shadow">EDIT</a>
-                                        <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                    </div>
+                                    <!--buttons-->
+                                    <div class="col s3"> 
+                                        <p>
+                                            <a href="" class="btn blue-grey text-shadow">EDIT</a>
+                                        </p>
+                                    </div>
+                                    <div class="col s3">
+                                        <p>
+                                            <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                        </p>
                                     </div>
                                 </div>  
                             </li>
@@ -44,7 +54,7 @@
                 <!--add all statuses -->
                 <div class="row">
                     <ul class="collection">
-                        <div class="col s9">
+                        <div class="col s12 center-align">
                         {% for item in completionstatus %}
                             <li class="collection-item">
                                 <div class="row">
@@ -52,8 +62,12 @@
                                         <strong>
                                             <p>{{ item.completion_status }}</p>
                                         </strong>
-                                        <a href="" class="btn blue-grey text-shadow">EDIT</a>
-                                        <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                    </div>
+                                    <div class="col s3">
+                                        <p><a href="" class="btn blue-grey text-shadow">EDIT</a></p>
+                                    </div>
+                                    <div class="col s3">
+                                        <p><a href="" class="btn red text-shadow center-allign">DELETE</a></p>
                                     </div>
                                 </div>  
                             </li>
@@ -75,17 +89,23 @@
                 <!--add all departments -->
                 <div class="row">
                     <ul class="collection">
-                        <div class="col s9">
+                        <div class="col s12 center-align">
                         {% for dept in depts %}
                             <li class="collection-item">
                                 <div class="row">
-                                    <div class="col s6">
+                                    <div class="col s3 center-align">
                                         <strong>
                                             <p>{{ dept.dept_name }}</p>
                                         </strong>
+                                    </div>
+                                    <div class="col s3 center-align">
                                         <p>{{ dept.dept_shortname }}</p>
-                                        <a href="" class="btn blue-grey text-shadow">EDIT</a>
-                                        <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                    </div>
+                                    <div class="col s3 center-align">
+                                        <p><a href="" class="btn blue-grey text-shadow">EDIT</a></p>
+                                    </div>
+                                    <div class="col s3 center-align">
+                                        <p><a href="" class="btn red text-shadow center-allign">DELETE</a></p>
                                     </div>
                                 </div>  
                             </li>
@@ -107,17 +127,23 @@
                 <!--add all workstreams -->
                 <div class="row">
                     <ul class="collection">
-                        <div class="col s9">
+                        <div class="col s12 center-align">
                         {% for workstream in workstreams %}
                             <li class="collection-item">
                                 <div class="row">
-                                    <div class="col s6">
+                                    <div class="col s3 center-align">
                                         <strong>
                                             <p>{{ workstream.workstream_name }}</p>
                                         </strong>
+                                    </div>
+                                    <div class="col s3 center-align">
                                         <p>{{ workstream.workstream_shortname }}</p>
-                                        <a href="" class="btn blue-grey text-shadow">EDIT</a>
-                                        <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                    </div>
+                                    <div class="col s3 center-align">
+                                        <p><a href="" class="btn blue-grey text-shadow">EDIT</a></p>
+                                    </div>
+                                    <div class="col s3 center-align">
+                                        <p><a href="" class="btn red text-shadow center-allign">DELETE</a></p>
                                     </div>
                                 </div>  
                             </li>
@@ -139,17 +165,23 @@
                     <!--add all meetings -->
                     <div class="row">
                         <ul class="collection">
-                            <div class="col s9">
+                            <div class="col s12 center-align">
                             {% for meeting in meetings %}
                                 <li class="collection-item">
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s3 center-align">
                                             <strong>
                                                 <p>{{ meeting.meeting_name }}</p>
                                             </strong>
+                                        </div>
+                                        <div class="col s3 center-align">
                                             <p>{{ meeting.meeting_shortname }}</p>
-                                            <a href="" class="btn blue-grey text-shadow">EDIT</a>
-                                            <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                        </div>
+                                        <p><div class="col s3 center-align">
+                                            <p><a href="" class="btn blue-grey text-shadow">EDIT</a></p>
+                                        </div>
+                                        <div class="col s3 center-align">
+                                            <p><a href="" class="btn red text-shadow center-allign">DELETE</a></p>
                                         </div>
                                     </div>  
                                 </li>
@@ -171,19 +203,29 @@
                     <!--add all kpis -->
                     <div class="row">
                         <ul class="collection">
-                            <div class="col s9">
+                            <div class="col s12 center-align">
                             {% for kp in kpi %}
                                 <li class="collection-item">
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s2 center-align">
                                             <strong>
                                                 <p>{{ kp.kpi_name }}</p>
                                             </strong>
+                                        </div>
+                                        <div class="col s2 center-align">
                                             <p>{{ kp.kpi_shortname }}</p>
+                                        </div>
+                                        <div class="col s2 center-align">
                                             <p>{{ kp.kpi_uom }}</p>
+                                        </div>
+                                        <div class="col s2 center-align">
                                             <p>{{ kp.kpi_owner }}</p>
-                                            <a href="" class="btn blue-grey text-shadow">EDIT</a>
-                                            <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                        </div>
+                                        <div class="col s2 center-align">
+                                            <p><a href="" class="btn blue-grey text-shadow">EDIT</a></p>
+                                        </div>
+                                        <div class="col s2 center-align">
+                                            <p><a href="" class="btn red text-shadow center-allign">DELETE</a></p>
                                         </div>
                                     </div>  
                                 </li>
@@ -205,17 +247,23 @@
                     <!--add all kpis statuss-->
                     <div class="row">
                         <ul class="collection">
-                            <div class="col s9">
+                            <div class="col s12">
                             {% for kpistatus in kpistatuss %}
                                 <li class="collection-item">
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s3 center-align">
                                             <strong>
                                                 <p>{{ kpistatus.kpistatus_name }}</p>
                                             </strong>
+                                        </div>
+                                        <div class="col s3 center-align">
                                             <p>{{ kpistatus.kpistatus_color }}</p>
-                                            <a href="" class="btn blue-grey text-shadow">EDIT</a>
-                                            <a href="" class="btn red text-shadow center-allign">DELETE</a>
+                                        </div>
+                                        <div class="col s3 center-align">
+                                            <p><a href="" class="btn blue-grey text-shadow">EDIT</a></p>
+                                        </div>
+                                        <div class="col s3 center-align">
+                                            <p><a href="" class="btn red text-shadow center-allign">DELETE</a></p>
                                         </div>
                                     </div>  
                                 </li>
@@ -244,11 +292,4 @@
             </ul>
         </div>
     </div>
-    
-    <!--Action status Setup-->
-    <!--Department setup-->
-    <!--Workstream Setup-->
-    <!--Meeting Setup-->
-    <!--KPIs-->
-    <!--KPI statuses -->
 {% endblock %}
