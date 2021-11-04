@@ -157,7 +157,7 @@ def add_action():
         depts=depts, 
         workstreams=workstreams, action_dept=action_dept)
 
-# set router and function
+# setup router and function
 @app.route("/admin_setup")
 def setup():
     
@@ -183,15 +183,71 @@ def setup():
     kpistatuss = mongo.db.kpistatuss.find()
     
     return render_template("setup.html", users=users, 
-        completionstatus = completionstatus,
+        completionstatus=completionstatus,
         depts=depts,
         workstreams=workstreams,
         meetings=meetings,
         kpi=kpi,
         kpistatuss=kpistatuss)
 
+# add user route decorator and add_user function
+@app.route("/add_user", methods=["POST","GET"])
+def add_user():
+    # add user functionality
+    if request.method == "POST":
+        
+        # checks database if the user_email already added
+        existing_email = mongo.db.users.find_one({"user_email": request.form.get("user_email").lower()})
+        existing_user = mongo.db.users.find_one({"user_name": request.form.
+            get("user_name").lower()})
+        
+        # checks database if the user_email already registered
+        if existing_email:
+            flash("email already exists, try again")
+            return redirect(url_for("add_user"))
+        
+        # checks database if the user_name already registered
+        if existing_user:
+            flash("user name already exists, try again")
+            return redirect(url_for("add_user"))
+            
+        # if no user we create new user
+        add_user = {
+            "user_name": request.form.get("user_name").lower(),
+            "user_email": request.form.get("user_email").lower(),
+            "user_password": generate_password_hash(request.form.get
+                ("user_password")),
+        }
+
+        # insert new user into Mongo Db database
+        mongo.db.users.insert_one(add_user)
+        return redirect(url_for('setup'))
+
+    return render_template("add_user.html")
+
+# create edit_user function
+@app.route("/edit_user/<user_id>", methods=["POST", "GET"])
+def edit_user(user_id):
+    # create user variable to prefill user input values in the form
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    # update changed user data into mongodb
+    if request.method == "POST":
+        edituser = {
+                "user_name": request.form.get("user_name").lower(),
+                "user_email": request.form.get("user_email").lower(),
+                "user_password": generate_password_hash(request.form.
+                    get("user_password")),
+            }
+
+        # insert new user into Mongo Db database
+        mongo.db.users.update({"_id": ObjectId(user_id)}, edituser)
+        flash("User update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_user.html", user=user)
+
+
 # tell where and how to return an app, DO NOT FORGET TO change  
 # debug=False  putting in production.
 if __name__ == "__main__":
-    app.run(host= os.environ.get("IP"),
-            port= os.environ.get("PORT"), debug=True)
+    app.run(host=os.environ.get("IP"),
+            port=os.environ.get("PORT"), debug=True)

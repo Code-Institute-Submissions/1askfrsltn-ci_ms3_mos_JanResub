@@ -983,3 +983,96 @@
                                 kpistatuss=kpistatuss)
 
 117. Render, check, add,commit,push.
+
+## ADD add_user FUNCTIONALITY TO SETUP PAGE
+118. Add add_user page:
+
+                CLI: cp templates/register.html templates/add_user.html
+
+119. change content of the add_user template
+
+        source | WAS | CHANGED TO
+        --|--|--
+        add_user | h3 class="center-align">Register</h3> | h3 class="center-align">ADD USER
+        add_user | method="POST" action="{{ url_for('register')}} | method="POST" action="{{ url_for('add_user')}}
+        add_user | !-- Register button -- | !--Add action Button-- 
+        add_user |    |  !--Cancel Button-->
+        add_user | |a href="{{url_for('setup')}} for cancel button
+
+120. On app.py add add_user route decorator and add_user function:
+
+                # add user route decorator and add_user function
+                @app.route("/add_user", methods=["POST","GET"])
+                def add_user():
+                # add user functionality
+                if request.method == "POST":
+                        
+                        # checks database if the user_email already registered
+                        existing_email = mongo.db.users.find_one({"user_email": request.form.get("user_email").lower()})
+                        existing_user = mongo.db.users.find_one({"user_name": request.form.
+                        get("user_name").lower()})
+                        
+                        # checks database if the user_email already registered
+                        if existing_email:
+                        flash("email already exists, try again")
+                        return redirect(url_for("register"))
+                        
+                        # checks database if the user_name already registered
+                        if existing_user:
+                        flash("user name already exists, try again")
+                        return redirect(url_for("register"))
+                        
+                        # if no user we create new user
+                        add_user = {
+                        "user_name": request.form.get("user_name").lower(),
+                        "user_email": request.form.get("user_email").lower(),
+                        "user_password": generate_password_hash(request.form.get
+                                ("user_password")),
+                        }
+
+                        # insert new user into Mongo Db database
+                        mongo.db.users.insert_one(add_user)
+                        return redirect(url_for('setup'))
+
+                return render_template("add_user.html")
+## ADD edit_user FUNCTIONALITY TO SETUP PAGE
+121. On app.py check if i imported ObjectId package "from bson.objectid import ObjectId"
+
+122. Create edit_user function on app.py:
+
+                @app.route("/edit_user"/<user_id>, methods=["POST", "GET"])
+                def edit_user(user_id):
+                        # create user variable to prefill user input values in the form
+                        user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+                        return render_template("edit_user.html", user=user)
+123. Create Edit form:
+
+                CLI: cp templates/add_user.html templates/edit_user.html
+123. Update Edit form on edit_user template:
+
+                <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_user', user_id=user._id)}}">
+124. Update edit button on setup template user section:
+
+                <a href="{{url_for('edit_user', user_id=user._id)}}" class="btn blue-grey text-shadow">EDIT</a>
+125. Change automatic values for name, email, change label for the password:
+
+                <input value="{{user.user_name}}" id="user_name"
+                <input id="user_email" name="user_email" type="email" value="{{user.user_email}}" class="validate">
+                <label for="user_password">Enter New Password</label>
+
+## UPDATE NEW USER DATA FROM edit_task INTO MONGO DB
+126. Update edit_user function in edit_user template:
+
+                # update changed user data into mongodb
+                if request.method == "POST":
+                        edituser = {
+                                "user_name": request.form.get("user_name").lower(),
+                                "user_email": request.form.get("user_email").lower(),
+                                "user_password": generate_password_hash(request.form.
+                                get("user_password")),
+                        }
+
+                        # insert new user into Mongo Db database
+                        mongo.db.users.update({"_id": ObjectId(user_id)}, edituser)
+                        flash("User update successfull!")
+                        return redirect(url_for('setup'))
