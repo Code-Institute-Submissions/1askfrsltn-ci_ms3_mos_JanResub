@@ -221,6 +221,7 @@ def add_user():
 
         # insert new user into Mongo Db database
         mongo.db.users.insert_one(add_user)
+        flash("New User added")
         return redirect(url_for('setup'))
 
     return render_template("add_user.html")
@@ -238,13 +239,18 @@ def edit_user(user_id):
                 "user_password": generate_password_hash(request.form.
                     get("user_password")),
             }
-
         # insert new user into Mongo Db database
         mongo.db.users.update({"_id": ObjectId(user_id)}, edituser)
         flash("User update successfull!")
         return redirect(url_for('setup'))
     return render_template("edit_user.html", user=user)
 
+# delete dunction for setup template
+@app.route("/delete_user/<user_id>")
+def delete_user(user_id):
+    mongo.db.users.remove({"_id": ObjectId(user_id)})
+    flash("User was deleted")
+    return redirect(url_for('setup'))
 
 # tell where and how to return an app, DO NOT FORGET TO change  
 # debug=False  putting in production.

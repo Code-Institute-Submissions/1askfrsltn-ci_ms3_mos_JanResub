@@ -1076,3 +1076,18 @@
                         mongo.db.users.update({"_id": ObjectId(user_id)}, edituser)
                         flash("User update successfull!")
                         return redirect(url_for('setup'))
+
+## DELETE USER FROM THE LIST ON SETUP PAGE
+
+127. Define function delete_user on app.py to remove user document from users collection on mongo db:
+
+                # delete dunction for setup template
+                @app.route("/delete_user/<user_id>")
+                def delete_user(user_id):
+                        mongo.db.users.remove({"_id": ObjectId(user_id)})
+                        flash("User was deleted")
+                        return redirect(url_for('setup'))
+
+128. Connect delete button on setup template to the elete_user fuction:
+
+                <a href="{{url_for('delete_user',user_id=user._id)}}" class="btn red text-shadow center-allign">DELETE</a>
