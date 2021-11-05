@@ -316,6 +316,7 @@ def kpi_input():
 # admin kpi inputs page
 @app.route("/add_kpi", methods=["POST","GET"])
 def add_kpi():
+    # add select dropdown list
     owners = mongo.db.users.find()
     # add kpi into mongodb
     if request.method=="POST":
@@ -326,16 +327,20 @@ def add_kpi():
             "kpi_owner": request.form.get("kpi_owner").lower(),
             "kpi_description": request.form.get("kpi_description")
         }
-
+        # insert new document into mongodb collection kpi
         mongo.db.kpi.insert(kpi)
-
+        # print completion on th escreen
         flash("KPI was successfully added!")
+        # redirect to setup
         return redirect(url_for('setup'))
     return render_template("add_kpi.html", owners=owners)
 
+@app.route("/add_kpiinput")
+def add_kpiinput():
+    weeknumber=mongo.db.kpi.find("kpi_date")
+    return render_template("kpi_input.html",weeknumber=weeknumber)
 
-# tell where and how to return an app, DO NOT FORGET TO change  
-# debug=False  putting in production.
+# tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=os.environ.get("PORT"), debug=True)
