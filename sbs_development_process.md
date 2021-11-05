@@ -1235,7 +1235,31 @@
 134. Create an add_kpi template
 
                 CLI: cp templates/add_user.html templates/add_kpi.html
- 135. Updated addkpi conent - title, fields, kpis, select kpi owner from user_name.
+135. Updated addkpi conent - title, fields, kpis, select kpi owner from user_name.
+
+136. Fixed scroll spy code using video on https://www.youtube.com/watch?v=_j-yXdRzRTA&ab_channel=NodeStudioTreinamentos:
+
+                <!--scrollspy for long input page-->
+                <div class="col hide-on-small-only m3 l2">
+                <ul class="section table-of-contents fixed">
+                        <li><a href="#users">Users</a></li>
+                        <li><a href="#actionstats">Action status</a></li>
+                        <li><a href="#departments">Departments</a></li>
+                        <li><a href="#workstreams">Workstreams</a></li>
+                        <li><a href="#meetings">Meetitngs</a></li>
+                        <li><a href="#kpis">KPIs</a></li>
+                        <li><a href="#kpistat">KPI Statuses</a></li>
+
+                </ul>
+                </div>
 
 
-
+still to do:
+- connect inputs to mongodb
+- fix user_dashboard link
+- populate table fields on a table on kpi input template - connect it to the filter!!!
+- populate user-dashboard kpi summary based on user who logged in, find a way how to connect lastkpi inputs to user_dashboard
+- link mongo DB to Power Bi 
+- link Power BI to an app on a home page
+- activate edit buttons for action completion status, departments, workstreams, meetings, kpi, kpi status
+- activate add buttons for action completion status, departments, workstreams, meetings, kpi status

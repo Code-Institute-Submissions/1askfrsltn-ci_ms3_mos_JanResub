@@ -24,6 +24,8 @@ $(document).ready(function(){
     $('select').formSelect();
 
     /*scrollspy function*/
-    $('.scrollspy').scrollSpy();
-  
+    $('.scrollspy').scrollSpy({
+      scrollOffset:400
+    });
+    
   });
