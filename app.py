@@ -1,7 +1,7 @@
 # import libraries and functions from packages
 import os
-from flask import (Flask, flash, render_template,
-    redirect, request, session, url_for)
+from flask import (Flask, flash, render_template, 
+    redirect, request, session,url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -46,9 +46,10 @@ def login():
             if check_password_hash(
                 existing_user["user_password"], request.form.get
                     ("user_password")):
-                session["user"]= request.form.get("user_name").lower()
+                session["user"] = request.form.get("user_name").lower()
                 flash("Welcome, {}".format(request.form.get("user_name")))
-                return redirect(url_for('user_dashboard',username=session["user"]))
+                return redirect(url_for('user_dashboard', 
+                    username=session["user"]))
             # invalid password message
             else:
                 flash("Incorrect login details, please try again")
@@ -198,15 +199,15 @@ def setup():
         kpistatuss=kpistatuss)
 
 # add user route decorator and add_user function
-@app.route("/add_user", methods=["POST","GET"])
+@app.route("/add_user", methods=["POST", "GET"])
 def add_user():
     # add user functionality
     if request.method == "POST":
-        
         # checks database if the user_email already added
-        existing_email = mongo.db.users.find_one({"user_email": request.form.get("user_email").lower()})
+        existing_email = mongo.db.users.find_one({"user_email": request.form.get("user_email")})
+
         existing_user = mongo.db.users.find_one({"user_name": request.form.
-            get("user_name").lower()})
+            get("user_name")})
         
         # checks database if the user_email already registered
         if existing_email:
@@ -311,6 +312,26 @@ def kpi_input():
     # create kpis variable for the select loop on kpi_input
     kpi = mongo.db.kpi.find()
     return render_template("kpi_input.html",kpi=kpi)
+
+# admin kpi inputs page
+@app.route("/add_kpi", methods=["POST","GET"])
+def add_kpi():
+    owners = mongo.db.users.find()
+    # add kpi into mongodb
+    if request.method=="POST":
+        kpi={
+            "kpi_name": request.form.get("kpi_name"),
+            "kpi_shortname": request.form.get("kpi_shortname"),
+            "kpi_uom": request.form.get("kpi_uom"),
+            "kpi_owner": request.form.get("kpi_owner").lower(),
+            "kpi_description": request.form.get("kpi_description")
+        }
+
+        mongo.db.kpi.insert(kpi)
+
+        flash("KPI was successfully added!")
+        return redirect(url_for('setup'))
+    return render_template("add_kpi.html", owners=owners)
 
 
 # tell where and how to return an app, DO NOT FORGET TO change  

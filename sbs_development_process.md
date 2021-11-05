@@ -1231,5 +1231,11 @@
                                 <button type="submit" class="btn blue-grey text-shadow">SUBMIT</button> 
                         </div>
                 </div>
+## CREATE ADD KPI TEMPLATE
+134. Create an add_kpi template
+
+                CLI: cp templates/add_user.html templates/add_kpi.html
+ 135. Updated addkpi conent - title, fields, kpis, select kpi owner from user_name.
+
 
 
