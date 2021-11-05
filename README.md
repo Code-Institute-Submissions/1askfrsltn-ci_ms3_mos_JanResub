@@ -10,8 +10,8 @@
 Link to the Application: [Meetings Hub](http://ask-pft-meetinghub.herokuapp.com/)
 
 Super Admin access:
-    * _Login_: TBD; 
-    * _Password_: TBD;
+    * _Login_: Admin; 
+    * _Password_: AskCode1;
 #
 ## **User Experience (UX)**
 ### GOALS

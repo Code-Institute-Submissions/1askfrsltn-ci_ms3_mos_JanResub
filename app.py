@@ -106,11 +106,18 @@ def user_dashboard(username):
     username = mongo.db.users.find_one(
         {"user_name": session["user"]})["user_name"]
     # create actions variable for the loop on user_dashboard
-    actions = mongo.db.actions.find()       
+    actions = mongo.db.actions.find()
+    
+    # create completionstatus variable for the loop on user_dashboard selected component
+    completionstatus = mongo.db.completionstatus.find()
+    
+
     # security function to celan cookies and passing actions into the loop
     if session["user"]: 
-        return render_template("user_dashboard.html", username=username, 
-        actions=actions)
+        return render_template("user_dashboard.html", 
+            username=username,
+            actions=actions,
+            completionstatus=completionstatus)
     return redirect(url_for('login'))
 
 @app.route("/logout")
@@ -297,6 +304,13 @@ def delete_kpistatus(kpistatus_id):
     mongo.db.kpistatuss.remove({"_id": ObjectId(kpistatus_id)})
     flash("The KPI Status was deleted")
     return redirect(url_for('setup'))
+
+# admin kpi inputs page
+@app.route("/kpi_input")
+def kpi_input():
+    # create kpis variable for the select loop on kpi_input
+    kpi = mongo.db.kpi.find()
+    return render_template("kpi_input.html",kpi=kpi)
 
 
 # tell where and how to return an app, DO NOT FORGET TO change  

@@ -32,7 +32,7 @@
                             {% endif %}
                         <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
                         <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
-                        <li><a href="#">KPI INPUT</a></li>
+                        <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
                         <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
                         {% else %}
                             <li><a href="{{url_for('login')}}">LOGIN</a></li>
@@ -53,7 +53,7 @@
                     {% endif %}
                 <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
                 <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
-                <li><a href="#">KPI INPUT</a></li>
+                <li><a href="{{url_for('kpi_input')}}">KPI INPUT</a></li>
                 <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
                 {% else %}
                     <li><a href="{{url_for('login')}}">LOGIN</a></li>

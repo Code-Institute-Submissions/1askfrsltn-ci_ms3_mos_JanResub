@@ -64,18 +64,23 @@
         </div>
     </div>
     <hr><br>
-    <ul class="collapsible popout">
+    <ul class="collapsible">
         {% for action in actions %}
             <li>
-                <div class="collapsible-header">
-                    <i class="fas fa-caret-down"></i>
-                    <p>{{ action.action_refno }}</p><hr>
-                    <strong><p>{{ action.action_name }}</p></strong><hr>
-                    <p>{{ action.action_due }}</p><hr>
-                    <p>{{ action.action_accountable }}</p><hr>
-                    <p> {{ action.action_status }}</p><hr>
+                <div class="collapsible-header center-align">
+                    <p class="s12">{{ action.action_refno }}</p><hr>
+                    <strong><p class="s12">{{ action.action_name }}</p></strong><hr>
+                    <p class="s12">{{ action.action_due }}</p><hr>
+                    <p class="s12">{{ action.action_accountable }}</p><hr>
+                    <p class="s12">
+                        {%if action.action_status==null%}
+                            in progress
+                        {%else%}
+                            {{ action.action_status }}
+                        {%endif%}
+                    </p><hr>
                     <!--conditional icons for action status-->
-                    <p>  {% if action.action_status=="done" %}
+                    <p class="s12 center-align"> {% if action.action_status=="done" %}
                                 <i class="fas fa-check-circle teal-text">  </i>
                         {% elif action.action_status=="not done" %}
                             <i class="fas fa-times-circle red-text">  </i>

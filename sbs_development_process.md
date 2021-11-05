@@ -1150,3 +1150,86 @@
                                 flash("The KPI Status was deleted")
                                 return redirect(url_for('setup'))
 
+## CREATE KPI INPUTS PAGE
+129. Create a kpinput template based on user_dashboard:
+
+                CLI: cp templates/user_dashboard.html templates/kpi_input.html
+130. On kpi_input create the content - page title and section title:
+
+                <!-- Page title-->
+                <h4 class="center-align">KPI INPUTs</h4>
+                <!-- KPIS Summary - table-->
+                <h5 class="align-left red-text text-darken-4"> <i class="fas fa-chart-line"></i> KPIs </h5><hr><br>
+                <!--Filters-->
+131. Create filter and KPI dropdown list:
+
+                <!--Filters-->
+                <div class="row">
+                        <div class="col s1">
+                        <h6 class="align-left blue-grey-text text-darken-4 right"> <i class="fas fa-filter"></i></h6>
+                        </div>
+                        <div class="col s4">
+                        <select id="action_meeting" name="action_meeting" class="validate" required>
+                                <option value="" disabled selected>Select KPI</option>
+                                {%for kp in kpi%}
+                                <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
+                                {%endfor%}
+                        </select>
+                        </div>
+                </div>
+
+132. Create a function for kpi_input template:
+
+                # admin kpi inputs page
+                @app.route("/kpi_input")
+                def kpi_input():
+                        # create kpis variable for the select loop on kpi_input
+                        kpi = mongo.db.kpi.find()
+                        return render_template("kpi_input.html",kpi=kpi)
+132. Create a function to connect navbars link to the page:
+
+                <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
+
+133. Add kpi table to the kpi_input remplate:
+                
+                <table class="highlight centered">
+                <thead>
+                        <tr>
+                                <th>Date</th>
+                                <th>Week</th>
+                                <th>UoM</th>
+                                <th>BSL</th>
+                                <th>TGT</th>
+                                <th>ACT</th>
+                                <th>STATUS</th>
+                        </tr>
+                </thead>
+                <!-- KPIS Summary - table body-->
+                <tbody>
+                <tr>
+                        <td> 11 nov, 2021 </td>
+                        <td> 43 </td>
+                        <td> % </td>
+                        <td> 60 </td>
+                        <td> 85 </td>
+                        <td> 75 </td>
+                        <td> red </td>
+                </tr>
+                </tbody>
+
+133. Add 2 buttons:
+
+                <!--buttons-->
+                <div class="row">
+                        <!--Cancell Button - FIX IT-->
+                        <div class="col s6">
+                        <a href="#" class="waves-effect red waves-light right btn ">CANCEL</a>
+                        </div>
+                        <!--Add action Button-->
+                        <div class="row">
+                        <div class="col s6 right">
+                                <button type="submit" class="btn blue-grey text-shadow">SUBMIT</button> 
+                        </div>
+                </div>
+
+
