@@ -43,7 +43,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-user prefix"></i>
                         <select id="action_accountable" name="action_accountable" class="materialize-textarea validate" required>
-                            <option value="" disabled selected>Select Accountable</option>
+                            <option value="" disabled selected></option>
                             {%for user in users %}
                                 <option value="{{user.user_name}}">{{user.user_name}}</option>
                             {%endfor%}
@@ -56,7 +56,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-building prefix"></i>
                         <select id="action_dept" name="action_dept" class="validate" required>
-                            <option value="" disabled selected>Select department</option>
+                            <option value="" disabled selected></option>
                             {%for dept in depts %}
                                 <option value="{{dept.dept_name}}">{{dept.dept_name}}</option>
                             {%endfor%}
@@ -69,7 +69,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-users prefix"></i>
                         <select id="action_meeting" name="action_meeting" class="validate" required>
-                            <option value="" disabled selected>Select Meeting</option>
+                            <option value="" disabled selected></option>
                             {%for meeting in meetings%}
                                 <option value="{{meeting.meeting_name}}">{{meeting.meeting_name }}</option>
                             {%endfor%}
@@ -82,7 +82,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-stream prefix"></i>
                         <select id="action_workstream" name="action_workstream" class="validate" required>
-                            <option value="" disabled selected>Select Workstream</option>
+                            <option value="" disabled selected></option>
                             {%for workstream in workstreams%}
                                 <option value="{{workstream.workstream_name}}">{{workstream.workstream_name }}</option>
                             {%endfor%}

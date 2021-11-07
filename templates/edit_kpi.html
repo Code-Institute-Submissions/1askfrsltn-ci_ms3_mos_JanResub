@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+    <h4 class="center-align">EDIT KPI</h4>
+    <!--Add form-->
+    <div class="row">
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_kpi', kpi_id = kpi._id)}}">
+            <div class="card-panel">
+                <!-- inputs -->
+                <!-- input name -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-stream prefix blue-grey-text text-darken-1"></i>
+                        <input value="{{kpi.kpi_name}}" id="kpi_name" name="kpi_name" type="text" class="validate" required>
+                        <label for="kpi_name">KPI Name</label>
+                    </div>
+                </div>
+                <!-- input shortname -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-building prefix blue-grey-text text-darken-1"></i>
+                        <input value="{{kpi.kpi_shortname}}" id="kpi_shortname" name="kpi_shortname" type="text" class="validate" required>
+                        <label for="kpi_shortname">KPI Shortname</label>
+                    </div>
+                </div>
+                <!-- input uom -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-building prefix blue-grey-text text-darken-1"></i>
+                        <input value="{{kpi.kpi_uom}}" id="kpi_uom" name="kpi_uom" type="text" class="validate" required>
+                        <label for="kpi_uom">KPI Unit of measure</label>
+                    </div>
+                </div>
+                <!-- input description -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-building prefix blue-grey-text text-darken-1"></i>
+                        <input value="{{kpi.kpi_description}}" id="kpi_description" name="kpi_description" type="text" class="validate" required>
+                        <label for="kpi_description">KPI Description</label>
+                    </div>
+                </div>
+                <!-- input kpi owner -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix blue-grey-text text-darken-1"></i>
+                        <input value="{{kpi.kpi_owner}}" id="kpi_owner" name="kpi_owner" type="text" class="validate" required>
+                        <label for="kpi_owner">KPI Owner</label>
+                    </div>
+                </div>
+                <!--buttons-->
+                <div class="row">
+                    <div class="row">
+                        <!--Cancell Button-->
+                        <div class="col s6">
+                            <a href="{{url_for('setup')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                        </div>
+                        <!--Add action Button-->
+                        <div class="row">
+                            <div class="col s6 right">
+                                <button type="submit" class="btn blue-grey text-shadow">SUBMIT EDIT</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            </div>
+        </form>
+    </div>
+{% endblock %}

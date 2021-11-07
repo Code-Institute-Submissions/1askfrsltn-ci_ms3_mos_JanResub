@@ -314,6 +314,30 @@ def edit_meeting(meeting_id):
     return render_template("edit_meeting.html", meeting=meeting)
 
 
+# create edit_kpi function
+@app.route("/edit_kpi/<kpi_id>", methods=["POST", "GET"])
+def edit_kpi(kpi_id):
+    # create kpi variable to prefill kpi input values in the form
+    kpi = mongo.db.kpi.find_one({"_id": ObjectId(kpi_id)})
+
+    # update changed kpi data into mongodb
+    if request.method == "POST":
+        editkpi = {
+                "kpi_name": request.form.get("kpi_name"),
+                "kpi_shortname": request.form.get("kpi_shortname"),
+                "kpi_uom": request.form.get("kpi_uom"),
+                "kpi_description": request.form.get("kpi_description"),
+                "kpi_owner": request.form.get("kpi_owner")
+            }
+        # insert new kpi into Mongo Db database
+        mongo.db.kpi.update({"_id": ObjectId(kpi_id)}, editkpi)
+        flash("KPI update successfull!")
+        return redirect(url_for('setup'))
+    # define users variable for  KPI owner seectin
+    users=mongo.db.users.find().sort("user_name", 1)
+    return render_template("edit_kpi.html", kpi=kpi, users=users)
+
+
 # user delete function for setup template
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):
