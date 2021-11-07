@@ -253,6 +253,67 @@ def edit_user(user_id):
         return redirect(url_for('setup'))
     return render_template("edit_user.html", user=user)
 
+
+# create edit_department function
+@app.route("/edit_department/<dept_id>", methods=["POST", "GET"])
+def edit_department(dept_id):
+    # create dept variable to prefill user input values in the form
+    dept = mongo.db.depts.find_one({"_id": ObjectId(dept_id)})
+
+    # update changed department data into mongodb
+    if request.method == "POST":
+        editdept = {
+                "dept_name": request.form.get("dept_name"),
+                "dept_shortname": request.form.get("dept_shortname")
+            }
+    
+    # insert new department into Mongo Db database
+        mongo.db.depts.update({"_id": ObjectId(dept_id)}, editdept)
+        flash("Deparment update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_department.html", dept=dept)
+
+
+# create edit_workstream function
+@app.route("/edit_workstream/<workstream_id>", methods=["POST", "GET"])
+def edit_workstream(workstream_id):
+    # create workstream variable to prefill workstream input values in the form
+    workstream = mongo.db.workstreams.find_one({"_id": ObjectId(workstream_id)})
+
+    # update changed workstream data into mongodb
+    if request.method == "POST":
+        editworkstream = {
+                "workstream_name": request.form.get("workstream_name"),
+                "workstream_shortname": request.form.get("workstream_shortname")
+            }
+    
+    # insert new department into Mongo Db database
+        mongo.db.workstreams.update({"_id": ObjectId(workstream_id)}, editworkstream)
+        flash("Workstream update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_workstream.html", workstream=workstream)
+
+
+# create edit_meeting function
+@app.route("/edit_meeting/<meeting_id>", methods=["POST", "GET"])
+def edit_meeting(meeting_id):
+    # create meeting variable to prefill meeting input values in the form
+    meeting = mongo.db.meetings.find_one({"_id": ObjectId(meeting_id)})
+
+    # update changed meeting data into mongodb
+    if request.method == "POST":
+        editmeeting = {
+                "meeting_name": request.form.get("meeting_name"),
+                "meeting_shortname": request.form.get("meeting_shortname")
+            }
+    
+    # insert new meeting into Mongo Db database
+        mongo.db.meetings.update({"_id": ObjectId(meeting_id)}, editmeeting)
+        flash("Meeting update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_meeting.html", meeting=meeting)
+
+
 # user delete function for setup template
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):
