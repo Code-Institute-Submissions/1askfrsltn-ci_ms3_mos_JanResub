@@ -1253,6 +1253,7 @@
                 </ul>
                 </div>
 
+## ACTIVATE ADD/EDIT BUTTONS ON SETUP PAGE
 137. On setup page Create all the add item functionalities for Department, Workstream, Workstream, Meeting, KPI Status using steps as in a table below (more details can be found in the steps above) :
 
 Step | Deparment | Workstream  | Meeting | KPI Status
@@ -1268,6 +1269,21 @@ Step 8. inside function create method request if statement                      
 Step 9. inside if statement create new dictionary variable with request.form.get for inputs     | ok | ok | ok | ok
 Step 10. inside if statement insert new variable inside mongo db                                | ok | ok | ok | ok
 Step 11. add flash message and redirect to the page using url_for                               | ok | ok | ok | ok
+
+138. Moved add next to each section heading title to make it consistent with user_dashboard page:
+
+                <!--title and ad button popup-->
+                <div class="row">
+                    <div class="col s6">
+                        <h5 class="align-left red-text text-darken-4"> <i class="fas fa-users"></i> USERS </h5>
+                    </div>
+                    <!--button "add_new"-->
+                    <div class="col s4 right">
+                        <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('add_user')}}"> ADD NEW </a></h5>
+                    </div>
+                </div>
+                <hr><br>
+
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:
