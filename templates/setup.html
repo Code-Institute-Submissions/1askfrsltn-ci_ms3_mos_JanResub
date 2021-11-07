@@ -64,7 +64,7 @@
                                         </strong>
                                     </div>
                                     <div class="col s3">
-                                        <p><a href="" class="btn blue-grey text-shadow">EDIT</a></p>
+                                        <p><a href="#" class="btn blue-grey text-shadow">EDIT</a></p>
                                     </div>
                                     <div class="col s3">
                                         <p><a href="{{url_for('delete_completionstatus',completionstatus_id=item._id)}}" class="btn red text-shadow center-allign">DELETE</a></p>
@@ -76,7 +76,7 @@
                     </ul>
                     <div class="row">
                         <div class="col s12 center-align">
-                            <a href="#" class="btn teal text-shadow">ADD</a>
+                            <a href="{{url_for('add_actionstatus')}}" class="btn teal text-shadow">ADD</a>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                     </ul>
                     <div class="row">
                         <div class="col s12 center-align">
-                            <a href="#" class="btn teal text-shadow">ADD</a>
+                            <a href="{{ url_for('add_department')}}" class="btn teal text-shadow">ADD</a>
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                     </ul>
                     <div class="row">
                         <div class="col s12 center-align">
-                            <a href="#" class="btn teal text-shadow">ADD</a>
+                            <a href="{{ url_for('add_workstream')}}" class="btn teal text-shadow">ADD</a>
                         </div>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
                         </ul>
                         <div class="row">
                             <div class="col s12 center-align">
-                                <a href="#" class="btn teal text-shadow">ADD</a>
+                                <a href="{{url_for('add_meeting')}}" class="btn teal text-shadow">ADD</a>
                             </div>
                         </div>
                     </div>
@@ -272,7 +272,7 @@
                         </ul>
                         <div class="row">
                             <div class="col s12 center-align">
-                                <a href="#" class="btn teal text-shadow">ADD</a>
+                                <a href="{{url_for('add_kpistatus')}}" class="btn teal text-shadow">ADD</a>
                             </div>
                         </div>
                     </div>

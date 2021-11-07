@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+    <h4 class="center-align">ADD NEW MEETING</h4>
+    <!--Add form-->
+    <div class="row">
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('add_meeting')}}">
+                <div class="card-panel">
+                <!-- fields inputs -->
+                    <!--meeting Name-->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="fas fa-list prefix blue-grey-text text-darken-1"></i>
+                            <input id="meeting_name" name="meeting_name" type="text" class="validate" required>
+                            <label for="meeting_name">Meeting Full Name</label>
+                        </div>
+                    </div>
+                    <!--meeting shortname-->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="fas fa-ellipsis-h prefix blue-grey-text text-darken-1"></i>
+                            <input id="meeting_shortname" name="meeting_shortname" type="text" class="validate" required>
+                            <label for="meeting_shortname">Meeting short name</label>
+                        </div>
+                    </div>
+                    <!--buttons-->
+                    <div class="row">
+                        <div class="row">
+                            <!--Cancel Button-->
+                            <div class="col s6">
+                                <a href="{{url_for('setup')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                            </div>
+                            <!--submit Button-->
+                            <div class="row">
+                                <div class="col s6 right">
+                                    <button type="submit" class="btn blue-grey text-shadow">SUBMIT</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>           
+                </div>
+        </form>
+    </div>
+{% endblock %}

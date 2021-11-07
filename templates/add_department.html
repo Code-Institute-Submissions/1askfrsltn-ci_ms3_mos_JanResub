@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+    <h3 class="center-align">ADD NEW DEPARTMENT</h3>
+    <!--Add form-->
+    <div class="row">
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('add_department')}}">
+                <div class="card-panel">
+                <!-- action status input -->
+                    <!--Department Name-->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="fas fa-building prefix blue-grey-text text-darken-1"></i>
+                            <input id="dept_name" name="dept_name" type="text" class="validate" required>
+                            <label for="dept_name">Department Full Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="far fa-building prefix blue-grey-text text-darken-1"></i>
+                            <input id="dept_shortname" name="dept_shortname" type="text" class="validate" required>
+                            <label for="dept_shortname">Department short name</label>
+                        </div>
+                    </div>
+                    <!--buttons-->
+                    <div class="row">
+                        <div class="row">
+                            <!--Cancell Button-->
+                            <div class="col s6">
+                                <a href="{{url_for('setup')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                            </div>
+                            <!--Add action Button-->
+                            <div class="row">
+                                <div class="col s6 right">
+                                    <button type="submit" class="btn blue-grey text-shadow">SUBMIT</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>           
+                </div>
+        </form>
+    </div>
+{% endblock %}

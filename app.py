@@ -318,6 +318,7 @@ def kpi_input():
 def add_kpi():
     # add select dropdown list
     owners = mongo.db.users.find()
+
     # add kpi into mongodb
     if request.method=="POST":
         kpi={
@@ -338,7 +339,103 @@ def add_kpi():
 @app.route("/add_kpiinput")
 def add_kpiinput():
     weeknumber=mongo.db.kpi.find("kpi_date")
-    return render_template("kpi_input.html",weeknumber=weeknumber)
+    return render_template("kpi_input.html", weeknumber=weeknumber)
+
+
+#create function for adding action cmpletion status
+@app.route("/add_actionstatus",methods=["POST","GET"])
+def add_actionstatus():
+    if request.method == "POST":
+        # create a variable for new action
+        action_completion_status = {
+            "completion_status": request.form.get("completion_status")
+        }
+        # insert new action status inside status collection
+        mongo.db.completionstatus.insert_one(action_completion_status)
+
+        # show the message that the operation was done successfully
+        flash("New action status was successfully added")
+        return redirect(url_for('setup'))
+    return render_template("add_actionstatus.html")
+
+
+#create function for adding department
+@app.route("/add_department",methods=["POST","GET"])
+def add_department():
+    if request.method == "POST":
+        
+        # create a variable for new department
+        new_department = {
+            "dept_name": request.form.get("dept_name"),
+            "dept_shortname": request.form.get("dept_shortname")
+        }
+
+        # insert new add_department inside status collection
+        mongo.db.depts.insert_one(new_department)
+
+        # show the message that the operation was done successfully
+        flash("New department was successfully added")
+        return redirect(url_for('setup'))
+    return render_template("add_department.html")
+
+
+# create function for adding worksream
+@app.route("/add_workstream", methods=["POST", "GET"])
+def add_workstream():
+    if request.method == "POST":
+        
+        # create a variable for new workstream
+        new_workstream = {
+            "workstream_name": request.form.get("workstream_name"),
+            "workstream_shortname": request.form.get("workstream_shortname")
+        }
+
+        # insert new add_department inside status collection
+        mongo.db.workstreams.insert_one(new_workstream)
+
+        # show the message that the operation was done successfully
+        flash("New workstream was successfully added")
+        return redirect(url_for('setup'))
+    return render_template("add_workstream.html")
+
+
+# create function to add new meeting
+@app.route("/add_meeting", methods=["POST", "GET"])
+def add_meeting():
+    if request.method == "POST":
+        
+        # create a variable for new meeting
+        new_meeting = {
+            "meeting_name": request.form.get("meeting_name"),
+            "meeting_shortname": request.form.get("meeting_shortname")
+        }
+
+        # insert new add_department inside status collection
+        mongo.db.meetings.insert_one(new_meeting)
+
+        # show the message that the operation was done successfully
+        flash("New meeting was successfully added")
+        return redirect(url_for('setup'))
+    return render_template("add_meeting.html")
+
+# create function to add new kpi status
+@app.route("/add_kpistatus", methods=["POST", "GET"])
+def add_kpistatus():
+    if request.method == "POST":
+        
+        # create a variable for new meeting
+        new_kpistatus = {
+            "kpistatus_name": request.form.get("kpistatus_name"),
+            "kpistatus_color": request.form.get("kpistatus_color")
+        }
+
+        # insert new add_department inside status collection
+        mongo.db.kpistatuss.insert_one(new_kpistatus)
+
+        # show the message that the operation was done successfully
+        flash("New KPI Status was successfully added")
+        return redirect(url_for('setup'))
+    return render_template("add_kpistatus.html")
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":

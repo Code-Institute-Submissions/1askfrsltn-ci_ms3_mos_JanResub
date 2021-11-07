@@ -1253,7 +1253,23 @@
                 </ul>
                 </div>
 
+137. On setup page Create all the add item functionalities for Department, Workstream, Workstream, Meeting, KPI Status using steps as in a table below (more details can be found in the steps above) :
 
+Step | Deparment | Workstream  | Meeting | KPI Status
+----|------------| ------------| --------| -----------
+step 1: Create Template in CLI                                                                  | ok | ok | ok | ok 
+Step 2. Create link to template on setup page                                                   | ok | ok | ok | ok  
+Step 3. Change basic template content                                                           | ok | ok | ok | ok
+Step 4. Update form action parameter                                                            | ok | ok | ok | ok
+Step 5. Input fields update (name, id, label for = MongDB key)                                  | ok | ok | ok | ok
+Step 6. Create route decorator with methods parameter                                           | ok | ok | ok | ok
+Step 7. Create basic py function to render template                                             | ok | ok | ok | ok
+Step 8. inside function create method request if statement                                      | ok | ok | ok | ok
+Step 9. inside if statement create new dictionary variable with request.form.get for inputs     | ok | ok | ok | ok
+Step 10. inside if statement insert new variable inside mongo db                                | ok | ok | ok | ok
+Step 11. add flash message and redirect to the page using url_for                               | ok | ok | ok | ok
+
+## OTHER PROBLEMS TO SOLVE
 still to do:
 - connect inputs to mongodb
 - fix user_dashboard link
