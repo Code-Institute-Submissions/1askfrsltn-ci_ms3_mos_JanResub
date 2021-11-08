@@ -337,21 +337,12 @@ def edit_kpi(kpi_id):
     users=mongo.db.users.find().sort("user_name", 1)
     return render_template("edit_kpi.html", kpi=kpi, users=users)
 
-
 # user delete function for setup template
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):
     mongo.db.users.remove({"_id": ObjectId(user_id)})
     flash("User was deleted")
     return redirect(url_for('setup'))
-
-# action completion status delete function for setup template
-@app.route("/delete_actionstatus/<completionstatus_id>")
-def delete_completionstatus(completionstatus_id):
-    mongo.db.completionstatus.remove({"_id": ObjectId(completionstatus_id)})
-    flash("Action status was deleted")
-    return redirect(url_for('setup'))
-
 
 # department delete function for setup template
 @app.route("/delete_department/<dept_id>")
@@ -425,24 +416,7 @@ def add_kpi():
 def add_kpiinput():
     weeknumber=mongo.db.kpi.find("kpi_date")
     return render_template("kpi_input.html", weeknumber=weeknumber)
-
-
-#create function for adding action cmpletion status
-@app.route("/add_actionstatus",methods=["POST","GET"])
-def add_actionstatus():
-    if request.method == "POST":
-        # create a variable for new action
-        action_completion_status = {
-            "completion_status": request.form.get("completion_status")
-        }
-        # insert new action status inside status collection
-        mongo.db.completionstatus.insert_one(action_completion_status)
-
-        # show the message that the operation was done successfully
-        flash("New action status was successfully added")
-        return redirect(url_for('setup'))
-    return render_template("add_actionstatus.html")
-
+    
 
 #create function for adding department
 @app.route("/add_department",methods=["POST","GET"])

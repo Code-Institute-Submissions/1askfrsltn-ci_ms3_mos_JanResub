@@ -15,12 +15,12 @@
                     <option value="" disabled selected>Select KPI</option>
                     {%for kp in kpi%}
                         <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
-                    {%endfor%}
+                    {% endfor %}
                 </select>
             </div>
             <!--Cancell Button-->
             <div class="col s4 right">
-                <a href="{{url_for('setup')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                <a href="{{url_for('home')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
             </div>
         
     </div>

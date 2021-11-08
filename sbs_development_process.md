@@ -1284,6 +1284,24 @@ Step 11. add flash message and redirect to the page using url_for               
                 </div>
                 <hr><br>
 
+139. Create Edit fiunctionality for all the buttons on setup page
+
+Step | Deparment | Workstream  | Meeting | KPI  | Action  Status| KPI Status
+----|------------| ------------| --------| -----| --------------| --
+step 1: Create Template in CLI           | ok | ok | ok |  
+step 2: setup Link to edit template           |  |  |  |  
+step 3: Update new edit template basic content           |  |  |  |  
+step 4: Update form action on edit template          |  |  |  |  
+step 5: Define route decorator to edit on app.py  |  |  |  |  
+step 6: Create fnction for render template for edit on app.py  |  |  |  |  
+step 7: update link with temlate ._id   |  |  |  |  
+step 8: include if statement in function request.method =="POST"   |  |  |  |  
+step 9: add mongo db line int app.py function to insert new element   |  |  |  |  
+step 10: build input fields on edit template |  |  |  |  
+step 11: connect value attribtes to edit object |  |  |  |  
+
+
+
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:
