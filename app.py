@@ -337,6 +337,26 @@ def edit_kpi(kpi_id):
     users=mongo.db.users.find().sort("user_name", 1)
     return render_template("edit_kpi.html", kpi=kpi, users=users)
 
+
+# create edit_kpistatus function
+@app.route("/edit_kpistatus/<kpistatus_id>", methods=["POST", "GET"])
+def edit_kpistatus(kpistatus_id):
+    # create kpistatus variable to prefill kpistatus input values in the form
+    kpistatus = mongo.db.kpistatuss.find_one({"_id": ObjectId(kpistatus_id)})
+
+    # update changed kpistatus data into mongodb
+    if request.method == "POST":
+        editkpistatus = {
+                "kpistatus_name": request.form.get("kpistatus_name"),
+                "kpistatus_color": request.form.get("kpistatus_color")
+            }
+    
+    # insert new kpistatus into Mongo Db database
+        mongo.db.kpistatuss.update({"_id": ObjectId(kpistatus_id)}, editkpistatus)
+        flash("KPI Status update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_kpistatus.html", kpistatus=kpistatus)
+
 # user delete function for setup template
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):
@@ -416,7 +436,7 @@ def add_kpi():
 def add_kpiinput():
     weeknumber=mongo.db.kpi.find("kpi_date")
     return render_template("kpi_input.html", weeknumber=weeknumber)
-    
+
 
 #create function for adding department
 @app.route("/add_department",methods=["POST","GET"])
@@ -476,6 +496,7 @@ def add_meeting():
         flash("New meeting was successfully added")
         return redirect(url_for('setup'))
     return render_template("add_meeting.html")
+    
 
 # create function to add new kpi status
 @app.route("/add_kpistatus", methods=["POST", "GET"])

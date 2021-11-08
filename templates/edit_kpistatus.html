@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+    <h4 class="center-align">EDIT KPI STATUS</h4>
+    <!--Add form-->
+    <div class="row">
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_kpistatus', kpistatus_id = kpistatus._id)}}">
+            <div class="card-panel">
+                <!-- inputs -->
+                <!-- input name -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-trophy prefix blue-grey-text text-darken-1"></i>
+                        <input value="{{kpistatus.kpistatus_name}}" id="kpistatus_name" name="kpistatus_name" type="text" class="validate" required>
+                        <label for="kpistatus_name">KPI Status</label>
+                    </div>
+                </div>
+                <!-- input color -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-palette prefix blue-grey-text text-darken-1"></i>
+                        <input value="{{kpistatus.kpistatus_color}}" id="kpistatus_color" name="kpistatus_color" type="text" class="validate" required>
+                        <label for="kpistatus_color">KPI Status Color</label>
+                    </div>
+                </div>
+                <!--buttons-->
+                <div class="row">
+                    <div class="row">
+                        <!--Cancell Button-->
+                        <div class="col s6">
+                            <a href="{{url_for('setup')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                        </div>
+                        <!--Add action Button-->
+                        <div class="row">
+                            <div class="col s6 right">
+                                <button type="submit" class="btn blue-grey text-shadow">SUBMIT EDIT</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            </div>
+        </form>
+    </div>
+{% endblock %}
