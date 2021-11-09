@@ -41,7 +41,6 @@ def login():
         existing_user = mongo.db.users.find_one(
             {"user_name": request.form.get("user_name").lower()})
         # checks if user_name exists - !!! I want to use email - find the way
-        # later
         if existing_user:
             if check_password_hash(
                 existing_user["user_password"], request.form.get
@@ -106,13 +105,13 @@ def user_dashboard(username):
     # create username variable
     username = mongo.db.users.find_one(
         {"user_name": session["user"]})["user_name"]
+    
     # create actions variable for the loop on user_dashboard
     actions = mongo.db.actions.find()
     
     # create completionstatus variable for the loop on user_dashboard selected component
     completionstatus = mongo.db.completionstatus.find()
     
-
     # security function to celan cookies and passing actions into the loop
     if session["user"]: 
         return render_template("user_dashboard.html", 
@@ -512,6 +511,9 @@ def kpi_input():
     # create kpi input variable for the select loop on kpi_input
     kpi = mongo.db.kpi.find()
 
+    # create kpiinouts variable for table body values
+    kpiintputs=mongo.db.kpiinputs.find()
+
     # if request method is post condition
     if request.method == "POST":
         
@@ -535,7 +537,7 @@ def kpi_input():
         
         # redirect to home page
         return redirect(url_for('kpi_input')) 
-    return render_template("kpi_input.html", kpi=kpi)
+    return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs)
 
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.

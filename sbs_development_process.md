@@ -1349,6 +1349,30 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                         # redirect to home page
                         return redirect(url_for('home')) 
                 return render_template("kpi_input.html", kpi=kpi)
+142. Upload all the KPI inputs to KPI INput table
+                
+                a. download all the KPI inputs into the table:
+                <!-- KPIS Summary - table body-->
+                <tbody>
+                        {%for input in kpiintputs %}
+                        <tr>
+                        <td>{{ input.input_logdate }}</td>
+                        <td>{{ input.input_weeknumber }}</td>
+                        <td>{{ input.input_uom }}</td>
+                        <td>{{ input.input_bsl }}</td>
+                        <td>{{ input.input_tgt }}</td>
+                        <td>{{ input.input_act }}</td>
+                        <td>{{ input.input_status }}</td>
+                        </tr>
+                        {%endfor%}
+                </tbody> 
+                b. update input_kpi function before if statement:
+                # create kpiinouts variable for table body values
+                kpiintputs=mongo.db.kpiinputs.find()
+                c. update render_template part of the kpi_input function to includenew variable
+                return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs)
+
+
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:

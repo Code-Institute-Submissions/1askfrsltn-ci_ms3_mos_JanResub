@@ -83,46 +83,17 @@
             </thead>
             <!-- KPIS Summary - table body-->
             <tbody>
+                {%for input in kpiintputs %}
                 <tr>
-                    <td> 11 nov, 2021 </td>
-                    <td> 43 </td>
-                    <td> % </td>
-                    <td> 60 </td>
-                    <td> 85 </td>
-                    <td> 75 </td>
-                    <td> red </td>
-                    <td>     </td>
-                    
+                    <td>{{ input.input_logdate }}</td>
+                    <td>{{ input.input_weeknumber }}</td>
+                    <td>{{ input.input_uom }}</td>
+                    <td>{{ input.input_bsl }}</td>
+                    <td>{{ input.input_tgt }}</td>
+                    <td>{{ input.input_act }}</td>
+                    <td>{{ input.input_status }}</td>
                 </tr>
-                <tr>
-                    <td> 11 nov, 2021 </td>
-                    <td> 43 </td>
-                    <td> % </td>
-                    <td> 60 </td>
-                    <td> 85 </td>
-                    <td> 75 </td>
-                    <td> red </td>
-                </tr>
-                <tr>
-                    <td> 11 nov, 2021 </td>
-                    <td> 43 </td>
-                    <td> % </td>
-                    <td> 60 </td>
-                    <td> 85 </td>
-                    <td> 75 </td>
-                    <td> red </td>
-                </tr>
-                <tr>
-                    <td> 11 nov, 2021 </td>
-                    <td> 43 </td>
-                    <td> % </td>
-                    <td> 60 </td>
-                    <td> 85 </td>
-                    <td> 75 </td>
-                    <td> red </td>
-                    <td><a href="" class="btn-floating blue"><i class="fas fa-copy"></i></a>
-                    </td>
-                </tr>
+                {%endfor%}
             </tbody> 
         </table>      
     </div>
