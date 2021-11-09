@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
     <h4 class="center-align">MEETTNG DASHBOARD</h4>
+    <!--Filters-->
+    <div class="row">
+        <div class="col s1">
+            <h6 class="align-left blue-grey-text text-darken-4 right"> <i class="fas fa-filter"></i></h6>
+        </div>
+        <div class="col s3">
+            <select id="" name="" class="validate" required>
+                <option value="meeitng" disabled selected>Meeting</option>
+                <option value="Meeting">Meeting</option>
+            </select>
+        </div>           
+    </div>
     <div class="row card-panel grey lighten-5 s12 center-align">
         {% for user in users %}
             {{user.user_name }}<br>

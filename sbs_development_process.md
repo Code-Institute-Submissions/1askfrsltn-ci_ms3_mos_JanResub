@@ -1286,30 +1286,77 @@ Step 11. add flash message and redirect to the page using url_for               
 
 139. Create Edit fiunctionality for all the buttons on setup page
 
-Step | Deparment | Workstream  | Meeting | KPI  | Action  Status| KPI Status
-----|------------| ------------| --------| -----| --------------| --
-step 1: Create Template in CLI           | ok | ok | ok |  
-step 2: setup Link to edit template           |  |  |  |  
-step 3: Update new edit template basic content           |  |  |  |  
-step 4: Update form action on edit template          |  |  |  |  
-step 5: Define route decorator to edit on app.py  |  |  |  |  
-step 6: Create fnction for render template for edit on app.py  |  |  |  |  
-step 7: update link with temlate ._id   |  |  |  |  
-step 8: include if statement in function request.method =="POST"   |  |  |  |  
-step 9: add mongo db line int app.py function to insert new element   |  |  |  |  
-step 10: build input fields on edit template |  |  |  |  
-step 11: connect value attribtes to edit object |  |  |  |  
+Step                                                            | Deparment | Workstream  | Meeting | KPI  |  KPI Status |Action Status
+----                                                            |-----------| ------------| --------| ----|  -- |--
+step 1: Create Template in CLI                                  | ok | ok | ok |  ok | ok |no
+step 2: setup Link to edit template                             | ok | ok | ok |  ok | ok |no
+step 3: Update new edit template basic content                  | ok | ok | ok |  ok | ok |no
+step 4: Update form action on edit template                     | ok | ok | ok |  ok | ok |no
+step 5: Define route decorator to edit on app.py                | ok | ok | ok |  ok | ok |no
+step 6: Create fnction for render template for edit on app.py   | ok | ok | ok |  ok | ok |no
+step 7: update link with temlate ._id                           | ok | ok | ok |  ok | ok |no
+step 8: include if statement in function request.method =="POST"   | ok | ok | ok |  ok | ok |no
+step 9: add mongo db line int app.py function to insert new element| ok | ok | ok |  ok | ok |no
+step 10: build input fields on edit template                       | ok | ok | ok |  ok | ok |no
+step 11: connect value attribtes to edit object                    | ok | ok | ok |  ok | ok |no
 
 
+## INPUT SHEETS TEMPLATE CREATE INPUT KPI FIELDS AND FUNCTIONALITY
+140. on kpi_input page create input fields row above table heading (PROBLEM: The table inside the form did not work, so I used a css formatting that I used from stackoverflow - https://stackoverflow.com/questions/1893332/html-table-of-forms/9348667#9348667 ):
 
+                <div class="table"> 
+                <div class="table-row s12">
+                        <div class="table-cell"> 
+                        <input id="input_logdate" name="input_logdate" type="text" class="datepicker center-align" required>
+                        <label for="input_logdate" >Log Date</label>
+                        </div>
+                        ....other input fields
+                CSS formatting:
+                .table { display: table; } 
+                .table-row { display: table-row; }
+                .table-cell { display: table-cell; }
+        it is important to make sure that form is a parent tag of kpi inputs fields 
+        
+141. Develop kpi_input function route decorator and function to update kpi inputs into mongo db:
+
+                # kpi inputs page - add input page
+                @app.route("/kpi_input", methods=["POST","GET"])
+                def kpi_input():
+                # create kpi input variable for the select loop on kpi_input
+                kpi = mongo.db.kpi.find()
+
+                # if request method is post condition
+                if request.method == "POST":
+                        
+                        # create a variable for kpi input
+                        kpiinput={
+                        "input_kpiname": request.form.get("input_kpiname"),
+                        "input_logdate": request.form.get("input_logdate"),
+                        "input_weeknumber": request.form.get("input_weeknumber"),
+                        "input_uom": request.form.get("input_uom"),
+                        "input_bsl": request.form.get("input_bsl"),
+                        "input_tgt": request.form.get("input_tgt"),
+                        "input_act": request.form.get("input_act"),
+                        "input_status": request.form.get("input_status")
+                        }
+                        
+                        # insert new kpi input inside kpiinputs collection
+                        mongo.db.kpiinputs.insert_one(kpiinput)
+                        
+                        # show the message that the operation was done successfully
+                        flash("KPI Input was successfully added")
+                        
+                        # redirect to home page
+                        return redirect(url_for('home')) 
+                return render_template("kpi_input.html", kpi=kpi)
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:
-- connect inputs to mongodb
-- fix user_dashboard link
+- upload kpi inputs from Mongo db into the table
 - populate table fields on a table on kpi input template - connect it to the filter!!!
+- on inpputs template create copy last functinality and connect it to copy button
+- fix user_dashboard link
 - populate user-dashboard kpi summary based on user who logged in, find a way how to connect lastkpi inputs to user_dashboard
 - link mongo DB to Power Bi 
 - link Power BI to an app on a home page
-- activate edit buttons for action completion status, departments, workstreams, meetings, kpi, kpi status
-- activate add buttons for action completion status, departments, workstreams, meetings, kpi status
+

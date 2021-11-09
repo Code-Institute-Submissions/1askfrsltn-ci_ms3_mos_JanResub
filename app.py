@@ -402,14 +402,7 @@ def delete_kpistatus(kpistatus_id):
     flash("The KPI Status was deleted")
     return redirect(url_for('setup'))
 
-# admin kpi inputs page
-@app.route("/kpi_input")
-def kpi_input():
-    # create kpis variable for the select loop on kpi_input
-    kpi = mongo.db.kpi.find()
-    return render_template("kpi_input.html",kpi=kpi)
-
-# admin kpi inputs page
+# setp admin kpi inputs page
 @app.route("/add_kpi", methods=["POST","GET"])
 def add_kpi():
     # add select dropdown list
@@ -432,13 +425,8 @@ def add_kpi():
         return redirect(url_for('setup'))
     return render_template("add_kpi.html", owners=owners)
 
-@app.route("/add_kpiinput")
-def add_kpiinput():
-    weeknumber=mongo.db.kpi.find("kpi_date")
-    return render_template("kpi_input.html", weeknumber=weeknumber)
 
-
-#create function for adding department
+# create setup function for adding department
 @app.route("/add_department",methods=["POST","GET"])
 def add_department():
     if request.method == "POST":
@@ -458,7 +446,7 @@ def add_department():
     return render_template("add_department.html")
 
 
-# create function for adding worksream
+# create setup function for adding worksream
 @app.route("/add_workstream", methods=["POST", "GET"])
 def add_workstream():
     if request.method == "POST":
@@ -478,7 +466,7 @@ def add_workstream():
     return render_template("add_workstream.html")
 
 
-# create function to add new meeting
+# create setup function to add new meeting
 @app.route("/add_meeting", methods=["POST", "GET"])
 def add_meeting():
     if request.method == "POST":
@@ -498,7 +486,7 @@ def add_meeting():
     return render_template("add_meeting.html")
     
 
-# create function to add new kpi status
+# create setup function to add new kpi status
 @app.route("/add_kpistatus", methods=["POST", "GET"])
 def add_kpistatus():
     if request.method == "POST":
@@ -516,6 +504,39 @@ def add_kpistatus():
         flash("New KPI Status was successfully added")
         return redirect(url_for('setup'))
     return render_template("add_kpistatus.html")
+
+
+# kpi inputs page - add input page
+@app.route("/kpi_input", methods=["POST","GET"])
+def kpi_input():
+    # create kpi input variable for the select loop on kpi_input
+    kpi = mongo.db.kpi.find()
+
+    # if request method is post condition
+    if request.method == "POST":
+        
+        # create a variable for kpi input
+        kpiinput={
+            "input_kpiname": request.form.get("input_kpiname"),
+            "input_logdate": request.form.get("input_logdate"),
+            "input_weeknumber": request.form.get("input_weeknumber"),
+            "input_uom": request.form.get("input_uom"),
+            "input_bsl": request.form.get("input_bsl"),
+            "input_tgt": request.form.get("input_tgt"),
+            "input_act": request.form.get("input_act"),
+            "input_status": request.form.get("input_status")
+        }
+        
+        # insert new kpi input inside kpiinputs collection
+        mongo.db.kpiinputs.insert_one(kpiinput)
+        
+        # show the message that the operation was done successfully
+        flash("KPI Input was successfully added")
+        
+        # redirect to home page
+        return redirect(url_for('kpi_input')) 
+    return render_template("kpi_input.html", kpi=kpi)
+
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":

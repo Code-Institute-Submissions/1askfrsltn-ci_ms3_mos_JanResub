@@ -19,3 +19,7 @@ h5 .btn-flat {
     color:brown;
 };
 
+.table { display: table; } 
+.table-row { display: table-row; }
+.table-cell { display: table-cell; }
+

@@ -5,30 +5,72 @@
     <!-- KPIS Summary - table-->
     <h5 class="align-left red-text text-darken-4"> <i class="fas fa-chart-line"></i> KPI Inputs</h5><hr><br>
     <!--Filters-->
+    <form class="col s12" method="POST" action="{{url_for('kpi_input')}}">
     <div class="row">
-        
-            <div class="col s1">
-                <h6 class="align-left blue-grey-text text-darken-4 right"> <i class="fas fa-filter"></i></h6>
-            </div>
-            <div class="col s4">
-                <select id="action_meeting" name="action_meeting" class="validate" required>
-                    <option value="" disabled selected>Select KPI</option>
-                    {%for kp in kpi%}
-                        <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <!--Cancell Button-->
-            <div class="col s4 right">
-                <a href="{{url_for('home')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
-            </div>
-        
+        <!--Filter title-->
+        <div class="col s1">
+            <h6 class="align-left blue-grey-text text-darken-4 right"> <i class="fas fa-filter"></i>
+            </h6>
+        </div>
+        <!--Filter dropdown-->
+        <div class="col s4">
+            <select id="input_kpiname" name="input_kpiname" class="validate" required>
+                <option value="" selected></option>
+                {%for kp in kpi%}
+                    <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
+                {% endfor %}
+                <label for="input_kpiname">Select KPI</label>
+            </select>
+        </div>
+        <!--Cancell Button-->
+        <div class="col s4 right">
+            <a href="{{url_for('home')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+        </div>
     </div>
     <div class="row card-panel grey lighten-5 s12">
     <!-- KPIS Table - headings-->
-        <table class="highlight centered">
+        <div class="table"> 
+            <div class="table-row s12">
+                <div class="table-cell"> 
+                    <input id="input_logdate" name="input_logdate" type="text" class="datepicker center-align" required>
+                    <label for="input_logdate" >Log Date</label>
+                </div>
+                <div class="table-cell">
+                    <input value="" id="input_weeknumber" name="input_weeknumber" type="text" class="validate"required>
+                    <label for="input_weeknumber">week</label>
+                </div>
+                <div class="table-cell"> 
+                    <input value="" id="input_uom" name="input_uom" type="text" class="validate" required>
+                    <label for="input_uom">uom</label>
+                </div>
+                <div class="table-cell"> 
+                    <input value="" id="input_bsl" name="input_bsl" type="text" class="validate" required>
+                    <label for="input_bsl">bsl</label>
+                </div>
+                <div class="table-cell"> 
+                    <input value="" id="input_tgt" name="input_tgt" type="text" class="validate" required>
+                    <label for="input_tgt">tgt</label>
+                </div>
+                <div class="table-cell"> 
+                    <input value="" id="input_act" name="input_act" type="text" class="validate" required>
+                    <label for="input_act">act</label>
+                </div>
+                <div class="table-cell"> 
+                    <input value="" id="input_status" name="input_status" type="text" class="validate" required>
+                    <label for="input_status">status</label>
+                </div>
+                <!--Button to add inputs-->
+                <div class="table-cell">
+                    <button type="submit" class="btn-floating text-shadow">
+                        <i class="fas fa-angle-right green">
+                        </i>
+                    </button>
+                </div>
+            </div>
+        </div> 
+        <table class="highlight centered">  
             <thead>
-                <tr>
+                <tr class="grey lighten-2">
                     <th>Date</th>
                     <th>Week</th>
                     <th>UoM</th>
@@ -36,7 +78,7 @@
                     <th>TGT</th>
                     <th>ACT</th>
                     <th>STATUS</th>
-                    <th> <p>add!</p></th>
+                    <th>add!</th>
                 </tr>
             </thead>
             <!-- KPIS Summary - table body-->
@@ -80,40 +122,9 @@
                     <td> red </td>
                     <td><a href="" class="btn-floating blue"><i class="fas fa-copy"></i></a>
                     </td>
-                </tr><tr>
-                    <td> 
-                        <input id="action_logdate" name="action_logdate" type="text" class="datepicker center-alignvalidate" required>
-                        <label for="action_logdate" >Log Date</label>
-                    </td>
-                    <td>
-                        <input disabled value="" id="action_refno" name="action_refno" type="text" class="validate">
-                        <label for="action_refno">week</label>
-                    </td>
-                    <td> 
-                        <input disabled value="" id="action_refno" name="action_refno" type="text" class="validate">
-                        <label for="action_refno">uom</label>
-                    </td>
-                    <td> 
-                        <input value="" id="action_refno" name="action_refno" type="text" class="validate">
-                        <label for="action_refno">bsl</label>
-                    </td>
-                    <td> 
-                        <input value="" id="action_refno" name="action_refno" type="text" class="validate">
-                        <label for="action_refno">tgt</label>
-                    </td>
-                    <td> 
-                        <input value="" id="action_refno" name="action_refno" type="text" class="validate">
-                        <label for="action_refno">act</label>
-                    </td>
-                    <td> 
-                        <input value="" id="action_refno" name="action_refno" type="text" class="validate">
-                        <label for="action_refno">status</label>
-                    </td>
-                    <td> <a href="" class="btn-floating green"><i class="fas fa-plus"></i></a></td>
                 </tr>
-            </tbody>
-        </table>
+            </tbody> 
+        </table>      
     </div>
-    <!--buttons-->
-    
+    </form>
 {% endblock %}
