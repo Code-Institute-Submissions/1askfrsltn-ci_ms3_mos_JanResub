@@ -511,14 +511,18 @@ def kpi_input():
     # create kpi input variable for the select loop on kpi_input
     kpi = mongo.db.kpi.find()
 
-    # create kpiinouts variable for table body values
-    kpiintputs=mongo.db.kpiinputs.find()
+    # create kpiinputs variable for table body values
+    kpiintputs = mongo.db.kpiinputs.find()
+    
+    # define session user name
+    user = session["user"]
 
     # if request method is post condition
     if request.method == "POST":
         
         # create a variable for kpi input
         kpiinput={
+            "input_kpiowner":request.form.get("input_kpiowner"),
             "input_kpiname": request.form.get("input_kpiname"),
             "input_logdate": request.form.get("input_logdate"),
             "input_weeknumber": request.form.get("input_weeknumber"),
@@ -537,7 +541,7 @@ def kpi_input():
         
         # redirect to home page
         return redirect(url_for('kpi_input')) 
-    return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs)
+    return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs, user=user)
 
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.

@@ -1,7 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
     <h4 class="center-align">USER DASHBOARD</h4>
-    
+    <!--Actions Collapsible popup-->
+    <div class="row">
+        <div class="col s6">
+            <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> Actions</h5>
+        </div>
+        <!--button "add_action"-->
+        <div class="col s4 right">
+            <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('add_action')}}"> ADD NEW </a></h5>
+        </div>
+    </div>
+    <hr><br>
+    <ul class="collapsible">
+        {% for action in actions %}
+            <li>
+                <div class="collapsible-header center-align">
+                    <p class="s12">{{ action.action_refno }}</p><hr>
+                    <strong><p class="s12">{{ action.action_name }}</p></strong><hr>
+                    <p class="s12">{{ action.action_due }}</p><hr>
+                    <p class="s12">{{ action.action_accountable }}</p><hr>
+                    <p class="s12">
+                        {%if action.action_status==null%}
+                            in progress
+                        {%else%}
+                            {{ action.action_status }}
+                        {%endif%}
+                    </p><hr>
+                    <!--conditional icons for action status-->
+                    <p class="s12 center-align"> {% if action.action_status=="done" %}
+                                <i class="fas fa-check-circle teal-text">  </i>
+                        {% elif action.action_status=="not done" %}
+                            <i class="fas fa-times-circle red-text">  </i>
+                        {% elif action.action_status=="paused" %}
+                            <i class="far fa-pause-circle yellow-text text-darken-3">  </i>
+                        {%else%} 
+                            <i class="fas fa-circle grey-text text-lighten-1">  </i>
+                        {%endif%} 
+                    </p><hr>
+                </div>
+                <div class="collapsible-body">                      
+                    <p>Department: {{ action.action_dept }}</p>
+                    <p>Workstream: {{ action.action_workstream }}</p>
+                    <p>Meeting: {{ action.action_meeting }}</p>
+                    <p>Date logged: </p> <p>{{action.action_logdate}}</p>
+                    <p>Issue: {{ action.action_issue }}</p>
+                    <p>Comment: {{ action.action_comment }}</p>
+                </div>
+            </li> 
+        {% endfor %}
+    </ul> <br>
     <!-- KPIS Summary - table-->
     <div class="row">
         <div class="col s6">
@@ -64,53 +112,4 @@
         </tbody>
     </table>
     <br>
-    <!--Actions Collapsible popup-->
-    <div class="row">
-        <div class="col s6">
-            <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> Actions</h5>
-        </div>
-        <!--button "add_action"-->
-        <div class="col s4 right">
-            <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('add_action')}}"> ADD NEW </a></h5>
-        </div>
-    </div>
-    <hr><br>
-    <ul class="collapsible">
-        {% for action in actions %}
-            <li>
-                <div class="collapsible-header center-align">
-                    <p class="s12">{{ action.action_refno }}</p><hr>
-                    <strong><p class="s12">{{ action.action_name }}</p></strong><hr>
-                    <p class="s12">{{ action.action_due }}</p><hr>
-                    <p class="s12">{{ action.action_accountable }}</p><hr>
-                    <p class="s12">
-                        {%if action.action_status==null%}
-                            in progress
-                        {%else%}
-                            {{ action.action_status }}
-                        {%endif%}
-                    </p><hr>
-                    <!--conditional icons for action status-->
-                    <p class="s12 center-align"> {% if action.action_status=="done" %}
-                                <i class="fas fa-check-circle teal-text">  </i>
-                        {% elif action.action_status=="not done" %}
-                            <i class="fas fa-times-circle red-text">  </i>
-                        {% elif action.action_status=="paused" %}
-                            <i class="far fa-pause-circle yellow-text text-darken-3">  </i>
-                        {%else%} 
-                            <i class="fas fa-circle grey-text text-lighten-1">  </i>
-                        {%endif%} 
-                    </p><hr>
-                </div>
-                <div class="collapsible-body">                      
-                    <p>Department: {{ action.action_dept }}</p>
-                    <p>Workstream: {{ action.action_workstream }}</p>
-                    <p>Meeting: {{ action.action_meeting }}</p>
-                    <p>Date logged: </p> <p>{{action.action_logdate}}</p>
-                    <p>Issue: {{ action.action_issue }}</p>
-                    <p>Comment: {{ action.action_comment }}</p>
-                </div>
-            </li> 
-        {% endfor %}
-    </ul> <br>
 {% endblock %}

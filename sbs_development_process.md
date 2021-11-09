@@ -1372,8 +1372,24 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                 c. update render_template part of the kpi_input function to includenew variable
                 return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs)
 
+## CREATE FILTERING FUNCTIONALITY ON KPI INPUT PAGE
+143. Add kpiowner filter to the KPI INput page:
 
+                <div class="col s4">
+                        <input value="{{user}}" id="input_kpiowner" name="input_kpiowner" type="text" class="validate"required>
+                        <label for="input_kpiowner"></label>
+                </div>
+144. Update KPI input function with sesion user variable to pre-populate filter value in step 143:
 
+                # define session user name
+                user = session["user"]
+
+                update input for the function:
+                return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs, user=user)
+
+Create index on mongo db database:
+
+                
 ## OTHER PROBLEMS TO SOLVE
 still to do:
 - upload kpi inputs from Mongo db into the table
