@@ -22,6 +22,7 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
+
 # set up moongo variable for mongo connection:
 mongo = PyMongo(app)
 
@@ -32,6 +33,7 @@ mongo = PyMongo(app)
 def home():
     users = mongo.db.users.find()
     return render_template("home.html", users=users)
+
 
 # create route decorator for login page
 @app.route("/login", methods=["GET", "POST"])
@@ -513,9 +515,6 @@ def kpi_input():
 
     # create kpiinputs variable for table body values
     kpiintputs = mongo.db.kpiinputs.find()
-    
-    # define session user name
-    user = session["user"]
 
     # if request method is post condition
     if request.method == "POST":
@@ -541,8 +540,15 @@ def kpi_input():
         
         # redirect to home page
         return redirect(url_for('kpi_input')) 
-    return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs, user=user)
+    return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs)
 
+
+# filter function for kpi inputs page
+@app.route("/kpiinput_filter", methods = ["GET","POST"])
+def filter():
+    input_kpiname = request.form.get("input_kpiname")
+    kpiinputs=list(mongo.db.kpiinputs.find({"$text":{"$search":input_kpiname}}))
+    return render_template("kpi_input.html", kpiinputs=kpiinputs)
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":

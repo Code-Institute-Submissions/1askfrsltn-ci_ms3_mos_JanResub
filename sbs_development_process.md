@@ -1387,7 +1387,48 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                 update input for the function:
                 return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs, user=user)
 
-Create index on mongo db database:
+## CHANGE NAVBAR ACCESSIBILITY BASED ON MENTOR FEEDBACK 09-n0v
+145. Copy Home link from 2 navbars and hide it behind login:
+
+                <ul class="right hide-on-med-and-down">
+                    <!--nav links always visible -->
+                    {% if session.user %}  
+                        {% if session.user|lower=="admin"|lower %}
+                                <li><a href="{{ url_for('setup')}}">SET UP</a></li>
+                        {% endif %} 
+                    <li><a href="{{url_for('home')}}">MEETINGS</a></li>
+                    <!--nav links visible when logged out-->
+                        
+                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
+                        <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
+                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                        {% else %}
+                            <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                            <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                    {% endif %}
+                </ul>
+## CEATE SEARCH FUNCTIONALITY ON INPUT PAGE
+
+145. Go to python environment:
+
+                CLI: python3
+146. Import mongo from app (everything we have in our database is in this variable):
+                
+                CLI: from app import mongo
+147. Create index for kpiinputs collection in mongodb:
+
+                CLI: mongo.db.kpiinputs.create_index([("input_kpiname","text"),("input_kpiowner","text")]), 
+                press ENTER
+                We should have a following string: input_kpiname_text_input_kpiowner_text
+148. Check MongoDb>mos>kpiinputs>indexes, we should see new index - input_kpiname_text_input_kpiowner_text
+149. Check the details of the index created to confirm that index was created:
+
+                CLI: mongo.db.kpiinputs.index_information()
+                Result:
+                {'_id_': {'v': 2, 'key': [('_id', 1)]}, 'input_kpiname_text_input_kpiowner_text': {'v': 2, 'key': [('_fts', 'text'), ('_ftsx', 1)], 'weights': SON([('input_kpiname', 1), ('input_kpiowner', 1)]), 'default_language': 'english', 'language_override': 'language', 'textIndexVersion': 3}}
+150. Exit python environment on CLI:
+
+                CLI: quit()
 
                 
 ## OTHER PROBLEMS TO SOLVE
@@ -1399,4 +1440,5 @@ still to do:
 - populate user-dashboard kpi summary based on user who logged in, find a way how to connect lastkpi inputs to user_dashboard
 - link mongo DB to Power Bi 
 - link Power BI to an app on a home page
+- crete defensive code by making an if statuement on each page after login (recommendation by mentor 09-nov)
 

@@ -24,14 +24,14 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                 <ul class="right hide-on-med-and-down">
                     <!--nav links always visible -->
-                    <li><a href="{{url_for('home')}}">HOME</a></li>
-                    <!--nav links visible when logged out-->
-                    {% if session.user %}   
+                    {% if session.user %}  
                         {% if session.user|lower=="admin"|lower %}
-                            <li><a href="{{ url_for('setup')}}">SET UP</a></li>
-                            {% endif %}
+                                <li><a href="{{ url_for('setup')}}">SET UP</a></li>
+                        {% endif %} 
+                    <li><a href="{{url_for('home')}}">MEETINGS</a></li>
+                    <!--nav links visible when logged out-->
+                        
                         <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
-                        <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
                         <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
                         <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
                         {% else %}
@@ -44,16 +44,15 @@
         <!--navigation mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
             <li><h4 class="center-align blue-grey-text text-darken-2">Meetings Hub</h4></li>
-            <!--nav links always visible -->
-            <li><a href="{{url_for('home')}}">HOME</a></li>
+            
             <!--nav links visible when logged out-->
             {% if session.user %}   
                 {% if session.user|lower=="admin"|lower %}
                     <li><a href="{{ url_for('setup')}}">SET UP</a></li>
-                    {% endif %}
+                {% endif %}
+                <li><a href="{{url_for('home')}}">MEEITNGS</a></li>
                 <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>
-                <li><a href="{{ url_for('add_action')}}">ADD ACTION</a></li>
-                <li><a href="{{url_for('kpi_input')}}">KPI INPUT</a></li>
+                <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
                 <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
                 {% else %}
                     <li><a href="{{url_for('login')}}">LOGIN</a></li>

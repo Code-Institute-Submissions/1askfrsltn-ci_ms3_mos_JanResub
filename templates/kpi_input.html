@@ -2,86 +2,45 @@
 {% block content %}
     <!-- Page title-->
     <h4 class="center-align">KPI INPUTS </h4> <br>
-    
-    <!-- KPIS Summary - table-->
+
+    <!-- Title and dashboard link-->
     <div class="row">
         <div class="col s6">
             <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> KPI Inputs</h5>
         </div>
-        <!--button "add_action"-->
+        <!--button cancel-->
         <div class="col s4 right">
-            <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('home')}}"> Cancel </a></h5>
-            
+            <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('home')}}"> MEETING DASHBAORD </a></h5>
         </div>
     </div>
     <hr><br>
-    <!--Filters-->
-    <form class="col s12" method="POST" action="{{url_for('kpi_input')}}">
-    <div class="row">
-        <!--Filter title-->
-        <div class="col s1">
-            <h6 class="align-left blue-grey-text text-darken-4 right"> <i class="fas fa-filter"></i>
-            </h6>
-        </div>
-        <!--Filter dropdown-->
-        <div class="col s4">
-            <select id="input_kpiname" name="input_kpiname" class="validate" required>
-                <option value="Kpi owner" selected></option>
-                {%for kp in kpi%}
-                    <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
-                {% endfor %}
-                <label for="input_kpiname"></label>
-            </select>
-        </div>
-        <div class="col s4">
-            <input value="{{user}}" id="input_kpiowner" name="input_kpiowner" type="text" class="validate"required>
-            <label for="input_kpiowner"></label>
-        </div>
-    </div>
+    <!--KPI Inputs-->
     <div class="row card-panel grey lighten-5 s12">
-    <!-- KPIS Table - headings-->
-        <div class="table"> 
-            <div class="table-row s12">
-                <div class="table-cell"> 
-                    <input id="input_logdate" name="input_logdate" type="text" class="datepicker center-align" required>
-                    <label for="input_logdate" >Log Date</label>
+        <!--from for filter button-->
+        <form action="{{url_for('filter')}}" method="POST" class="s12">
+            <!--Filters Section-->
+            <div class="row">
+                <!--Filter dropdown-->
+                <div class="col s5">
+                    <select id="input_kpiname" name="input_kpiname" class="validate" required>
+                        {%for kp in kpi%}
+                            <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
+                        {% endfor %}
+                        <label for="input_kpiname"></label>
+                    </select>
                 </div>
-                <div class="table-cell">
-                    <input value="" id="input_weeknumber" name="input_weeknumber" type="text" class="validate"required>
-                    <label for="input_weeknumber">week</label>
-                </div>
-                <div class="table-cell"> 
-                    <input value="" id="input_uom" name="input_uom" type="text" class="validate" required>
-                    <label for="input_uom">uom</label>
-                </div>
-                <div class="table-cell"> 
-                    <input value="" id="input_bsl" name="input_bsl" type="text" class="validate" required>
-                    <label for="input_bsl">bsl</label>
-                </div>
-                <div class="table-cell"> 
-                    <input value="" id="input_tgt" name="input_tgt" type="text" class="validate" required>
-                    <label for="input_tgt">tgt</label>
-                </div>
-                <div class="table-cell"> 
-                    <input value="" id="input_act" name="input_act" type="text" class="validate" required>
-                    <label for="input_act">act</label>
-                </div>
-                <div class="table-cell"> 
-                    <input value="" id="input_status" name="input_status" type="text" class="validate" required>
-                    <label for="input_status">status</label>
-                </div>
-                <!--Button to add inputs-->
-                <div class="table-cell">
-                    <button type="submit" class="btn-floating text-shadow">
-                        <i class="fas fa-angle-right green">
-                        </i>
+                <div class="col s2 right">
+                    <button type="submit" class="waves-effect blue-grey btn">
+                        <i class="fas fa-sort-amount-down"></i>
                     </button>
                 </div>
             </div>
-        </div> 
+        </form>
+        <!--KPI table-->
         <table class="highlight centered">  
             <thead>
                 <tr class="grey lighten-2">
+                    <th>KPI</th>
                     <th>Date</th>
                     <th>Week</th>
                     <th>UoM</th>
@@ -96,6 +55,7 @@
             <tbody>
                 {%for input in kpiintputs %}
                 <tr>
+                    <td>{{ input.input_kpiname }}</td>
                     <td>{{ input.input_logdate }}</td>
                     <td>{{ input.input_weeknumber }}</td>
                     <td>{{ input.input_uom }}</td>
@@ -108,5 +68,50 @@
             </tbody> 
         </table>      
     </div>
-    </form>
+    <!--New KPI Input-->
+    <div class="row card-panel grey lighten-5 s12">
+    <form class="col s12" method="POST" action="{{url_for('kpi_input')}}">
+        <!-- KPIS Table - headings-->
+            <div class="table"> 
+                <div class="table-row s12">
+                    <div class="table-cell"> 
+                        <input id="input_logdate" name="input_logdate" type="text" class="datepicker center-align" required>
+                        <label for="input_logdate">Log Date</label>
+                    </div>
+                    <div class="table-cell">
+                        <input value="" id="input_weeknumber" name="input_weeknumber" type="text" class="validate"required>
+                        <label for="input_weeknumber">week</label>
+                    </div>
+                    <div class="table-cell"> 
+                        <input value="" id="input_uom" name="input_uom" type="text" class="validate" required>
+                        <label for="input_uom">uom</label>
+                    </div>
+                    <div class="table-cell"> 
+                        <input value="" id="input_bsl" name="input_bsl" type="text" class="validate" required>
+                        <label for="input_bsl">bsl</label>
+                    </div>
+                    <div class="table-cell"> 
+                        <input value="" id="input_tgt" name="input_tgt" type="text" class="validate" required>
+                        <label for="input_tgt">tgt</label>
+                    </div>
+                    <div class="table-cell"> 
+                        <input value="" id="input_act" name="input_act" type="text" class="validate" required>
+                        <label for="input_act">act</label>
+                    </div>
+                    <div class="table-cell"> 
+                        <input value="" id="input_status" name="input_status" type="text" class="validate" required>
+                        <label for="input_status">status</label>
+                    </div>
+                    <!--Button to add inputs-->
+                    <div class="table-cell">
+                        <button type="submit" class="btn-floating text-shadow">
+                            <i class="fas fa-angle-right green">
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div> 
+        </form>
+    </div>
+
 {% endblock %}
