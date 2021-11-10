@@ -538,6 +538,7 @@ def filter():
     return render_template("kpi_input.html", kpiintputs=kpiintputs, 
         kpi=kpi, kpiselection=kpiselection)
 
+# function to add kpiinput
 @app.route("/add_kpiinput", methods=["GET","POST"])
 def add_kpiinput():
     # if request method is post condition
@@ -565,6 +566,46 @@ def add_kpiinput():
         # redirect to home page
         return redirect(url_for('kpi_input')) 
     return render_template("kpi_input.html", kpiintputs=kpiintputs)
+
+
+# create edit_kpi input function
+@app.route("/edit_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
+def edit_kpiinput(kpiinput_id):
+    
+    # create kpiinput variable to prefill kpiinput input values in the form
+    input = mongo.db.kpiinputs.find_one({"_id": ObjectId(kpiinput_id)})
+
+    # variable for kpiowners select
+    owners = mongo.db.users.find()
+
+    # variable for KPIs list select
+    kpis = mongo.db.kpi.find()
+
+    # user variable
+    user = session["user"]
+
+    # update changed kpiinput data into mongodb
+    if request.method == "POST":
+        editkpiinput = {
+                "input_kpiname": request.form.get("input_kpiname"),
+                "input_logdate": request.form.get("input_logdate"),
+                "input_weeknumber": request.form.get("input_weeknumber"),
+                "input_uom": request.form.get("input_uom"),
+                "input_bsl": request.form.get("input_bsl"),
+                "input_tgt": request.form.get("input_tgt"),
+                "input_act": request.form.get("input_act"),
+                "input_kpiowner": user,
+                "input_status": request.form.get("input_status")
+            }
+            
+        # insert new kpiinput into Mongo Db database
+        mongo.db.kpiinputs.update({"_id": ObjectId(kpiinput_id)}, editkpiinput)
+
+        flash("KPI input update successfull!")
+        
+        return redirect(url_for('kpi_input'))
+    return render_template("edit_kpiinput.html",  input=input, 
+        user=user, owners=owners, kpis=kpis)
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":

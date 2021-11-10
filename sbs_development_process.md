@@ -1449,16 +1449,185 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                         # create inputs variable for KPI inputs list based on search request
                         return render_template("kpi_input.html", kpiintputs=kpiintputs, 
                                 kpi=kpi, kpiselection=kpiselection)
+152. launch filter function with button:
 
+                <!--KPI Inputs-->
+                <div class="row card-panel grey lighten-5 s12">
+                        <!--form for filter button-->
+                        <form action="{{url_for('filter')}}" method="POST" class="s12">
+                                <!--Filters Section-->
+                                <div class="row">
+                                        <!--Filter dropdown-->
+                                        <div class="col s6">
+                                        <select id="input_kpiname" name="input_kpiname" class="materialize-textarea validate" required>
+                                                <option value="" disabled selected>{{ kpiselection }}</option>
+                                                {%for kp in kpi%}
+                                                <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
+                                                {% endfor %}
+                                                <label for="input_kpiname"></label>
+                                        </select>
+                                        </div>
+                                        <div class="col s2 center-align">
+                                        <button type="submit" class="waves-effect blue-grey btn">
+                                                <i class="fas fa-sort-amount-down"></i>
+                                        </button>
+                                        </div>
+                                        <!--Reset button-->
+                                        <div class="col s left">
+                                        <a href="{{url_for('kpi_input')}}" class="red btn text-shadow"><i class="fas fa-refresh"></i></a>
+                                        </div>
+                                </div>
+                        </form>
+
+## ADD EDIT FUNCTIONALITY TO EACH ROW ON KPI INPUTS TABLE
+
+153. Add Edit template based on edit_kpi
+
+                CLI: cp template/edit_action.html templates/edit_kpiinput.html
+
+154. Create inputs on edit-kpiinput template:
                 
+                <!-- kpiinputs -->
+                <!-- kpiinput name - text-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_kpiname}}" id="input_kpiname" name="input_kpiname" type="text" class="validate" required>
+                        <label for="input_kpiname">KPI name</label>
+                    </div>
+                </div>
+                <!-- kpiinput logdate - datepicker -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-calendar-alt prefix"></i>
+                        <input value="{{input.input_logdate}}"id="input_logdate" name="input_logdate" type="text" class="datepicker validate" required>
+                        <label for="input_logdate" >Log Date</label>
+                    </div>
+                </div>
+                <!-- kpiinput weeknumber - text-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_weeknumber}}" id="input_weeknumber" name="input_weeknumber" type="text" class="validate" required>
+                        <label for="input_weeknumber">Weeknumber</label>
+                    </div>
+                </div>
+                <!-- kpiinput uom - text-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_uom}}" id="input_uom" name="input_uom" type="text" class="validate" required>
+                        <label for="input_uom">Unit of measure</label>
+                    </div>
+                </div>
+                <!-- kpiinput bsl- text -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_bsl}}" id="input_bsl" name="input_bsl" type="text" class="validate" required>
+                        <label for="input_bsl">Baseline</label>
+                    </div>
+                </div>
+                <!-- kpiinput tgt- text -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_tgt}}" id="input_tgt" name="input_tgt" type="text" class="validate" required>
+                        <label for="input_tgt">Target</label>
+                    </div>
+                </div>
+                <!-- kpiinput act- text -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_act}}" id="input_act" name="input_act" type="text" class="validate" required>
+                        <label for="input_act">Actual</label>
+                    </div>
+                </div>
+                <!-- kpiinput status - text -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_status}}" id="input_status" name="input_status" type="text" class="validate" required>
+                        <label for="input_status"> Status </label>
+                    </div>
+                </div>
+                <!-- kpiinput owner - select -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select id="input_kpiowner" name="input_kpiowner" class="materialize-textarea validate" required>
+                            <option value="{{input.input_kpiowner}}" disabled selected>{{user}}</option>
+                            {%for owner in owners %}
+                                <option value="{{owner.user_name}}">{{owner.user_name}}</option>
+                            {%endfor%}
+                        </select>
+                        <label for="input_kpiowner">KPI Owner</label>
+                    </div>
+                </div>
+155. Create app.py function
+
+                # create edit_kpi input function
+                @app.route("/edit_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
+                def edit_kpiinput(kpiinput_id):
+                
+                        # create kpiinput variable to prefill kpiinput input values in the form
+                        input = mongo.db.kpiinputs.find_one({"_id": ObjectId(kpiinput_id)})
+
+                        # variable for kpiowners select
+                        owners = mongo.db.users.find()
+
+                        # variable for KPIs list select
+                        kpis = mongo.db.kpi.find()
+
+                        # user variable
+                        user = session["user"]
+
+                        # update changed kpiinput data into mongodb
+                        if request.method == "POST":
+                                editkpiinput = {
+                                        "input_kpiname": request.form.get("input_kpiname"),
+                                        "input_logdate": request.form.get("input_logdate"),
+                                        "input_weeknumber": request.form.get("input_weeknumber"),
+                                        "input_uom": request.form.get("input_uom"),
+                                        "input_bsl": request.form.get("input_bsl"),
+                                        "input_tgt": request.form.get("input_tgt"),
+                                        "input_act": request.form.get("input_act"),
+                                        "input_kpiowner": user,
+                                        "input_status": request.form.get("input_status")
+                                }
+                                
+                                # insert new kpiinput into Mongo Db database
+                                mongo.db.kpiinputs.update({"_id": ObjectId(kpiinput_id)}, editkpiinput)
+
+                                flash("KPI input update successfull!")
+                                
+                                return redirect(url_for('kpi_input'))
+                        return render_template("edit_kpiinput.html",  input=input, 
+                                user=user, owners=owners, kpis=kpis)
+156. Link kpi_input to edit_kpiinput template:
+
+                <!-- KPIS Summary - table body-->
+                <tbody>
+                        {%for input in kpiintputs %}
+                        <tr>
+                                <td>{{ input.input_kpiname }}</td>
+                                <td>{{ input.input_logdate }}</td>
+                                <td>{{ input.input_weeknumber }}</td>
+                                <td>{{ input.input_uom }}</td>
+                                <td>{{ input.input_bsl }}</td>
+                                <td>{{ input.input_tgt }}</td>
+                                <td>{{ input.input_act }}</td>
+                                <td>{{ input.input_status }}</td>
+                                <td><a href="{{ url_for('edit_kpiinput',  kpiinput_id = input._id)}}" class="btn blue-grey">EDIT</a>
+                                </td>
+                        </tr>
+                        {%endfor%}
+                </tbody> 
+
+157. Hide buttons for non admin users - still to do.
+
+
 ## OTHER PROBLEMS TO SOLVE
 still to do:
-- upload kpi inputs from Mongo db into the table
-- populate table fields on a table on kpi input template - connect it to the filter!!!
-- on inpputs template create copy last functinality and connect it to copy button
 - fix user_dashboard link
 - populate user-dashboard kpi summary based on user who logged in, find a way how to connect lastkpi inputs to user_dashboard
 - link mongo DB to Power Bi 
 - link Power BI to an app on a home page
 - crete defensive code by making an if statuement on each page after login (recommendation by mentor 09-nov)
+- fix responsiveness issue on a kpiinouts page
+- fix edit kpiinput submit button issue - it works only if i usedropdown list
+
 

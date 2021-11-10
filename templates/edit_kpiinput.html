@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+    
+
+    <h4 class="center-align">EDIT KPI INPUT</h4>
+    <!--Add form-->
+    <div class="row">
+        <form class="col s12" method="POST" action="{{ url_for('edit_kpiinput', kpiinput_id = input._id)}}">
+            <div class="card-panel">
+            <!-- kpiinputs -->
+                <!-- kpiinput name - text-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_kpiname}}" id="input_kpiname" name="input_kpiname" type="text" class="validate" required>
+                        <label for="input_kpiname">KPI name</label>
+                    </div>
+                </div>
+                <!-- kpiinput logdate - datepicker -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-calendar-alt prefix"></i>
+                        <input value="{{input.input_logdate}}"id="input_logdate" name="input_logdate" type="text" class="datepicker validate" required>
+                        <label for="input_logdate" >Log Date</label>
+                    </div>
+                </div>
+                <!-- kpiinput weeknumber - text-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_weeknumber}}" id="input_weeknumber" name="input_weeknumber" type="text" class="validate" required>
+                        <label for="input_weeknumber">Weeknumber</label>
+                    </div>
+                </div>
+                <!-- kpiinput uom - text-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_uom}}" id="input_uom" name="input_uom" type="text" class="validate" required>
+                        <label for="input_uom">Unit of measure</label>
+                    </div>
+                </div>
+                <!-- kpiinput bsl- text -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_bsl}}" id="input_bsl" name="input_bsl" type="text" class="validate" required>
+                        <label for="input_bsl">Baseline</label>
+                    </div>
+                </div>
+                <!-- kpiinput tgt- text -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_tgt}}" id="input_tgt" name="input_tgt" type="text" class="validate" required>
+                        <label for="input_tgt">Target</label>
+                    </div>
+                </div>
+                <!-- kpiinput act- text -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_act}}" id="input_act" name="input_act" type="text" class="validate" required>
+                        <label for="input_act">Actual</label>
+                    </div>
+                </div>
+                <!-- kpiinput status - text -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="{{input.input_status}}" id="input_status" name="input_status" type="text" class="validate" required>
+                        <label for="input_status"> Status </label>
+                    </div>
+                </div>
+                <!-- kpiinput owner - select -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select id="input_kpiowner" name="input_kpiowner" class="materialize-textarea validate" required>
+                            <option value="{{input.input_kpiowner}}" disabled selected>{{user}}</option>
+                            {%for owner in owners %}
+                                <option value="{{owner.user_name}}">{{owner.user_name}}</option>
+                            {%endfor%}
+                        </select>
+                        <label for="input_kpiowner">KPI Owner</label>
+                    </div>
+                </div>
+                <!--buttons-->
+                <div class="row">
+                    <div class="row">
+                        <!--Cancell Button-->
+                        <div class="col s6">
+                            <a href="{{url_for('filter')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                        </div>
+                        <!--Add action Button-->
+                        <div class="row">
+                            <div class="col s6 right">
+                                <button type="submit" class="btn blue-grey text-shadow">SUBMIT</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            </div>
+        </form>
+    </div>
+{% endblock %}
