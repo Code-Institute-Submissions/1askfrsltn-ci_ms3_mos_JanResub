@@ -521,7 +521,7 @@ def kpi_input():
         
         # create a variable for kpi input
         kpiinput={
-            "input_kpiowner":request.form.get("input_kpiowner"),
+            "input_kpiowner": request.form.get("input_kpiowner"),
             "input_kpiname": request.form.get("input_kpiname"),
             "input_logdate": request.form.get("input_logdate"),
             "input_weeknumber": request.form.get("input_weeknumber"),
@@ -544,11 +544,12 @@ def kpi_input():
 
 
 # filter function for kpi inputs page
-@app.route("/kpiinput_filter", methods = ["GET","POST"])
+@app.route("/filter", methods = ["GET" , "POST"])
 def filter():
+    kpi = mongo.db.kpi.find()
     input_kpiname = request.form.get("input_kpiname")
-    kpiinputs=list(mongo.db.kpiinputs.find({"$text":{"$search":input_kpiname}}))
-    return render_template("kpi_input.html", kpiinputs=kpiinputs)
+    kpiintputs = list(mongo.db.kpiinputs.find({"$text": {"$search":input_kpiname}}))
+    return render_template("kpi_input.html", kpiintputs=kpiintputs,kpi=kpi)
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":

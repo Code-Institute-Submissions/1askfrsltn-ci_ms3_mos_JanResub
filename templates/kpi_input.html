@@ -21,7 +21,7 @@
             <!--Filters Section-->
             <div class="row">
                 <!--Filter dropdown-->
-                <div class="col s5">
+                <div class="col s6">
                     <select id="input_kpiname" name="input_kpiname" class="validate" required>
                         {%for kp in kpi%}
                             <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
@@ -29,10 +29,13 @@
                         <label for="input_kpiname"></label>
                     </select>
                 </div>
-                <div class="col s2 right">
+                <div class="col s2 center-align">
                     <button type="submit" class="waves-effect blue-grey btn">
                         <i class="fas fa-sort-amount-down"></i>
                     </button>
+                </div>
+                <div class="col s left">
+                    <a href="{{url_for('kpi_input')}}" class="red btn text-shadow"><i class="fas fa-refresh"></i></a>
                 </div>
             </div>
         </form>
@@ -54,24 +57,24 @@
             <!-- KPIS Summary - table body-->
             <tbody>
                 {%for input in kpiintputs %}
-                <tr>
-                    <td>{{ input.input_kpiname }}</td>
-                    <td>{{ input.input_logdate }}</td>
-                    <td>{{ input.input_weeknumber }}</td>
-                    <td>{{ input.input_uom }}</td>
-                    <td>{{ input.input_bsl }}</td>
-                    <td>{{ input.input_tgt }}</td>
-                    <td>{{ input.input_act }}</td>
-                    <td>{{ input.input_status }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ input.input_kpiname }}</td>
+                        <td>{{ input.input_logdate }}</td>
+                        <td>{{ input.input_weeknumber }}</td>
+                        <td>{{ input.input_uom }}</td>
+                        <td>{{ input.input_bsl }}</td>
+                        <td>{{ input.input_tgt }}</td>
+                        <td>{{ input.input_act }}</td>
+                        <td>{{ input.input_status }}</td>
+                    </tr>
                 {%endfor%}
             </tbody> 
         </table>      
     </div>
     <!--New KPI Input-->
     <div class="row card-panel grey lighten-5 s12">
-    <form class="col s12" method="POST" action="{{url_for('kpi_input')}}">
-        <!-- KPIS Table - headings-->
+        <form class="col s12" method="POST" action="{{url_for('kpi_input')}}">
+            <!-- KPIS Table - headings-->
             <div class="table"> 
                 <div class="table-row s12">
                     <div class="table-cell"> 
