@@ -1429,6 +1429,26 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
 150. Exit python environment on CLI:
 
                 CLI: quit()
+151. Create filter function on app.py:
+
+                # filter function for kpi inputs page
+                @app.route("/filter", methods = ["GET" , "POST"])
+                def filter():
+                        #  enable kpii for loop after filtering  
+                        kpi = mongo.db.kpi.find()
+                        
+                        # make second from work after the filtering
+                        input_kpiname = request.form.get("input_kpiname")
+                        
+                        # create variable for automatic KPI definition on the kpi input line 
+                        kpiselection = input_kpiname
+                        
+                        # create inputs variable for KPI inputs list based on search request
+                        kpiintputs = list(mongo.db.kpiinputs.find({"$text": {"$search":input_kpiname}}))
+                        
+                        # create inputs variable for KPI inputs list based on search request
+                        return render_template("kpi_input.html", kpiintputs=kpiintputs, 
+                                kpi=kpi, kpiselection=kpiselection)
 
                 
 ## OTHER PROBLEMS TO SOLVE

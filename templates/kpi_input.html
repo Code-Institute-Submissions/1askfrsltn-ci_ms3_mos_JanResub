@@ -22,7 +22,9 @@
             <div class="row">
                 <!--Filter dropdown-->
                 <div class="col s6">
-                    <select id="input_kpiname" name="input_kpiname" class="validate" required>
+
+                    <select id="input_kpiname" name="input_kpiname" class="materialize-textarea validate" required>
+                        <option value="" disabled selected>{{ kpiselection }}</option>
                         {%for kp in kpi%}
                             <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
                         {% endfor %}
@@ -51,7 +53,7 @@
                     <th>TGT</th>
                     <th>ACT</th>
                     <th>STATUS</th>
-                    <th>add!</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <!-- KPIS Summary - table body-->
@@ -66,6 +68,7 @@
                         <td>{{ input.input_tgt }}</td>
                         <td>{{ input.input_act }}</td>
                         <td>{{ input.input_status }}</td>
+                        <td><a href="#" class="btn blue-grey">EDIT</a></td>
                     </tr>
                 {%endfor%}
             </tbody> 
@@ -73,10 +76,14 @@
     </div>
     <!--New KPI Input-->
     <div class="row card-panel grey lighten-5 s12">
-        <form class="col s12" method="POST" action="{{url_for('kpi_input')}}">
+        <form class="col s12" method="POST" action="{{url_for('add_kpiinput')}}">
             <!-- KPIS Table - headings-->
             <div class="table"> 
                 <div class="table-row s12">
+                    <div class="table-cell">
+                        <input value="{{ kpiselection }}" id="input_kpiname" name="input_kpiname" type="text" class="validate"required>
+                        <label for="input_kpiname">KPI</label>
+                    </div>
                     <div class="table-cell"> 
                         <input id="input_logdate" name="input_logdate" type="text" class="datepicker center-align" required>
                         <label for="input_logdate">Log Date</label>

@@ -508,7 +508,7 @@ def add_kpistatus():
 
 
 # kpi inputs page - add input page
-@app.route("/kpi_input", methods=["POST","GET"])
+@app.route("/kpi_input")
 def kpi_input():
     # create kpi input variable for the select loop on kpi_input
     kpi = mongo.db.kpi.find()
@@ -516,6 +516,30 @@ def kpi_input():
     # create kpiinputs variable for table body values
     kpiintputs = mongo.db.kpiinputs.find()
 
+    return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs)
+
+
+# filter function for kpi inputs page
+@app.route("/filter", methods = ["GET" , "POST"])
+def filter():
+    #  enable kpii for loop after filtering  
+    kpi = mongo.db.kpi.find()
+    
+    # make second from work after the filtering
+    input_kpiname = request.form.get("input_kpiname")
+    
+    # create variable for automatic KPI definition on the kpi input line 
+    kpiselection = input_kpiname
+    
+    # create inputs variable for KPI inputs list based on search request
+    kpiintputs = list(mongo.db.kpiinputs.find({"$text": {"$search":input_kpiname}}))
+    
+    # create inputs variable for KPI inputs list based on search request
+    return render_template("kpi_input.html", kpiintputs=kpiintputs, 
+        kpi=kpi, kpiselection=kpiselection)
+
+@app.route("/add_kpiinput", methods=["GET","POST"])
+def add_kpiinput():
     # if request method is post condition
     if request.method == "POST":
         
@@ -540,16 +564,7 @@ def kpi_input():
         
         # redirect to home page
         return redirect(url_for('kpi_input')) 
-    return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs)
-
-
-# filter function for kpi inputs page
-@app.route("/filter", methods = ["GET" , "POST"])
-def filter():
-    kpi = mongo.db.kpi.find()
-    input_kpiname = request.form.get("input_kpiname")
-    kpiintputs = list(mongo.db.kpiinputs.find({"$text": {"$search":input_kpiname}}))
-    return render_template("kpi_input.html", kpiintputs=kpiintputs,kpi=kpi)
+    return render_template("kpi_input.html", kpiintputs=kpiintputs)
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":
