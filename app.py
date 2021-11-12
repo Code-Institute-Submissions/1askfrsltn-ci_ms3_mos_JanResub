@@ -116,6 +116,9 @@ def user_dashboard(username):
     username = mongo.db.users.find_one(
         {"user_name": session["user"]})["user_name"]
     
+    # create kpis variable for for loop for kpis
+    kpis=mongo.db.kpi.find()
+
     # create actions variable for the loop on user_dashboard
     actions = mongo.db.actions.find()
     
@@ -127,8 +130,9 @@ def user_dashboard(username):
         return render_template("user_dashboard.html", 
             username=username,
             actions=actions,
-            completionstatus=completionstatus)
-    return redirect(url_for('login'))
+            completionstatus=completionstatus,
+            kpis=kpis)
+    return redirect(url_for('login'), username)
 
 @app.route("/logout")
 def logout():
@@ -425,10 +429,6 @@ def add_kpi():
             "kpi_uom": request.form.get("kpi_uom"),
             "kpi_owner": request.form.get("kpi_owner").lower(),
             "kpi_description": request.form.get("kpi_description"),
-            "kpi_lastlogdate":0,
-            "kpi_lastbsl": 0,
-            "kpi_lastltgt": 0,
-            "kpi_lastlact": 0,
             "kpi_lastlstatus": "grey"
         }
         # insert new document into mongodb collection kpi
@@ -581,8 +581,8 @@ def add_kpiinput():
             "kpi_laststatus": request.form.get("input_status")
         }
         
-        # update kpi collection - strange {$set: latestinput} did not work for specific values, had to update all the fields
-        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{$set:latestinput})
+        # update kpi collection for specific fields following MongoDb documentation -https://docs.mongodb.com/manual/reference/operator/update/set/. Problem: the code {$set:latestinput} did not work Johann from student support helped me - i had to correct the code and add "" - {"$set":latestinput}. 
+        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
         
         # show the message that the operation was done successfully
         flash("KPI Input was successfully added")
@@ -634,8 +634,8 @@ def edit_kpiinput(kpiinput_id):
             "kpi_laststatus": request.form.get("input_status")
         }
         
-        # update kpi collection - strange {$set: latestinput} did not work for specific values, had to update all the fields
-        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{$set:latestinput})
+        # update kpi collection:
+        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
         
         flash("KPI input update successfull!")
         

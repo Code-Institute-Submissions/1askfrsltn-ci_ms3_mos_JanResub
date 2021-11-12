@@ -1636,10 +1636,6 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                         "kpi_uom": request.form.get("kpi_uom"),
                         "kpi_owner": request.form.get("kpi_owner").lower(),
                         "kpi_description": request.form.get("kpi_description"),
-                        "kpi_lastlogdate":0,
-                        "kpi_lastbsl": 0,
-                        "kpi_lastltgt": 0,
-                        "kpi_lastlact": 0,
                         "kpi_lastlstatus": "grey"
                         }
                         # insert new document into mongodb collection kpi
@@ -1650,14 +1646,75 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                         return redirect(url_for('setup'))
                 return render_template("add_kpi.html", owners=owners)
 
-159. on add_kpiinput when new input is added logdate is compared to the one stored in kpi collection, if it is higher it updates the values (logdate, bsl, tgt, act, status) in kpi collection with new ones
+159. on add_kpiinput when new input is added logdate is compared to the one stored in kpi collection, if it is higher it updates the values (logdate, bsl, tgt, act, status) in kpi collection with new ones. (inside if reguest.method==['POST']):
 
-160. on edit_kpiinput when new input is added logdate is compared to the one stored in kpi collection, if it is higher it updates the values (logdate, bsl, tgt, act, status) in kpi collection with new ones
+                # based on kpiinput define a variable to update  kpi collection fields
+                latestinput ={
+                "kpi_lastlogdate": request.form.get("input_logdate"),
+                "kpi_lastbsl": request.form.get("input_bsl"),
+                "kpi_lasttgt": request.form.get("input_tgt"),
+                "kpi_lastact": request.form.get("input_act"),
+                "kpi_laststatus": request.form.get("input_status")
+                }
+                
+                # update kpi collection for specific fields following MongoDb documentation -https://docs.mongodb.com/manual/reference/operator/update/set/. 
+                mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
+        I encountered a problem here -  the code {$set:latestinput} did not work Johann from student support helped me - i corrected the code and added "" - {"$set":latestinput}. 
+                
+
+160. on edit_kpiinput when new input is edited logdate is compared to the one stored in kpi collection, if it is higher it updates the values (logdate, bsl, tgt, act, status) in kpi collection with new ones
+
+                # based on kpiinput define a variable to update  kpi collection fields
+                latestinput ={
+                "kpi_lastlogdate": request.form.get("input_logdate"),
+                "kpi_lastbsl": request.form.get("input_bsl"),
+                "kpi_lasttgt": request.form.get("input_tgt"),
+                "kpi_lastact": request.form.get("input_act"),
+                "kpi_laststatus": request.form.get("input_status")
+                }
+        
+        # update kpi collection:
+        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
 
 161. on userdashboard template kpi status is updated using for loop
 
+                step1: inside user_dashboard function on app.py add kpis variable:
+                # create kpis variable for for loop for kpis
+                kpis=mongo.db.kpi.find()
+                
+                step 2: on user_dashboard tmplate create for loop to update table:
+                <!-- KPIS Summary - table body-->
+                <tbody>
+                        {% for kpi in kpis %}
+                        <tr>
+                        <td>{{kpi.kpi_name}}</td>
+                        <td>{{kpi.kpi_uom}}</td>
+                        <td>{{kpi.kpi_lastbsl}}</td>
+                        <td>{{kpi.kpi_lasttgt}}</td>
+                        <td>{{kpi.kpi_lastact}}</td>
+                        <td>
+                                {%if kpi.kpi_laststatus=="red" %}
+                                <h5><i class="fas fa-times-circle red-text"></i></h5>
+                                {%elif kpi.kpi_laststatus=="green"%}
+                                <h5><i class="fas fa-check-circle green-text"></i></h5>
+                                {% else %}
+                                <h5><i class="fas fa-circle grey-text"></i></h5>
+                                {%endif%}
+                        </td>
+                        <td class="s12 m3">
+                                <a href="{{url_for('add_action')}}" class="btn blue-grey text-shadow">ACTION</a>
+                        </td>
+                        </tr>
+                        {% endfor%}
+
 162. search functionality filter the list of kpis depending on user
 
+                step1: create search index for kpi collection in python3
+
+                step2: create ufnctionality to filter users based on kpi owner, admin should see all the kpis:
+
+
+164. Correct
 ## OTHER PROBLEMS TO SOLVE
 still to do:
 - fix user_dashboard link
