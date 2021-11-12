@@ -14,8 +14,20 @@
         </div>           
     </div>
     <div class="row card-panel grey lighten-5 s12 center-align">
-        {% for user in users %}
-            {{user.user_name }}<br>
+        Step 1: Getting dictionary of values: <br>
+        {{kpinames}}
+        <br><br>
+        Step 2: Getting unique: <br><br>
+        {% for name in unames %}
+            {{ name }}
+            <br>
         {% endfor %}
+        <br><br>
+        Step 3: Date <br>
+        {% for input in kpiinputs %} 
+            {{ input.input_logdate }} : {{ input.input_logdate[0 : 2] }}
+            <br>
+        {% endfor %}
+        {{date}}
     </div>
 {% endblock %}

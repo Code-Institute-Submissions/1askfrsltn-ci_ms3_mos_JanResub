@@ -1479,7 +1479,7 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                                 </div>
                         </form>
 
-## ADD EDIT FUNCTIONALITY TO EACH ROW ON KPI INPUTS TABLE
+## KPIINPUTS: ADD EDIT FUNCTIONALITY TO EACH ROW ON KPI INPUTS TABLE
 
 153. Add Edit template based on edit_kpi
 
@@ -1619,6 +1619,44 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
 
 157. Hide buttons for non admin users - still to do.
 
+## USER_DASHBOARD: DEVELOP AND IMPLEMENT FUNCTIONALITY OF UPDATING A KPI LIST
+158. on add_kpi function in app.py add additional zero field that are generated automaticaly but not visible to the admin
+
+                # setp admin kpi inputs page
+                @app.route("/add_kpi", methods=["POST","GET"])
+                def add_kpi():
+                # add select dropdown list
+                owners = mongo.db.users.find()
+
+                # add kpi into mongodb
+                if request.method=="POST":
+                        kpi={
+                        "kpi_name": request.form.get("kpi_name"),
+                        "kpi_shortname": request.form.get("kpi_shortname"),
+                        "kpi_uom": request.form.get("kpi_uom"),
+                        "kpi_owner": request.form.get("kpi_owner").lower(),
+                        "kpi_description": request.form.get("kpi_description"),
+                        "kpi_lastlogdate":0,
+                        "kpi_lastbsl": 0,
+                        "kpi_lastltgt": 0,
+                        "kpi_lastlact": 0,
+                        "kpi_lastlstatus": "grey"
+                        }
+                        # insert new document into mongodb collection kpi
+                        mongo.db.kpi.insert(kpi)
+                        # print completion on th escreen
+                        flash("KPI was successfully added!")
+                        # redirect to setup
+                        return redirect(url_for('setup'))
+                return render_template("add_kpi.html", owners=owners)
+
+159. on add_kpiinput when new input is added logdate is compared to the one stored in kpi collection, if it is higher it updates the values (logdate, bsl, tgt, act, status) in kpi collection with new ones
+
+160. on edit_kpiinput when new input is added logdate is compared to the one stored in kpi collection, if it is higher it updates the values (logdate, bsl, tgt, act, status) in kpi collection with new ones
+
+161. on userdashboard template kpi status is updated using for loop
+
+162. search functionality filter the list of kpis depending on user
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:

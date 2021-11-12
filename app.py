@@ -6,7 +6,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 # import datetie method: from datetime import datetime
-
+from datetime import datetime
 
 # connect env.py if it was created
 if os.path.exists("env.py"):
@@ -31,8 +31,16 @@ mongo = PyMongo(app)
 # create route decorator for home page
 @app.route("/home")
 def home():
-    users = mongo.db.users.find()
-    return render_template("home.html", users=users)
+    # create list of dictionaries from kpiinputs collection in mongodb
+    kpiinputs = list(mongo.db.kpiinputs.find())
+    
+    # create list of input_kpiname values from kpiinputs list - thanks to stackoverflow help from Ismail Badawi: https://stackoverflow.com/questions/7271482/getting-a-list-of-values-from-a-list-of-dicts 
+    kpinames = [name['input_kpiname'] for name in kpiinputs]
+    
+    # use set method to create unique list of name
+    unames = set(kpinames)
+    
+    return render_template("home.html", kpiinputs=kpiinputs, kpinames=kpinames, unames=unames)
 
 
 # create route decorator for login page
@@ -416,7 +424,12 @@ def add_kpi():
             "kpi_shortname": request.form.get("kpi_shortname"),
             "kpi_uom": request.form.get("kpi_uom"),
             "kpi_owner": request.form.get("kpi_owner").lower(),
-            "kpi_description": request.form.get("kpi_description")
+            "kpi_description": request.form.get("kpi_description"),
+            "kpi_lastlogdate":0,
+            "kpi_lastbsl": 0,
+            "kpi_lastltgt": 0,
+            "kpi_lastlact": 0,
+            "kpi_lastlstatus": "grey"
         }
         # insert new document into mongodb collection kpi
         mongo.db.kpi.insert(kpi)
@@ -556,9 +569,20 @@ def add_kpiinput():
             "input_act": request.form.get("input_act"),
             "input_status": request.form.get("input_status")
         }
-        
         # insert new kpi input inside kpiinputs collection
         mongo.db.kpiinputs.insert_one(kpiinput)
+        
+        # based on kpiinput define a variable to update  kpi collection fields
+        latestinput ={
+            "kpi_lastlogdate": request.form.get("input_logdate"),
+            "kpi_lastbsl": request.form.get("input_bsl"),
+            "kpi_lasttgt": request.form.get("input_tgt"),
+            "kpi_lastact": request.form.get("input_act"),
+            "kpi_laststatus": request.form.get("input_status")
+        }
+        
+        # update kpi collection - strange {$set: latestinput} did not work for specific values, had to update all the fields
+        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{$set:latestinput})
         
         # show the message that the operation was done successfully
         flash("KPI Input was successfully added")
@@ -600,7 +624,19 @@ def edit_kpiinput(kpiinput_id):
             
         # insert new kpiinput into Mongo Db database
         mongo.db.kpiinputs.update({"_id": ObjectId(kpiinput_id)}, editkpiinput)
-
+        
+        # based on kpiinput define a variable to update  kpi collection fields
+        latestinput ={
+            "kpi_lastlogdate": request.form.get("input_logdate"),
+            "kpi_lastbsl": request.form.get("input_bsl"),
+            "kpi_lasttgt": request.form.get("input_tgt"),
+            "kpi_lastact": request.form.get("input_act"),
+            "kpi_laststatus": request.form.get("input_status")
+        }
+        
+        # update kpi collection - strange {$set: latestinput} did not work for specific values, had to update all the fields
+        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{$set:latestinput})
+        
         flash("KPI input update successfull!")
         
         return redirect(url_for('kpi_input'))

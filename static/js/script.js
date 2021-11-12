@@ -11,7 +11,7 @@ $(document).ready(function(){
 
     /* datepicker function */
     $('.datepicker').datepicker({
-      format: "dd-mmm-yy",
+      format: "dd-mm-yyyy",
       setDefaultDate: true,
       yearRange: 1,
       showClearBtn: true,
