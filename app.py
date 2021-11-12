@@ -116,23 +116,30 @@ def user_dashboard(username):
     username = mongo.db.users.find_one(
         {"user_name": session["user"]})["user_name"]
     
-    # create kpis variable for for loop for kpis
-    kpis=mongo.db.kpi.find()
-
     # create actions variable for the loop on user_dashboard
     actions = mongo.db.actions.find()
     
     # create completionstatus variable for the loop on user_dashboard selected component
     completionstatus = mongo.db.completionstatus.find()
     
+    # define variable for automatic filter
+    user=session["user"]
+    
+    # define variable for kpis loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter
+    if user == "admin":
+       kpis = mongo.db.kpi.find() 
+    else:
+        kpis=list(mongo.db.kpi.find({"$text":{"$search":user}}))
+
     # security function to celan cookies and passing actions into the loop
     if session["user"]: 
         return render_template("user_dashboard.html", 
             username=username,
             actions=actions,
             completionstatus=completionstatus,
-            kpis=kpis)
-    return redirect(url_for('login'), username)
+            kpis=kpis,
+            user=user)
+    return redirect(url_for('login'), username=user)
 
 @app.route("/logout")
 def logout():
@@ -154,29 +161,34 @@ def add_action():
             "action_dept": request.form.get("action_dept"),
             "action_logdate": request.form.get("action_logdate"),
             "action_meeting": request.form.get("action_meeting"),
-            "action_workstream": request.form.get("action_workstream")
+            "action_workstream": request.form.get("action_workstream"),
+            "action_status": request.form.get("action_status")
         }
         
         # insert new action inside actions collection
         mongo.db.actions.insert_one(task)
-
+        
         # show the message that the operation was done successfully
         flash("New action was successfully added")
-        return redirect(url_for('add_action'))
+        return redirect(url_for('user_dashboard', username=session['user']))
 
     # action counter - not perfect needds to be ahcnge later
     action_dept =str(mongo.db.actions.find().count()+1)
     
     # variables for selection dropdown lists on add_action template
-    users=mongo.db.users.find().sort("user_name", 1)
-    meetings=mongo.db.meetings.find().sort("meeting_name", 1)
-    depts =mongo.db.depts.find().sort("dept_name", 1)
-    workstreams=mongo.db.workstreams.find().sort("workstream_name", 1)
+    users = mongo.db.users.find().sort("user_name", 1)
+    meetings = mongo.db.meetings.find().sort("meeting_name", 1)
+    depts = mongo.db.depts.find().sort("dept_name", 1)
+    workstreams = mongo.db.workstreams.find().sort("workstream_name", 1)
+    completionstatus = mongo.db.completionstatus.find()
+
     return render_template("add_action.html", 
         users=users,
         meetings=meetings,
         depts=depts, 
-        workstreams=workstreams, action_dept=action_dept)
+        workstreams=workstreams, 
+        action_dept=action_dept,
+        completionstatus = completionstatus)
 
 # setup router and function
 @app.route("/admin_setup")

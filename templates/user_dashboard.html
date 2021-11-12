@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <h4 class="center-align"> {{username.upper()}} DASHBOARD</h4>
+    <h4 class="center-align"> {{username.upper()}}'s DASHBOARD</h4>
     <!--Actions Collapsible popup-->
     <div class="row">
         <div class="col s6">
@@ -8,48 +8,91 @@
         </div>
         <!--button "add_action"-->
         <div class="col s4 right">
-            <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('add_action')}}"> ADD NEW </a></h5>
+            <h5> <a class="waves-effect waves-red btn-flat" href="{{ url_for('add_action')}}"> ADD NEW </a></h5>
         </div>
     </div>
     <hr><br>
-    <ul class="collapsible">
-        {% for action in actions %}
-            <li>
-                <div class="collapsible-header center-align">
-                    <p class="s12">{{ action.action_refno }}</p><hr>
-                    <strong><p class="s12">{{ action.action_name }}</p></strong><hr>
-                    <p class="s12">{{ action.action_due }}</p><hr>
-                    <p class="s12">{{ action.action_accountable }}</p><hr>
-                    <p class="s12">
-                        {%if action.action_status==null%}
-                            in progress
-                        {%else%}
-                            {{ action.action_status }}
-                        {%endif%}
-                    </p><hr>
-                    <!--conditional icons for action status-->
-                    <p class="s12 center-align"> {% if action.action_status=="done" %}
-                                <i class="fas fa-check-circle teal-text">  </i>
-                        {% elif action.action_status=="not done" %}
-                            <i class="fas fa-times-circle red-text">  </i>
-                        {% elif action.action_status=="paused" %}
-                            <i class="far fa-pause-circle yellow-text text-darken-3">  </i>
-                        {%else%} 
-                            <i class="fas fa-circle grey-text text-lighten-1">  </i>
+    
+    <!-- Actions table -->
+    <div class="card-panel">
+        <h6 class="align-left red-text text-darken-4">Filter by status:</h6>
+        <!--from for filter button-->
+        <form action="#" method="POST" class="s12">
+            <!--Filters Section-->
+            <div class="row">
+                <!--Filter dropdown-->
+                <div class="col s6 m4">
+                    <select id="completionstatus_name" name="completionstatus_name" class="materialize-textarea validate" required>
+                        <option value="" disabled selected>{{ kpiselection }}</option>
+                        {%for cs in completionstatus%}
+                            <option value="{{cs.completionstatus_name}}">{{cs.completionstatus_name}}</option>
+                        {% endfor %}
+                        <label for="completionstatus_name"></label>
+                    </select>
+                </div>
+                <div class="col s2 center-align">
+                    <button type="submit" class="waves-effect blue-grey btn">
+                        <i class="fas fa-sort-amount-down"></i>
+                    </button>
+                </div>
+                <!--Reset button-->
+                <div class="col s left">
+                    <a href="{{url_for('user_dashboard',username=session["user"])}}" class="red btn text-shadow"><i class="fas fa-refresh"></i></a>
+                </div>
+            </div>
+            <table class="responsive-table highlight centered">
+                <!-- Actions table - headings-->
+                <thead>
+                    <tr class="grey lighten-2">
+                        <th>No.</th>
+                        <th>Action</th>
+                        <th>Accountable</th>
+                        <th>Deadline</th>                                        
+                        <th>Status</th>                                        
+                        <th>  </th>                                        
+                        <th>Edit</th>                                        
+                    </tr>
+                </thead>
+                <!-- KPIS Summary - table body-->
+                <tbody>
+                    {% for action in actions %}
+                    <tr>
+                        <td>{{action.action_refno}}</td>
+                        <td>{{action.action_name}}</td>
+                        <td>{{action.action_accountable}}</td>
+                        <td>{{action.action_due}}</td>
+                        <td>{{action.action_status}}</td>
+                        <!--check status and assign color icons -->
+                        {%if action.action_status=="not done" %}
+                            <td>
+                                <i class="fas fa-times-circle red-text"></i>
+                            </td>
+                            {%elif action.action_status=="done"%}
+                                <td>
+                                    <i class="fas fa-check-circle green-text"></i>
+                                </td>
+                            {%elif action.action_status=="paused"%}
+                                <td>
+                                    <i class="fas fa-pause-circle yellow-text"></i>
+                                </td>
+                            {% else %}
+                                <td>
+                                    <i class="fas fa-circle grey-text"></i>
+                                </td>               
                         {%endif%} 
-                    </p><hr>
-                </div>
-                <div class="collapsible-body">                      
-                    <p>Department: {{ action.action_dept }}</p>
-                    <p>Workstream: {{ action.action_workstream }}</p>
-                    <p>Meeting: {{ action.action_meeting }}</p>
-                    <p>Date logged: </p> <p>{{action.action_logdate}}</p>
-                    <p>Issue: {{ action.action_issue }}</p>
-                    <p>Comment: {{ action.action_comment }}</p>
-                </div>
-            </li> 
-        {% endfor %}
-    </ul> <br>
+                        <!--add full edit right button for admin and statusedit right button for other users-->
+                        {% if user == "admin" %}
+                            <td><a href="#" class="btn blue-grey">EDIT</a></td>
+                        {% else %}
+                            <td><a href="#" class="btn blue-grey">CHANGE STATUS</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor%}
+                </tbody>
+            </table>
+        </form>
+    <br>
+    </div>
     <!-- KPIS Summary - table-->
     <div class="row">
         <div class="col s6">
@@ -62,18 +105,19 @@
         </div>
     </div>
     <hr><br>
+    <!--Card panel for KPI summary-->
     <div class="card-panel">
         <table class="responsive-table highlight centered">
             <!-- KPIS Summary - headings-->
             <thead>
-                <tr>
+                <tr class="grey lighten-2">
                     <th>KPI</th>
                     <th>UoM</th>
                     <th>BSL</th>
                     <th>TGT</th>
                     <th>ACT</th>
                     <th>STATUS</th>
-                    <th>ACTION</th>
+                    <th>STATUS ACTION</th>
                 </tr>
             </thead>
             <!-- KPIS Summary - table body-->
@@ -85,22 +129,31 @@
                     <td>{{kpi.kpi_lastbsl}}</td>
                     <td>{{kpi.kpi_lasttgt}}</td>
                     <td>{{kpi.kpi_lastact}}</td>
-                    <td>
-                        {%if kpi.kpi_laststatus=="red" %}
-                            <h5><i class="fas fa-times-circle red-text"></i></h5>
+                    {%if kpi.kpi_laststatus=="red" %}
+                        <td>
+                            <i class="fas fa-times-circle red-text"></i>
+                        <td class="s12 m3">
+                            <div class="col s3">
+                                <a class="red btn text-shadow" href="{{ url_for('add_action')}}"> ACTION </a>
+                            </div>
+                        </td>
                         {%elif kpi.kpi_laststatus=="green"%}
-                            <h5><i class="fas fa-check-circle green-text"></i></h5>
+                            <td>
+                                <i class="fas fa-check-circle green-text"></i>
+                            </td>
+                            <td>  </td>
                         {% else %}
-                            <h5><i class="fas fa-circle grey-text"></i></h5>
-                        {%endif%}
-                    </td>
-                    <td class="s12 m3">
-                        <a href="{{url_for('add_action')}}" class="btn blue-grey text-shadow">ACTION</a>
-                    </td>
+                            <td>
+                                <i class="fas fa-circle grey-text"></i>
+                            </td>
+                            <td class="s12 m3">
+                                <a href="{{url_for('kpi_input')}}" class="btn blue-grey text-shadow"> INPUT </a>
+                            </td>                    
+                    {%endif%}
                 </tr>
                 {% endfor%}
             </tbody>
         </table>
     <br>
-</div>
+    </div>
 {% endblock %}

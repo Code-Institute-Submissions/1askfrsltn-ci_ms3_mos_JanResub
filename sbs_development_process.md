@@ -1707,14 +1707,166 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                         </tr>
                         {% endfor%}
 
-162. search functionality filter the list of kpis depending on user
+162. on userdashboard use search functionality to filter the list of kpis depending on user
 
                 step1: create search index for kpi collection in python3
+                CLI: from app import mongo
+                CLI: mongo.db.kpi.create_index([("kpi_owner","text")]) => 'kpi_owner_text'
 
                 step2: create ufnctionality to filter users based on kpi owner, admin should see all the kpis:
+                # define variable for automatic filter
+                user=session["user"]
+                
+                # define variable for kpis loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter
+                if user=="admin":
+                        kpis=mongo.db.kpi.find() 
+                else:
+                        kpis=list(mongo.db.kpi.find({"$text":{"$search":user}}))
+                step3: make sure that user variable is included in redirect function:
+
+163. on user dashboard kpi summary table - Add different buttons depending on kpi status red - action button, grey - kpi inputs button:
+
+164. Correct responsiveness of the KPI summary table:
+
+                <!--Card panel for KPI summary table-->
+                <div class="card-panel">
+                        <table class="responsive-table highlight centered">
+                
+                
+## FIX ACTIONS TABLE ON USER_DASBOARD TEMPLATE 
+165. Replace existing collapsible with table and for loop
+
+                <!-- Actions table -->
+                <div class="card-panel">
+                        <table class="responsive-table highlight centered">
+                        <!-- Actions table - headings-->
+                        <thead>
+                                <tr class="grey lighten-2">
+                                <th>No.</th>
+                                <th>Action</th>
+                                <th>Accountable</th>
+                                <th>Deadline</th>                                        
+                                <th>Status</th>                                        
+                                <th>  </th>                                        
+                                <th>Edit</th>                                        
+                                </tr>
+                        </thead>
+                        <!-- KPIS Summary - table body-->
+                                ...
+166. on user_dashboard add actioon loop :
+
+                <!-- KPIS Summary - table body-->
+                <tbody>
+                        {% for action in actions %}
+                        <tr>
+                        <td>{{action.action_refno}}</td>
+                        <td>{{action.action_name}}</td>
+                        <td>{{action.action_accountable}}</td>
+                        <td>{{action.action_due}}</td>
+                        <td>{{action.action_status}}</td>
+167. on user_dashboard Add status status check to assign the icon for each status:
+
+                <td>{{action.action_status}}</td>
+                {%if action.action_status=="not done" %}
+                        <td>
+                            <i class="fas fa-times-circle red-text"></i>
+                        </td>
+                        {%elif action.action_status=="done"%}
+                            <td>
+                                <i class="fas fa-check-circle green-text"></i>
+                            </td>
+                        {%elif action.action_status=="paused"%}
+                            <td>
+                                <i class="fas fa-pause-circle yellow-text"></i>
+                            </td>
+                        {% else %}
+                            <td>
+                                <i class="fas fa-circle grey-text"></i>
+                            </td>               
+                {%endif%} 
+
+168. on user_dashboard use if statement to define 2 buttons 1 for admin user and 1 for all the other users:
+
+                <!--add full edit right button for admin and statusedit right button for other users-->
+                {% if user == "admin" %}
+                        <td><a href="#" class="btn blue-grey">EDIT</a></td>
+                {% else %}
+                        <td><a href="#" class="btn blue-grey">CHANGE STATUS</a></td>
+                {% endif %}
+
+169. Add filter buttons to filter actions on user_dashboard:
+
+                <form action="#" method="POST" class="s12">
+                <!--Filters Section-->
+                <div class="row">
+                        <!--Filter dropdown-->
+                        <div class="col s6 m4">
+                        <select id="completionstatus_name" name="completionstatus_name" class="materialize-textarea validate" required>
+                                <option value="" disabled selected>{{ kpiselection }}</option>
+                                {%for cs in completionstatus%}
+                                <option value="{{cs.completionstatus_name}}">{{cs.completionstatus_name}}</option>
+                                {% endfor %}
+                                <label for="completionstatus_name"></label>
+                        </select>
+                        </div>
+                        <div class="col s2 center-align">
+                        <button type="submit" class="waves-effect blue-grey btn">
+                                <i class="fas fa-sort-amount-down"></i>
+                        </button>
+                        </div>
+                        <!--Reset button-->
+                        <div class="col s left">
+                        <a href="{{url_for('user_dashboard',username=session["user"])}}" class="red btn text-shadow"><i class="fas fa-refresh"></i></a>
+                        </div>
+                </div>
+                </form>
+170. Fix add_action template - add status field and update py function
+
+                add_achtion change 
+                <!--9. Current status - select-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-medal prefix"></i>
+                        <select id="action_status" name="action_status" class="validate" required>
+                            <option value="" disabled selected></option>
+                            {%for status in completionstatus%}
+                                <option value="{{status.completionstatus_name}}">{{status.completionstatus_name }}</option>
+                            {%endfor%}
+                        </select>
+                        <label for="action_status">Completion Status</label>
+                    </div>
+                </div>
+                update app.py:
+                if request.method=="POST":
+                        # create a variable for new action
+                        task={
+                        "action_refno": request.form.get("action_refno"),
+                        "action_name": request.form.get("action_name"),
+                        "action_due": request.form.get("action_due"),
+                        "action_accountable": request.form.get("action_accountable"),
+                        "action_dept": request.form.get("action_dept"),
+                        "action_logdate": request.form.get("action_logdate"),
+                        "action_meeting": request.form.get("action_meeting"),
+                        "action_workstream": request.form.get("action_workstream"),
+                        "action_status": request.form.get("action_status")
+                        }
+                        
+                        # insert new action inside actions collection
+                        mongo.db.actions.insert_one(task)
+                        
+                        # show the message that the operation was done successfully
+                        flash("New action was successfully added")
+                        return redirect(url_for('user_dashboard', username=session['user']))
 
 
-164. Correct
+169. Create edit_action template and py function for it
+
+                step1: CLI
+                step2: Content
+                step3: link and form on user_dashboard page
+                step4: Connect by funtion in py
+
+
 ## OTHER PROBLEMS TO SOLVE
 still to do:
 - fix user_dashboard link
