@@ -686,6 +686,39 @@ def edit_actionstatus(action_id):
         return redirect(url_for('user_dashboard', username=session["user"]))
     return render_template("edit_actionstatus.html",  action=action, completionstatus=completionstatus)
 
+# create edit_action function
+@app.route("/edit_action/<action_id>", methods=["POST", "GET"])
+def edit_action(action_id):
+    
+    # find the right action for update
+    action = mongo.db.actions.find_one({"_id": ObjectId(action_id)})
+    
+    # use completionsattus collection for status dropdawn on select element
+    completionstatus = mongo.db.completionstatus.find()
+    
+    # use completionsattus collection for status dropdawn on select element
+    users = mongo.db.users.find()
+    
+    # submit form update
+    if request.method=="POST":
+        # create variable for action update
+        editaction = {
+                "action_refno": request.form.get("action_refno"),
+                "action_name": request.form.get("action_name"),
+                "action_due": request.form.get("action_due"),
+                "action_accountable": request.form.get("action_accountable"),
+                "action_status": request.form.get("action_status")
+            }
+        
+        # update an action with actionstatus in collection - address only specific field that was changed
+        mongo.db.actions.update({"_id": ObjectId(action_id)},{"$set":editaction})
+        
+        # inform about successfull completion
+        flash("Action was updated")
+        
+        return redirect(url_for('user_dashboard', username=session["user"]))
+    return render_template("edit_action.html",  action=action, completionstatus=completionstatus, users=users)
+
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":

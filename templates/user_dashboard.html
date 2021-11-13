@@ -83,7 +83,7 @@
                         {%endif%} 
                         <!--add full edit right button for admin and statusedit right button for other users-->
                         {% if user == "admin" %}
-                            <td><a href="#" class="btn blue-grey">EDIT</a></td>
+                            <td><a href="{{url_for('edit_action',action_id=action._id)}}" class="btn blue-grey">EDIT</a></td>
                         {% else %}
                             <td><a href="{{url_for('edit_actionstatus',action_id=action._id)}}" class="btn blue-grey">CHANGE STATUS</a></td>
                         {% endif %}
