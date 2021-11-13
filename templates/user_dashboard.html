@@ -18,18 +18,19 @@
         <h6 class="align-left red-text text-darken-4">Filter by status:</h6>
         <!--from for filter button-->
         <form action="#" method="POST" class="s12">
-            <!--Filters Section-->
+            <!--Filters by status Section-->
             <div class="row">
                 <!--Filter dropdown-->
                 <div class="col s6 m4">
-                    <select id="completionstatus_name" name="completionstatus_name" class="materialize-textarea validate" required>
-                        <option value="" disabled selected>{{ kpiselection }}</option>
+                    <select id="action_status" name="action_status" class="materialize-textarea validate" required>
+                        <option value="" disabled selected></option>
                         {%for cs in completionstatus%}
                             <option value="{{cs.completionstatus_name}}">{{cs.completionstatus_name}}</option>
                         {% endfor %}
-                        <label for="completionstatus_name"></label>
+                        <label for="action_status"></label>
                     </select>
                 </div>
+                <!--filter button-->
                 <div class="col s2 center-align">
                     <button type="submit" class="waves-effect blue-grey btn">
                         <i class="fas fa-sort-amount-down"></i>
@@ -47,7 +48,7 @@
                         <th>No.</th>
                         <th>Action</th>
                         <th>Accountable</th>
-                        <th>Deadline</th>                                        
+                        <th>Deadline</th>                                       
                         <th>Status</th>                                        
                         <th>  </th>                                        
                         <th>Edit</th>                                        
@@ -84,7 +85,7 @@
                         {% if user == "admin" %}
                             <td><a href="#" class="btn blue-grey">EDIT</a></td>
                         {% else %}
-                            <td><a href="#" class="btn blue-grey">CHANGE STATUS</a></td>
+                            <td><a href="{{url_for('edit_actionstatus',action_id=action._id)}}" class="btn blue-grey">CHANGE STATUS</a></td>
                         {% endif %}
                     </tr>
                     {% endfor%}

@@ -125,11 +125,14 @@ def user_dashboard(username):
     # define variable for automatic filter
     user=session["user"]
     
-    # define variable for kpis loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter
+    # define variable for kpis and actions loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter
     if user == "admin":
-       kpis = mongo.db.kpi.find() 
+       kpis = mongo.db.kpi.find()
+       actions = mongo.db.actions.find() 
     else:
-        kpis=list(mongo.db.kpi.find({"$text":{"$search":user}}))
+        kpis = list(mongo.db.kpi.find({"$text":{"$search":user}}))
+        actions = list(mongo.db.actions.find({"$text":{"$search":user}}))
+
 
     # security function to celan cookies and passing actions into the loop
     if session["user"]: 
@@ -144,6 +147,7 @@ def user_dashboard(username):
 @app.route("/logout")
 def logout():
     flash("you have logged out")
+    
     # remove user from session cookies
     session.clear()
     return redirect("login")
@@ -173,7 +177,7 @@ def add_action():
         return redirect(url_for('user_dashboard', username=session['user']))
 
     # action counter - not perfect needds to be ahcnge later
-    action_dept =str(mongo.db.actions.find().count()+1)
+    action_dept =mongo.db.actions.find().count()+1
     
     # variables for selection dropdown lists on add_action template
     users = mongo.db.users.find().sort("user_name", 1)
@@ -182,6 +186,7 @@ def add_action():
     workstreams = mongo.db.workstreams.find().sort("workstream_name", 1)
     completionstatus = mongo.db.completionstatus.find()
 
+    # return render template using variables for dropdowns
     return render_template("add_action.html", 
         users=users,
         meetings=meetings,
@@ -547,10 +552,10 @@ def kpi_input():
 # filter function for kpi inputs page
 @app.route("/filter", methods = ["GET" , "POST"])
 def filter():
-    #  enable kpii for loop after filtering  
+    #  enable kpi for loop after filtering  
     kpi = mongo.db.kpi.find()
     
-    # make second from work after the filtering
+    # make second form work after the filtering
     input_kpiname = request.form.get("input_kpiname")
     
     # create variable for automatic KPI definition on the kpi input line 
@@ -654,6 +659,33 @@ def edit_kpiinput(kpiinput_id):
         return redirect(url_for('kpi_input'))
     return render_template("edit_kpiinput.html",  input=input, 
         user=user, owners=owners, kpis=kpis)
+
+# create edit_actionstatus input function
+@app.route("/edit_actionstatus/<action_id>", methods=["POST", "GET"])
+def edit_actionstatus(action_id):
+    
+    # find the right action for status update
+    action = mongo.db.actions.find_one({"_id": ObjectId(action_id)})
+    
+    # use completionsattus collection for status dropdawn on select element
+    completionstatus = mongo.db.completionstatus.find()
+    
+    # submit form update
+    if request.method=="POST":
+        # create variable for action update
+        editactionstatus = {
+                "action_status": request.form.get("action_status")
+            }
+        
+        # update an action with actionstatus in collection - address only specific field that was changed
+        mongo.db.actions.update({"_id": ObjectId(action_id)},{"$set":editactionstatus})
+        
+        # inform about successfull completion
+        flash("Action status was updated")
+        
+        return redirect(url_for('user_dashboard', username=session["user"]))
+    return render_template("edit_actionstatus.html",  action=action, completionstatus=completionstatus)
+
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":
