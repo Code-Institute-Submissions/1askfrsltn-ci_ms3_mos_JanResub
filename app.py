@@ -112,12 +112,9 @@ def register():
 # create route decorator for user dashboard page
 @app.route("/user_dashboard/<username>", methods=["POST", "GET"])
 def user_dashboard(username):
-    # create username variable
+    # create username variable for user_dashboard template entrance
     username = mongo.db.users.find_one(
         {"user_name": session["user"]})["user_name"]
-    
-    # create actions variable for the loop on user_dashboard
-    actions = mongo.db.actions.find()
     
     # create completionstatus variable for the loop on user_dashboard selected component
     completionstatus = mongo.db.completionstatus.find()
@@ -125,24 +122,49 @@ def user_dashboard(username):
     # define variable for automatic filter
     user=session["user"]
     
-    # define variable for kpis and actions loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter
+    # define variable for filtering selection
+    action_status=request.form.get('action_status')
+
+    # variable for action status selection after it has been selected by filter
+    actionstatusselection =  action_status
+    
+    # define variables for kpis and actions loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter, this nested conditions should also be used for filter section of actions
     if user == "admin":
-       kpis = mongo.db.kpi.find()
-       actions = mongo.db.actions.find() 
+        
+        # variable kpis for KPIs section when user is logged in as admin
+        kpis = mongo.db.kpi.find()
+        
+        # variable kpis for KPIs section when user is logged in as admin
+        actions = mongo.db.actions.find() 
+        
+        # action status filtering condition - activated after the action status is selected
+        if request.method == "POST":
+            actions = list(mongo.db.actions.find({"action_status":action_status}))
+    
+    # this part of the function is activated when the user logged in as non-admin
     else:
+        
+        # create kpis for KPI summary section if the user is non-admin
         kpis = list(mongo.db.kpi.find({"$text":{"$search":user}}))
-        actions = list(mongo.db.actions.find({"$text":{"$search":user}}))
+        # create actions variable for non-admin
+        actions = list(mongo.db.actions.find({"action_accountable": user}))
+        # create actions variable for non-admin when filter is activated
+        if request.method == "POST":
+            # this filter has 2 filters - user and action status that is selected from filter section
+            actions = list(mongo.db.actions.find({"action_accountable": user, "action_status":action_status}))   
 
-
-    # security function to celan cookies and passing actions into the loop
+    # pass all the variables into the loop
     if session["user"]: 
         return render_template("user_dashboard.html", 
             username=username,
             actions=actions,
             completionstatus=completionstatus,
             kpis=kpis,
-            user=user)
+            user=user,
+            action_status=action_status,
+            actionstatusselection=actionstatusselection)
     return redirect(url_for('login'), username=user)
+
 
 @app.route("/logout")
 def logout():

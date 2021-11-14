@@ -1717,15 +1717,56 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                 # define variable for automatic filter
                 user=session["user"]
                 
-                # define variable for kpis loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter
-                if user=="admin":
-                        kpis=mongo.db.kpi.find() 
+                step 3: define if conditions and use index filtering functionality inside user_dashboard function:
+                # define variables for kpis and actions loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter, this nested conditions should also be used for filter section of actions
+                if user == "admin":
+                        
+                        # variable kpis for KPIs section when user is logged in as admin
+                        kpis = mongo.db.kpi.find()
+                        
+                        # variable kpis for KPIs section when user is logged in as admin
+                        actions = mongo.db.actions.find() 
+                        
+                        # action status filtering condition - activated after the action status is selected
+                        if request.method == "POST":
+                        actions = list(mongo.db.actions.find({"action_status":action_status}))
+                
+                # this part of the function is activated when the user logged in as non-admin
                 else:
-                        kpis=list(mongo.db.kpi.find({"$text":{"$search":user}}))
-                step3: make sure that user variable is included in redirect function:
+                        # create kpis for KPI summary section if the user is non-admin
+                        kpis = list(mongo.db.kpi.find({"$text":{"$search":user}}))
+                        # create actions variable for non-admin
+                        actions = list(mongo.db.actions.find({"action_accountable": user}))
+                        # create actions variable for non-admin when filter is activated
+                        if request.method == "POST":
+                        # this filter has 2 filters - user and action status that is selected from filter section
+                        actions = list(mongo.db.actions.find({"action_accountable": user, "action_status":action_status}))   
+                
 
 163. on user dashboard kpi summary table - Add different buttons depending on kpi status red - action button, grey - kpi inputs button:
-
+                
+                {%if kpi.kpi_laststatus=="red" %}
+                        <td>
+                            <i class="fas fa-times-circle red-text"></i>
+                        <td class="s12 m3">
+                            <div class="col s3">
+                                <a class="red btn text-shadow" href="{{ url_for('add_action')}}"> ACTION </a>
+                            </div>
+                        </td>
+                        {%elif kpi.kpi_laststatus=="green"%}
+                            <td>
+                                <i class="fas fa-check-circle green-text"></i>
+                            </td>
+                            <td>  </td>
+                        {% else %}
+                            <td>
+                                <i class="fas fa-circle grey-text"></i>
+                            </td>
+                            <td class="s12 m3">
+                                <a href="{{url_for('kpi_input')}}" class="btn blue-grey text-shadow"> INPUT </a>
+                            </td>                    
+                    {%endif%}
+                </tr>
 164. Correct responsiveness of the KPI summary table:
 
                 <!--Card panel for KPI summary table-->
@@ -1859,13 +1900,17 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                         return redirect(url_for('user_dashboard', username=session['user']))
 
 
-169. Create edit_action template and py function for it
+169. Create edit_action for admin and edit_actionstatus for non-admiin templates and py function for it:
+        
+STEPS | Functionality | code |edit action | edit action status
+--|--|--|--|--
+step1: CLI copy | cp templates/edit_kpistatus.html | na |ok | ok
+step2: Content | html  |edit_actionstatus.html,edit_action.html,  |ok | ok
+step3: link and form on user_dashboard page | html user_dashboard.html | lines  |ok | ok
+step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
 
-                step1: CLI
-                step2: Content
-                step3: link and form on user_dashboard page
-                step4: Connect by funtion in py
-
+## ADD SPYSCROLL ON USER DASHBOARD
+170. Add 
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:

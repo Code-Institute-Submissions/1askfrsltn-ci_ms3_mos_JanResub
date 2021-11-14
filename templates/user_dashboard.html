@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
     <h4 class="center-align"> {{username.upper()}}'s DASHBOARD</h4>
-    <!--Actions Collapsible popup-->
+    </div>
+
+    <!--Actions-->
     <div class="row">
+        <!--Red title-->
         <div class="col s6">
             <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> Actions</h5>
         </div>
@@ -12,7 +15,6 @@
         </div>
     </div>
     <hr><br>
-    
     <!-- Actions table -->
     <div class="card-panel">
         <h6 class="align-left red-text text-darken-4">Filter by status:</h6>
@@ -23,7 +25,7 @@
                 <!--Filter dropdown-->
                 <div class="col s6 m4">
                     <select id="action_status" name="action_status" class="materialize-textarea validate" required>
-                        <option value="" disabled selected></option>
+                        <<option value="" disabled selected>{{ actionstatusselection }}</option>
                         {%for cs in completionstatus%}
                             <option value="{{cs.completionstatus_name}}">{{cs.completionstatus_name}}</option>
                         {% endfor %}
@@ -56,6 +58,7 @@
                 </thead>
                 <!-- KPIS Summary - table body-->
                 <tbody>
+                    <!--for loop for actoions-->
                     {% for action in actions %}
                     <tr>
                         <td>{{action.action_refno}}</td>
@@ -64,7 +67,7 @@
                         <td>{{action.action_due}}</td>
                         <td>{{action.action_status}}</td>
                         <!--check status and assign color icons -->
-                        {%if action.action_status=="not done" %}
+                        {%if action.action_status=="not_done" %}
                             <td>
                                 <i class="fas fa-times-circle red-text"></i>
                             </td>
@@ -130,6 +133,7 @@
                     <td>{{kpi.kpi_lastbsl}}</td>
                     <td>{{kpi.kpi_lasttgt}}</td>
                     <td>{{kpi.kpi_lastact}}</td>
+                    <!--add buttons depending on status, when red - Action needs to be added-->
                     {%if kpi.kpi_laststatus=="red" %}
                         <td>
                             <i class="fas fa-times-circle red-text"></i>
@@ -138,11 +142,13 @@
                                 <a class="red btn text-shadow" href="{{ url_for('add_action')}}"> ACTION </a>
                             </div>
                         </td>
+                         <!--no button-->
                         {%elif kpi.kpi_laststatus=="green"%}
                             <td>
                                 <i class="fas fa-check-circle green-text"></i>
                             </td>
                             <td>  </td>
+                        <!--add buttons depending on status, when grey - KPI status needs to be updated-->
                         {% else %}
                             <td>
                                 <i class="fas fa-circle grey-text"></i>
@@ -157,4 +163,7 @@
         </table>
     <br>
     </div>
+    
+    
+    
 {% endblock %}
