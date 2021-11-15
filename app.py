@@ -413,6 +413,14 @@ def delete_kpistatus(kpistatus_id):
     return redirect(url_for('setup'))
 
 
+# Action completion status delete function for setup template
+@app.route("/delete_completionstatus/<completionstatus_id>")
+def delete_completionstatus(completionstatus_id):
+    mongo.db.completionstatus.remove({"_id": ObjectId(completionstatus_id)})
+    flash("Action comlpetion status was deleted")
+    return redirect(url_for('setup'))
+
+
 # setp admin kpi inputs page
 @app.route("/add_kpi", methods=["POST","GET"])
 def add_kpi():
