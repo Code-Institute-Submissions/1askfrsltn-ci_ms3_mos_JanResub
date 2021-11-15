@@ -7,7 +7,7 @@
     <div class="row">
         <!--Red title-->
         <div class="col s6">
-            <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> Actions</h5>
+            <h5 class="align-left red-text text-darken-4"> <i class=" prefix fas fa-list"></i> Actions</h5>
         </div>
         <!--button "add_action"-->
         <div class="col s4 right">
@@ -81,7 +81,7 @@
                                 </td>
                             {% else %}
                                 <td>
-                                    <i class="fas fa-circle grey-text"></i>
+                                    <i class="far fa-circle grey-text"></i>
                                 </td>               
                         {%endif%} 
                         <!--add full edit right button for admin and statusedit right button for other users-->
@@ -100,7 +100,7 @@
     <!-- KPIS Summary - table-->
     <div class="row">
         <div class="col s6">
-            <h5 class="align-left red-text text-darken-4"> <i class="fas fa-list"></i> KPI Summary</h5>
+            <h5 class="align-left red-text text-darken-4"> <i class="prefix fas fa-chart-line"></i> KPI Summary</h5>
         </div>
         <!--button "add_action"-->
         <div class="col s4 right">
@@ -151,7 +151,7 @@
                         <!--add buttons depending on status, when grey - KPI status needs to be updated-->
                         {% else %}
                             <td>
-                                <i class="fas fa-circle grey-text"></i>
+                                <i class="far fa-circle grey-text"></i>
                             </td>
                             <td class="s12 m3">
                                 <a href="{{url_for('kpi_input')}}" class="btn blue-grey text-shadow"> INPUT </a>

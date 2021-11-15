@@ -11,6 +11,7 @@
                 <!-- kpiinput name - text-->
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="fas fa-ellipsis-h prefix blue-grey-text"></i>
                         <input value="{{input.input_kpiname}}" id="input_kpiname" name="input_kpiname" type="text" class="validate" required>
                         <label for="input_kpiname">KPI name</label>
                     </div>
@@ -18,7 +19,7 @@
                 <!-- kpiinput logdate - datepicker -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-calendar-alt prefix"></i>
+                        <i class="fas fa-calendar-alt prefix blue-grey-text"></i>
                         <input value="{{input.input_logdate}}"id="input_logdate" name="input_logdate" type="text" class="datepicker validate" required>
                         <label for="input_logdate" >Log Date</label>
                     </div>
@@ -26,6 +27,7 @@
                 <!-- kpiinput weeknumber - text-->
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="fas fa-calendar-week prefix blue-grey-text"></i>
                         <input value="{{input.input_weeknumber}}" id="input_weeknumber" name="input_weeknumber" type="text" class="validate" required>
                         <label for="input_weeknumber">Weeknumber</label>
                     </div>
@@ -33,6 +35,7 @@
                 <!-- kpiinput uom - text-->
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="fas fa-ruler prefix blue-grey-text"></i>
                         <input value="{{input.input_uom}}" id="input_uom" name="input_uom" type="text" class="validate" required>
                         <label for="input_uom">Unit of measure</label>
                     </div>
@@ -40,6 +43,7 @@
                 <!-- kpiinput bsl- text -->
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="fas fa-terminal prefix blue-grey-text"></i>
                         <input value="{{input.input_bsl}}" id="input_bsl" name="input_bsl" type="text" class="validate" required>
                         <label for="input_bsl">Baseline</label>
                     </div>
@@ -47,6 +51,7 @@
                 <!-- kpiinput tgt- text -->
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="fas fa-crosshairs prefix blue-grey-text"></i>
                         <input value="{{input.input_tgt}}" id="input_tgt" name="input_tgt" type="text" class="validate" required>
                         <label for="input_tgt">Target</label>
                     </div>
@@ -54,6 +59,7 @@
                 <!-- kpiinput act- text -->
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="far fa-chart-bar prefix blue-grey-text"></i>
                         <input value="{{input.input_act}}" id="input_act" name="input_act" type="text" class="validate" required>
                         <label for="input_act">Actual</label>
                     </div>
@@ -61,6 +67,7 @@
                 <!-- kpiinput status - text -->
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="fas fa-medal prefix blue-grey-text"></i>
                         <input value="{{input.input_status}}" id="input_status" name="input_status" type="text" class="validate" required>
                         <label for="input_status"> Status </label>
                     </div>
@@ -68,6 +75,7 @@
                 <!-- kpiinput owner - select -->
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="fas fa-user prefix blue-grey-text"></i>
                         <select id="input_kpiowner" name="input_kpiowner" class="materialize-textarea validate" required>
                             <option value="{{input.input_kpiowner}}" disabled selected>{{user}}</option>
                             {%for owner in owners %}

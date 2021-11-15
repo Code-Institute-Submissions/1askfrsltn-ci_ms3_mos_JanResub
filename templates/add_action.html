@@ -9,7 +9,7 @@
                 <!--1. input field: ref number, automatic-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-list-ol prefix"></i>
+                        <i class="fas fa-list-ol prefix blue-grey-text"></i>
                         <input disabled value="" id="action_refno" name="action_refno" type="text" class="validate">
                         <label for="action_refno">{{action_refno}}</label>
                     </div>
@@ -17,7 +17,7 @@
                 <!--2. input field: logdate, automatic-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-calendar-alt prefix"></i>
+                        <i class="fas fa-calendar-alt prefix blue-grey-text"></i>
                         <input id="action_logdate" name="action_logdate" type="text" class="datepicker validate" required>
                         <label for="action_logdate" >Log Date</label>
                     </div>
@@ -25,7 +25,7 @@
                 <!--3. input field: action, text-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-align-left prefix"></i>
+                        <i class="fas fa-ellipsis-h prefix blue-grey-text"></i>
                         <textarea id="action_name" name="action_name" class="materialize-textarea validate" data-length="120" required></textarea>
                         <label for="action_name">Action</label>
                     </div>
@@ -33,7 +33,7 @@
                 <!--4. input field: deadline, date picker-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-calendar-alt prefix"></i>
+                        <i class="fas fa-calendar-check prefix blue-grey-text"></i>
                         <input id="action_due" name="action_due" type="text" class="datepicker validate" required>
                         <label for="action_due" >Due Date</label>
                     </div>
@@ -41,7 +41,7 @@
                 <!--5. input field: accountable, select component-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-user prefix"></i>
+                        <i class="fas fa-user prefix blue-grey-text"></i>
                         <select id="action_accountable" name="action_accountable" class="materialize-textarea validate" required>
                             <option value="" disabled selected></option>
                             {%for user in users %}
@@ -54,7 +54,7 @@
                 <!--6. input field: department, select component-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-building prefix"></i>
+                        <i class="fas fa-building prefix blue-grey-text"></i>
                         <select id="action_dept" name="action_dept" class="validate" required>
                             <option value="" disabled selected></option>
                             {%for dept in depts %}
@@ -67,7 +67,7 @@
                 <!--7. input field: meeting, select component-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-users prefix"></i>
+                        <i class="fas fa-users-cog prefix blue-grey-text"></i>
                         <select id="action_meeting" name="action_meeting" class="validate" required>
                             <option value="" disabled selected></option>
                             {%for meeting in meetings%}
@@ -80,7 +80,7 @@
                 <!--8. input field: workstream, select-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-stream prefix"></i>
+                        <i class="fas fa-stream prefix blue-grey-text"></i>
                         <select id="action_workstream" name="action_workstream" class="validate" required>
                             <option value="" disabled selected></option>
                             {%for workstream in workstreams%}
@@ -93,7 +93,7 @@
                 <!--9. Current status - select-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-medal prefix"></i>
+                        <i class="fas fa-medal prefix blue-grey-text"></i>
                         <select id="action_status" name="action_status" class="validate" required>
                             <option value="" disabled selected></option>
                             {%for status in completionstatus%}

@@ -111,13 +111,51 @@ Website colors and design team will be simple and neutral, it means - limited am
     Visuals - KPI target|blue-grey darken-4| #263238 
     Visuals - action status - complete| green accent-4|#00c853
     Visuals - action status - not complete|red| #f44336 
-    Contrast Icons|blue-grey darken-1|#546e7a
     Non-contracts Icons|blue-grey lighten-4| #cfd8dc
+    Contrast Icons|blue-grey darken-1|#546e7a
 
-
-
-  * Fonts
+  * FONTS
   I will use traditional business fonts - "Roboto" and "Sans Serif", or Lato and PT Sans.
+  * ICONS
+  Template  | icon | FontAwesome code
+    -|-|-
+  register | name                       | fas fas fa-user-plus
+  register | email                      | fas fa-envelope
+  register |  password                  | fas fa-unlock
+  register |  button                    | fas fa-running, fas fa-sign-in-alt
+  login |  name                         | fas fa-user-cog
+  login |  password                     | fas fa-user-lock
+  login |  button                       | fas fa-sign-in-alt
+  user_dashboard |  Actions             | fas fa-list
+  user_dashboard |  filter button       | fa-sort-amount-down
+  user_dashboard |  filter refresh button       | fas fa-refresh
+  user_dashboard |  action status not done  | fa-times-circle
+  user_dashboard |  action status done  | fas fa-check-circle
+  user_dashboard |  button status paused  | fas fa-pause-circle
+  user_dashboard |  button status not started  | far fa-circle
+  user_dashboard |  KPI Summary         | fas fa-chart-line
+  kpi_input |  KPI Inputs               | fas fa-chart-line, fas fa-caret-right
+  kpi_input |  filter               | fas fa-sort-amount-down
+  kpi_input |  filter               | fas fa-refresh
+  add_action | Action number        | fas fa-list-ol
+  add_action | Logdate              | fas fa-calendar-alt
+  add_action | Action  name         | fas fa-ellipsis-h
+  add_action | Due Date             | fas fa-calendar-check
+  add_action | Accountable          | fas fa-user
+  add_action | Department           | fas fa-building
+  add_action | Meeting              | fas fa-users-cog
+  add_action | Worksream            | fas fa-stream
+  add_action | Completion Status    | fas fa-medal
+  edit_kpiinput | KPI name    | fas fa-ellipsis-h
+  edit_kpiinput | KPI logdate    | fas fa-calendar-alt
+  edit_kpiinput | Weeknumber    | fas fa-calendar-week
+  edit_kpiinput | Unit of Measure    | fas fa-ruler
+  edit_kpiinput | baseline    | fas fa-terminal
+  edit_kpiinput | target    | fas fa-crosshairs
+  edit_kpiinput | Actual    | fas fa-chart-bar
+  edit_kpiinput | Status    | fas fa-medal
+  edit_kpiinput | Owner    | fas fa-user
+
 
 ### FEATURES
   * Existing Features
@@ -147,7 +185,7 @@ Website colors and design team will be simple and neutral, it means - limited am
     21 | Spyscroll for long pages | setup, app.py, js, materialise | done 
 
     
-  * Features left to Implement
+  * Features left to Implement as of 15-nov
     no. | Feature | Page | Status | Priority/Comment
     --|--|--|--| --|
     1 | Automate action numbers on add_action template                    | add_action | not done | 1 - MUST
@@ -157,23 +195,27 @@ Website colors and design team will be simple and neutral, it means - limited am
     5 | Make logdate automatic                                            | add_action.html | not done | 3 - last
     6 | Automate action accountable based on user                         | add_action.html | not done | 3 - not crtical
     7 | Split function on def user_dashboard app.py                       | app.py | not done | 2 - will add points
-    8 | Add completion status setup form                                  | edit_status, app.py | not done | 1 - MUST
+    8 | Add completion status setup forms                                  | edit_status, app.py | **done** | 1 - MUST
     9 | Make navbar inner                                                 | base.html, css | not done | 3 - nice to have
-    10 | Add logo                                                         | base.html, img | not done | 3 - nice to have
-    11 | Add logo                                                         | base.html, css | not done | 3 - nice to have
-    12 | Update user stories to reflect on what was coded                 | readme | not done | 1 - MUST
-    13 | Create README table of content                                   | readme | not done | 1 - MUST
-    14 | Create testing page and table of content in md                   | readme | not done | 1 - MUST
-    15 | Test application - log details                                   | readme | not done | 1 - MUST
-    16 | Standardise all forms and icons                                  | application | not done | 1 - MUST
-    17 | Standardise all icons                                            | application | not done | 2 - UX nice to have
-    18 | Add accountable on KPI input                                     | kpi input | not done | 1 - UX nice to have
-    19 | Add KPI input sign based on act-tgt delta                        | kpi input | not done | 3 - UX nice to have
-    20 | Add security condition on each page                              | all templates | not done | 1 - must
-    21 | Delete exisiting, add  KPI inputs for 4 KPIs for last 10 weeks   | KPI inputs, mongo | not done | 1 - good to have
-    22 | Make meetings filter on a home page                              | home, app.py | not done | 1 - finsih project
-    23 | Make s,m,l responsive classes on all forms                       | application| not done | 2 - finsih project
-    24 | change flash message                                             | application| not done | 3 - nice to have
+    10 | Add logo                                                         | base.html, css | not done | 3 - nice to have
+    11 | Update user stories to reflect on what was coded                 | readme | not done | 1 - MUST
+    12 | Create README table of content                                   | readme | not done | 1 - MUST
+    13 | Create testing page and table of content in md                   | readme | not done | 1 - MUST
+    14 | Test application - log details                                   | readme | not done | 1 - MUST
+    15 | Standardise all forms                                           | application | not done | 1 - MUST
+    16 | Standardise all icons                                            | application | **done** | 2 - UX nice to have
+    17 | Add accountable on KPI input                                     | kpi input | not done | 1 - UX nice to have
+    18 | Add KPI input sign based on act-tgt delta                        | kpi input | not done | 3 - UX nice to have
+    19 | Add security condition on each page                              | all templates | not done | 1 - must
+    20 | Delete exisiting, add  KPI inputs for 4 KPIs for last 10 weeks   | KPI inputs, mongo | not done | 1 - good to have
+    21 | Make meetings filter on a home page                              | home, app.py | not done | 1 - finsih project
+    22 | Make s,m,l responsive classes on all forms                       | application| not done | 2 - finsih project
+    23 | change flash message                                             | application| not done | 3 - nice to have
+    24 | add last logdat action                                           | user_dashboard| not done | 3 - nice to have
+    25 | add kpiinput status on a table                                   | kpi_input| not done | 3 - nice to have
+    26 | add filter by status on kpistatus table                          | kpi_input| not done | 3 - nice to have
+    27 | add kpiinput owner on a table                                    | kpi_input| not done | 3 - nice to have
+    28 | add modal warning about deletion                                 | setup    | not done | 1 - defensive programming
 
 ### TECHNOLOGIES
   * Languages
