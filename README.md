@@ -121,20 +121,58 @@ Website colors and design team will be simple and neutral, it means - limited am
 
 ### FEATURES
   * Existing Features
-    - xxx
+    no. | Feature | Page | Status 
+    --|--|--|--
+    0  | Template using Flask | base.html | done
+    1  | Register page with basic security requirements | register.html | done
+    2  | Login page  for other users | login.html | done
+    3  | Navbar on base template + mobile navbar | base.html | done
+    4  | Input forms | add_action, kpi_inputs + 6 templates connected to setup | done
+    5  | Edit input forms | 9 templates - edit_kpi | done
+    6  | Show buttons based on user rights | user_dashboard | done
+    7  | Connect input forms to MongoDb | app.py | done
+    8  | Dropdowns based on materialise select library | add/edit templates, app.py, js | done
+    9  | Calendar datepicker | add/edit templates, app.py | done
+    10 | Calendar datepicker | add/edit templates, app.py | done
+    11 | For loops to visualise content form mongo collections | user_dashboard, app.py | done
+    12 | Automatic filtering inside for loops based on user login | user_dashboard, app.py | done
+    13 | Dropdown filters of actions and KpIs for "for" loops | user_dashboard, kpiinput, app.py | done
+    14 | Automatic icons setup based on action status | user_dashboard, app.py | done 
+    15 | Table buttons that depend on user on KPI status | user_dashboard, app.py | done 
+    16 | Cancell buttons to return to user_dashboard | add/edit forms | done 
+    17 | CREATE new inputs as mongo document in collection | user_dashboard, kpi_inputs, app.py | done  
+    18 | READ inputs in mongodb document in collection | user_dashboard, kpi_inputs, app.py | done 
+    19 | UPDATE inputs in mongodb document in collection | 9 edit forms, app.py | done 
+    20 | DELETE inputs / documents in collection | setup, app.py | done 
+    21 | Spyscroll for long pages | setup, app.py, js, materialise | done 
+
+    
   * Features left to Implement
-    - Login page with basic security functionality
-    - Register page with basic security requirements
-    - User rights
-    - Navbar
-    - Sidebar for mobile version
-    - Spycroller
-    - Input form
-    - Search
-    - Charts Dashboards
-    - Modals warning about irreversibility of operation (delete, edit etc.)
-    - send emails to participants once the action is updated
-    - assign user rights
+    no. | Feature | Page | Status | Priority/Comment
+    --|--|--|--| --|
+    1 | Automate action numbers on add_action template                    | add_action | not done | 1 - MUST
+    2 | Automate weeknumbers for all inputs                               | add_action | not done | 2 - GOOD TO HAVE
+    3 | Change KPI input form                                             | kpi_input | not done | 2 - GOOD TO HAVE
+    4 | Connect meetings page to PowerBI                                  | home.html | not done | 3 - last, important
+    5 | Make logdate automatic                                            | add_action.html | not done | 3 - last
+    6 | Automate action accountable based on user                         | add_action.html | not done | 3 - not crtical
+    7 | Split function on def user_dashboard app.py                       | app.py | not done | 2 - will add points
+    8 | Add completion status setup form                                  | edit_status, app.py | not done | 1 - MUST
+    9 | Make navbar inner                                                 | base.html, css | not done | 3 - nice to have
+    10 | Add logo                                                         | base.html, img | not done | 3 - nice to have
+    11 | Add logo                                                         | base.html, css | not done | 3 - nice to have
+    12 | Update user stories to reflect on what was coded                 | readme | not done | 1 - MUST
+    13 | Create README table of content                                   | readme | not done | 1 - MUST
+    14 | Create testing page and table of content in md                   | readme | not done | 1 - MUST
+    15 | Test application - log details                                   | readme | not done | 1 - MUST
+    16 | Standardise all forms and icons                                  | application | not done | 1 - MUST
+    17 | Standardise all icons                                            | application | not done | 2 - UX nice to have
+    18 | Add accountable on KPI input                                     | kpi input | not done | 1 - UX nice to have
+    19 | Add KPI input sign based on act-tgt delta                        | kpi input | not done | 3 - UX nice to have
+    20 | Add security condition on each page                              | all templates | not done | 1 - must
+    21 | Delete exisiting, add  KPI inputs for 4 KPIs for last 10 weeks   | KPI inputs, mongo | not done | 1 - good to have
+    22 | Make meetings filter on a home page                              | home, app.py | not done | 1 - finsih project
+    23 | Make s,m,l responsive classes on all forms                       | application| not done | 1 - finsih project
 
 ### TECHNOLOGIES
   * Languages
@@ -151,7 +189,7 @@ Website colors and design team will be simple and neutral, it means - limited am
   * API's
     - Power BI for Dashboard
     - Mongo DB connector to Power BI
-  * - Databases 
+    - Databases 
     - Mongo DB - non-relational database
   * Tools
 #
