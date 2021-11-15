@@ -1909,8 +1909,77 @@ step2: Content | html  |edit_actionstatus.html,edit_action.html,  |ok | ok
 step3: link and form on user_dashboard page | html user_dashboard.html | lines  |ok | ok
 step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
 
-## ADD SPYSCROLL ON USER DASHBOARD
-170. Add 
+## UPDTAE README - LIST OF THINGS TO DO BEFORE MS3 OMPLETION
+170. On README file created a list of 28 items, prioritised them to make the application ready for submission:
+
+                Features left to Implement as of 15-nov
+                no. | Feature | Page | Status | Priority/Comment
+                --|--|--|--| --|
+                1 | Automate action numbers on add_action template                    | add_action | not done | 1 - MUST
+                ...
+
+## WORKING ON 28 FINAL ITEMS
+171. Added completion status to setup page, developed add, edit, delete templates, added appropriate unctions
+
+172. Added a button to delete actions from edit_actions template (only admin rights)
+
+173. Stanardised icons across the appliaction
+
+174. Standardised 8 add and 10 edit forms 
+
+175. Solved PROBLEM with automatic actions numbering on add_action template:
+
+                on app.py inide add_action fuction:
+                # added varialble for action_number on add_action form
+                action_number = str(mongo.db.actions.find().count()+1)
+
+                and:
+                # create a variable for new action
+                task={
+                # used action nuumber variabe to input into mongodb
+                "action_refno": action_number,
+                "action_name": request.form.get("action_name"),
+                "action_due": request.form.get("action_due"),
+                "action_accountable": request.form.get("action_accountable"),
+                "action_dept": request.form.get("action_dept"),
+                "action_logdate": request.form.get("action_logdate"),
+                "action_meeting": request.form.get("action_meeting"),
+                "action_workstream": request.form.get("action_workstream"),
+                "action_status": request.form.get("action_status")
+                } 
+
+                on add_action template:
+                <!--1. input field: ref number, automatic-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-list-ol prefix blue-grey-text"></i>
+                        <input disabled value="{{action_number}}"  
+176. Solved PROBLEM with automatic date and weeknumber for add_kpiinput logdate:
+
+                on add_kpiinput:
+                <!-- 2. kpiinput logdate - datepicker -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-calendar-alt prefix blue-grey-text"></i>
+                        <input value="{{today}}" id="input_logdate" name="input_logdate" type="text" class="datepicker validate" required>
+                        <label for="input_logdate" >Log Date</label>
+                    </div>
+                </div>
+                <!-- 3. kpiinput weeknumber - text-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-calendar-week prefix blue-grey-text"></i>
+                        <input value="{{weeknumber}}" id="input_weeknumber" name="input_weeknumber" type="text" class="validate" required>
+                        <label for="input_weeknumber">Weeknumber</label>
+                    </div>
+                </div>
+                
+                on app.py
+                # variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
+                today=date.today().strftime("%d-%m-%Y")
+
+                # variable for weeknumber, python documentation source: https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime 
+                weeknumber=date.today().strftime("%W")
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:

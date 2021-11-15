@@ -188,9 +188,9 @@ Website colors and design team will be simple and neutral, it means - limited am
   * Features left to Implement as of 15-nov
     no. | Feature | Page | Status | Priority/Comment
     --|--|--|--| --|
-    1 | Automate action numbers on add_action template                    | add_action | not done | 1 - MUST
-    2 | Automate weeknumbers for all inputs                               | add_action | not done | 2 - GOOD TO HAVE
-    3 | Change KPI input form                                             | kpi_input | not done | 2 - GOOD TO HAVE
+    1 | Automate action numbers on add_action template                    | add_action | **done** | 1 - MUST
+    2 | Automate weeknumbers for all inputs                               | add_action | **done** | 2 - GOOD TO HAVE
+    3 | Change KPI input form                                             | kpi_input | not done | 1 - MUST
     4 | Connect meetings page to PowerBI                                  | home.html | not done | 3 - last, important
     5 | Make logdate automatic                                            | add_action.html | not done | 3 - last
     6 | Automate action accountable based on user                         | add_action.html | not done | 3 - not crtical

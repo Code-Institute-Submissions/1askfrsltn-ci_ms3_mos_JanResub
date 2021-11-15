@@ -6,7 +6,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 # import datetie method: from datetime import datetime
-from datetime import datetime
+from datetime import date
 
 # connect env.py if it was created
 if os.path.exists("env.py"):
@@ -578,9 +578,12 @@ def add_action():
     
     action_number = str(mongo.db.actions.find().count()+1)
     if request.method=="POST":
+        # added varialble for action_number on add_action form
         action_number = str(mongo.db.actions.find().count()+1)    
+        
         # create a variable for new action
         task={
+            # used action nuumber variabe to input into mongodb
             "action_refno": action_number,
             "action_name": request.form.get("action_name"),
             "action_due": request.form.get("action_due"),
@@ -651,6 +654,18 @@ def filter():
 # function to add kpiinput
 @app.route("/add_kpiinput", methods=["GET","POST"])
 def add_kpiinput():
+    # variable for kpistatuss dropdown
+    kpistatuss=mongo.db.kpistatuss.find()
+
+    # variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
+    today=date.today().strftime("%d-%m-%Y")
+
+    # variable for weeknumber, python documentation source: https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime 
+    weeknumber=date.today().strftime("%W")
+
+    # variable for kpi_owner 
+    owners=mongo.db.users.find()
+
     # if request method is post condition
     if request.method == "POST":
         
@@ -666,6 +681,7 @@ def add_kpiinput():
             "input_act": request.form.get("input_act"),
             "input_status": request.form.get("input_status")
         }
+
         # insert new kpi input inside kpiinputs collection
         mongo.db.kpiinputs.insert_one(kpiinput)
         
@@ -686,7 +702,11 @@ def add_kpiinput():
         
         # redirect to home page
         return redirect(url_for('kpi_input')) 
-    return render_template("kpi_input.html", kpiintputs=kpiintputs)
+    return render_template("add_kpiinput.html", 
+        kpistatuss=kpistatuss,
+        owners=owners,
+        weeknumber=weeknumber,
+        today=today)
 
 
 # create edit_kpi input function
@@ -737,8 +757,12 @@ def edit_kpiinput(kpiinput_id):
         flash("KPI input update successfull!")
         
         return redirect(url_for('kpi_input'))
-    return render_template("edit_kpiinput.html",  input=input, 
-        user=user, owners=owners, kpis=kpis)
+    return render_template("edit_kpiinput.html",  
+        input=input, 
+        user=user, 
+        owners=owners, 
+        kpis=kpis)
+
 
 # create edit_actionstatus input function
 @app.route("/edit_actionstatus/<action_id>", methods=["POST", "GET"])

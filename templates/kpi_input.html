@@ -9,60 +9,15 @@
             <h5 class="align-left red-text text-darken-4"> <i class="fas fa-chart-line"></i><i class="fas fa-caret-right"></i> KPI Inputs</h5>
         </div>
         <!--button cancel-->
-        <div class="col s4 right">
-            <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('home')}}"> MEETING DASHBAORD </a></h5>
+        <div class="col s3 right">
+            <h5> <a class="waves-effect waves-teal btn-flat" href="{{url_for('add_kpiinput')}}"> ADD INPUT </a></h5>
         </div>
     </div>
     <hr><br>
     <!--New KPI Input-->
     
     <div class="row card-panel grey lighten-5 s12">
-        <h6 class="align-left red-text text-darken-4">Enter new inputs for KPI:</h6>
-        <form class="col s12" method="POST" action="{{url_for('add_kpiinput')}}">
-            <!-- KPIS Table - headings-->
-            <div class="table"> 
-                <div class="table-row s12">
-                    <div class="table-cell">
-                        <input value="{{ kpiselection }}" id="input_kpiname" name="input_kpiname" type="text" class="validate"required>
-                        <label for="input_kpiname">KPI</label>
-                    </div>
-                    <div class="table-cell"> 
-                        <input id="input_logdate" name="input_logdate" type="text" class="datepicker center-align" required>
-                        <label for="input_logdate">Log Date</label>
-                    </div>
-                    <div class="table-cell">
-                        <input value="" id="input_weeknumber" name="input_weeknumber" type="text" class="validate"required>
-                        <label for="input_weeknumber">week</label>
-                    </div>
-                    <div class="table-cell"> 
-                        <input value="" id="input_uom" name="input_uom" type="text" class="validate" required>
-                        <label for="input_uom">uom</label>
-                    </div>
-                    <div class="table-cell"> 
-                        <input value="" id="input_bsl" name="input_bsl" type="text" class="validate" required>
-                        <label for="input_bsl">bsl</label>
-                    </div>
-                    <div class="table-cell"> 
-                        <input value="" id="input_tgt" name="input_tgt" type="text" class="validate" required>
-                        <label for="input_tgt">tgt</label>
-                    </div>
-                    <div class="table-cell"> 
-                        <input value="" id="input_act" name="input_act" type="text" class="validate" required>
-                        <label for="input_act">act</label>
-                    </div>
-                    <div class="table-cell"> 
-                        <input value="" id="input_status" name="input_status" type="text" class="validate" required>
-                        <label for="input_status">status</label>
-                    </div>
-                    <!--Button to add inputs-->
-                    <div class="table-cell">
-                        <button type="submit" class="btn green text-shadow">
-                            ADD 
-                        </button>
-                    </div>
-                </div>
-            </div> 
-        </form>
+        <h6 class="align-left red-text text-darken-4">Filter Inputs:</h6>
     </div>
     <!--KPI Inputs-->
     <div class="row card-panel grey lighten-5 s12">
@@ -98,6 +53,7 @@
             <thead>
                 <tr class="grey lighten-2">
                     <th>KPI</th>
+                    <th>Owner</th>
                     <th>Date</th>
                     <th>Week</th>
                     <th>UoM</th>
@@ -113,13 +69,27 @@
                 {%for input in kpiintputs %}
                     <tr>
                         <td>{{ input.input_kpiname }}</td>
+                        <td>{{ input.input_kpiowner }}</td>
                         <td>{{ input.input_logdate }}</td>
                         <td>{{ input.input_weeknumber }}</td>
                         <td>{{ input.input_uom }}</td>
                         <td>{{ input.input_bsl }}</td>
                         <td>{{ input.input_tgt }}</td>
                         <td>{{ input.input_act }}</td>
-                        <td>{{ input.input_status }}</td>
+                        <!--check status and assign color icons -->
+                        {%if input.input_status=="red" %}
+                            <td>
+                                <i class="fas fa-times-circle red-text"></i>
+                            </td>
+                            {%elif input.input_status=="green"%}
+                                <td>
+                                    <i class="fas fa-check-circle green-text"></i>
+                                </td>
+                            {% else %}
+                                <td>
+                                    <i class="far fa-circle grey-text"></i>
+                                </td>               
+                        {%endif%}
                         <td><a href="{{ url_for('edit_kpiinput',  kpiinput_id = input._id)}}" class="btn blue-grey">EDIT</a>
                         </td>
                     </tr>

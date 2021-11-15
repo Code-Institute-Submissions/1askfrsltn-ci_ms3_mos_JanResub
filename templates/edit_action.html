@@ -11,7 +11,7 @@
                     <div class="input-field col s9 center-align offset-m1">
                         <i class="fas fa-list-ol prefix blue-grey-text">   </i>
                         <input value="{{action.action_refno}}" id="action_refno" name="action_refno" type="text" class="validate" required>
-                        <label for="action_refno">Reference number</label>
+                        <label for="action_refno">Action number</label>
                     </div>
                 </div>
                 <!-- action -->
@@ -60,17 +60,15 @@
                 <div class="row">
                     <!--Cancell Button-->
                     <div class="col s4">
-                        <a href="{{url_for('user_dashboard', username=session['user'])}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                        <a href="{{url_for('user_dashboard', username=session['user'])}}" class="waves-effect red waves-light btn right">CANCEL</a>
                     </div>
                     <!--edit action Button-->
-                    <div class="row">
-                        <div class="col s4 center">
-                            <button type="submit" class="btn blue-grey text-shadow">SUBMIT</button> 
-                        </div>
+                    <div class="col s4 center-align">
+                        <button type="submit" class="waves-effect blue-grey waves-light btn">SUBMIT</button> 
                     </div>
                     <!--delete-->
-                    <div class="col s4 right">
-                        <a href="{{url_for('delete_action', action_id=action._id, username=session['user'])}}" class="waves-effect red waves-light right btn ">DELETE</a>
+                    <div class="col s4 left">
+                        <a href="{{url_for('delete_action', action_id=action._id, username=session['user'])}}" class="waves-effect red waves-light btn ">DELETE</a>
                     </div>
                 </div>           
             </div>
