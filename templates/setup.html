@@ -259,6 +259,44 @@
                         </ul>
                     </div>
             </div>
+            <!--Action Completion Statuses scrollspy section-->
+            <div id="completionstatus" class="section scrollspy">
+                <!--title and add button-->
+                <div class="row">
+                    <div class="col s6">
+                        <h5 class="align-left red-text text-darken-4"> <i class="fas fa-trophy"></i> Action Completion Statuses </h5>
+                    </div>
+                    <!--button "add_action"-->
+                    <div class="col s4 right">
+                        <h5> <a class="waves-effect waves-teal btn-flat" href="{{ url_for('add_completionstatus')}}"> ADD NEW </a></h5>
+                    </div>
+                </div>
+                <hr><br>
+                    <!--add all action completion statuses-->
+                    <div class="row">
+                        <ul class="collection">
+                            <div class="col s12">
+                            {% for status in completionstatus %}
+                                <li class="collection-item">
+                                    <div class="row">
+                                        <div class="col s6 center-align">
+                                            <strong>
+                                                <p>{{ status.completionstatus_name }}</p>
+                                            </strong>
+                                        </div>
+                                        <div class="col s3 center-align">
+                                            <p><a href="#" class="btn blue-grey text-shadow">EDIT</a></p>
+                                        </div>
+                                        <div class="col s3 center-align">
+                                            <p><a href="#" class="btn red text-shadow center-allign">DELETE</a></p>
+                                        </div>
+                                    </div>  
+                                </li>
+                            {% endfor %}
+                        </div>
+                        </ul>
+                    </div>
+            </div>
         </div>
         <!--scrollspy for long input page-->
         <div class="col hide-on-small-only m3 l2">
@@ -269,6 +307,7 @@
                 <li><a href="#meetings">Meetitngs</a></li>
                 <li><a href="#kpis">KPIs</a></li>
                 <li><a href="#kpistat">KPI Statuses</a></li>
+                <li><a href="#completionstatus">Action Completion Statuses</a></li>
 
             </ul>
         </div>

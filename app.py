@@ -174,48 +174,6 @@ def logout():
     session.clear()
     return redirect("login")
 
-# function to add actions
-@app.route("/add_action", methods=["POST","GET"])
-def add_action():
-    if request.method=="POST":
-        # create a variable for new action
-        task={
-            "action_refno": request.form.get("action_refno"),
-            "action_name": request.form.get("action_name"),
-            "action_due": request.form.get("action_due"),
-            "action_accountable": request.form.get("action_accountable"),
-            "action_dept": request.form.get("action_dept"),
-            "action_logdate": request.form.get("action_logdate"),
-            "action_meeting": request.form.get("action_meeting"),
-            "action_workstream": request.form.get("action_workstream"),
-            "action_status": request.form.get("action_status")
-        }
-        
-        # insert new action inside actions collection
-        mongo.db.actions.insert_one(task)
-        
-        # show the message that the operation was done successfully
-        flash("New action was successfully added")
-        return redirect(url_for('user_dashboard', username=session['user']))
-
-    # action counter - not perfect needds to be ahcnge later
-    action_dept =mongo.db.actions.find().count()+1
-    
-    # variables for selection dropdown lists on add_action template
-    users = mongo.db.users.find().sort("user_name", 1)
-    meetings = mongo.db.meetings.find().sort("meeting_name", 1)
-    depts = mongo.db.depts.find().sort("dept_name", 1)
-    workstreams = mongo.db.workstreams.find().sort("workstream_name", 1)
-    completionstatus = mongo.db.completionstatus.find()
-
-    # return render template using variables for dropdowns
-    return render_template("add_action.html", 
-        users=users,
-        meetings=meetings,
-        depts=depts, 
-        workstreams=workstreams, 
-        action_dept=action_dept,
-        completionstatus = completionstatus)
 
 # setup router and function
 @app.route("/admin_setup")
@@ -454,6 +412,7 @@ def delete_kpistatus(kpistatus_id):
     flash("The KPI Status was deleted")
     return redirect(url_for('setup'))
 
+
 # setp admin kpi inputs page
 @app.route("/add_kpi", methods=["POST","GET"])
 def add_kpi():
@@ -557,6 +516,70 @@ def add_kpistatus():
         flash("New KPI Status was successfully added")
         return redirect(url_for('setup'))
     return render_template("add_kpistatus.html")
+
+
+# create setup function to add new action completion status
+@app.route("/add_completionstatus", methods=["POST", "GET"])
+def add_completionstatus():
+    if request.method == "POST":
+        
+        # create a variable for new meeting
+        new_completionstatus = {
+            "completionstatus_name": request.form.get("completionstatus_name")
+        }
+
+        # insert new add_department inside status collection
+        mongo.db.completionstatus.insert_one(new_completionstatus)
+
+        # show the message that the operation was done successfully
+        flash("New KPI Status was successfully added")
+        return redirect(url_for('setup'))
+    return render_template("add_completionstatus.html")
+
+
+# function to add actions
+@app.route("/add_action", methods=["POST","GET"])
+def add_action():
+    if request.method=="POST":
+        # create a variable for new action
+        task={
+            "action_refno": request.form.get("action_refno"),
+            "action_name": request.form.get("action_name"),
+            "action_due": request.form.get("action_due"),
+            "action_accountable": request.form.get("action_accountable"),
+            "action_dept": request.form.get("action_dept"),
+            "action_logdate": request.form.get("action_logdate"),
+            "action_meeting": request.form.get("action_meeting"),
+            "action_workstream": request.form.get("action_workstream"),
+            "action_status": request.form.get("action_status")
+        }
+        
+        # insert new action inside actions collection
+        mongo.db.actions.insert_one(task)
+        
+        # show the message that the operation was done successfully
+        flash("New action was successfully added")
+        return redirect(url_for('user_dashboard', username=session['user']))
+
+    # action counter - not perfect needds to be ahcnge later
+    action_dept =mongo.db.actions.find().count()+1
+    
+    # variables for selection dropdown lists on add_action template
+    users = mongo.db.users.find().sort("user_name", 1)
+    meetings = mongo.db.meetings.find().sort("meeting_name", 1)
+    depts = mongo.db.depts.find().sort("dept_name", 1)
+    workstreams = mongo.db.workstreams.find().sort("workstream_name", 1)
+    completionstatus = mongo.db.completionstatus.find()
+
+    # return render template using variables for dropdowns
+    return render_template("add_action.html", 
+        users=users,
+        meetings=meetings,
+        depts=depts, 
+        workstreams=workstreams, 
+        action_dept=action_dept,
+        completionstatus = completionstatus)
+
 
 
 # kpi inputs page - add input page

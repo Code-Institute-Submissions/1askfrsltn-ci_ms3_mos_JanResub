@@ -172,7 +172,8 @@ Website colors and design team will be simple and neutral, it means - limited am
     20 | Add security condition on each page                              | all templates | not done | 1 - must
     21 | Delete exisiting, add  KPI inputs for 4 KPIs for last 10 weeks   | KPI inputs, mongo | not done | 1 - good to have
     22 | Make meetings filter on a home page                              | home, app.py | not done | 1 - finsih project
-    23 | Make s,m,l responsive classes on all forms                       | application| not done | 1 - finsih project
+    23 | Make s,m,l responsive classes on all forms                       | application| not done | 2 - finsih project
+    24 | change flash message                                             | application| not done | 3 - nice to have
 
 ### TECHNOLOGIES
   * Languages
