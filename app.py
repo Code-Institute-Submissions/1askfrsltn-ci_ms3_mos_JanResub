@@ -367,6 +367,26 @@ def edit_kpistatus(kpistatus_id):
         return redirect(url_for('setup'))
     return render_template("edit_kpistatus.html", kpistatus=kpistatus)
 
+
+# create edit_completionstatus function
+@app.route("/edit_completionstatus/<completionstatus_id>", methods=["POST", "GET"])
+def edit_completionstatus(completionstatus_id):
+    # create completionstatus variable to prefill input value in the form
+    completionstatus = mongo.db.completionstatus.find_one({"_id": ObjectId(completionstatus_id)})
+
+    # update changed completionstatus data into mongodb
+    if request.method == "POST":
+        editcompletionstatus = {
+                "completionstatus_name": request.form.get("completionstatus_name")
+            }
+    
+    # insert new completionstatus into Mongo Db database
+        mongo.db.completionstatus.update({"_id": ObjectId(completionstatus_id)},editcompletionstatus)
+        flash("Action Completion Status update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_completionstatus.html", completionstatus=completionstatus)
+
+
 # user delete function for setup template
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+    <h4 class="center-align">EDIT ACTION COMPLETION STATUS</h4>
+    <!--Add form-->
+    <div class="row">
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_completionstatus', completionstatus_id = completionstatus._id)}}">
+            <div class="card-panel">
+                <!-- inputs -->
+                <!-- input name -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-trophy prefix blue-grey-text text-darken-1"></i>
+                        <input value="{{completionstatus.completionstatus_name}}" id="completionstatus_name" name="completionstatus_name" type="text" class="validate" required>
+                        <label for="completionstatus_name">Action Completion Status</label>
+                    </div>
+                </div>
+                <!--buttons-->
+                <div class="row">
+                    <div class="row">
+                        <!--Cancell Button-->
+                        <div class="col s6">
+                            <a href="{{url_for('setup')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                        </div>
+                        <!--Add action Button-->
+                        <div class="row">
+                            <div class="col s6 right">
+                                <button type="submit" class="btn blue-grey text-shadow">SUBMIT EDIT</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            </div>
+        </form>
+    </div>
+{% endblock %}
