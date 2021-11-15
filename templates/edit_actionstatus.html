@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-    <h4 class="center-align">EDIT ACTION STATUS</h4>
+    <h4 class="center-align blue-grey-text text-darken-3">EDIT ACTION STATUS</h4>
     <!--Add form-->
     <div class="row">
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_actionstatus', action_id = action._id)}}">
-            <div class="card-panel">
+            <div class="card-panelblue-grey lighten-5">
                 <!-- inputs -->
                 <!-- informative input action -->
                 <div class="row">
@@ -33,7 +33,7 @@
                 
                 <!-- input name -status edit -->
                 <div class="row">
-                    <div class="input-field col s9 offset-m1">
+                    <div class="input-field col s offset-m1">
                         <i class="fas fa-medal prefix blue-grey-text"></i>
                         <select id="action_status" name="action_status" class="validate" required>
                             <option value="{{action.action_status}}" disabled selected>{{action.action_status}}</option>

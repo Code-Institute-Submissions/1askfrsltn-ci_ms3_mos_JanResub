@@ -195,15 +195,15 @@ Website colors and design team will be simple and neutral, it means - limited am
     5 | Make logdate automatic                                            | add_action.html | not done | 3 - last
     6 | Automate action accountable based on user                         | add_action.html | not done | 3 - not crtical
     7 | Split function on def user_dashboard app.py                       | app.py | not done | 2 - will add points
-    8 | Add completion status setup forms                                  | edit_status, app.py | **done** | 1 - MUST
+    8 | Add completion status setup forms (add,edit,delete)               | edit_status, app.py | **done** | 1 - MUST
     9 | Make navbar inner                                                 | base.html, css | not done | 3 - nice to have
     10 | Add logo                                                         | base.html, css | not done | 3 - nice to have
     11 | Update user stories to reflect on what was coded                 | readme | not done | 1 - MUST
     12 | Create README table of content                                   | readme | not done | 1 - MUST
     13 | Create testing page and table of content in md                   | readme | not done | 1 - MUST
     14 | Test application - log details                                   | readme | not done | 1 - MUST
-    15 | Standardise all forms                                           | application | not done | 1 - MUST
-    16 | Standardise all icons                                            | application | **done** | 2 - UX nice to have
+    15 | Standardise all forms                                            | application | **done** | 1 - MUST
+    16 | Standardise all icons                                            | application | **done**  | 2 - UX nice to have
     17 | Add accountable on KPI input                                     | kpi input | not done | 1 - UX nice to have
     18 | Add KPI input sign based on act-tgt delta                        | kpi input | not done | 3 - UX nice to have
     19 | Add security condition on each page                              | all templates | not done | 1 - must

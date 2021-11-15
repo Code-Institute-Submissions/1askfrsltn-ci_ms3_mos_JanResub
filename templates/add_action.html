@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-    <h4 class="center-align">ADD ACTION</h4>
+    <h4 class="center-align blue-grey-text text-darken-3">ADD ACTION</h4>
     <!--New action input form-->
-    <div class="row card-panel grey lighten-5 s12">
-        <div class="row">
-            <!--form-->
-            <form class="col s12" method="POST" action="{{url_for('add_action')}}">
+        <!--form-->
+    <div class="row">
+        <form class="col s12  m8 offset-m2" method="POST" action="{{url_for('add_action')}}">
+        <div class="row card-panel grey lighten-5">
                 <!--1. input field: ref number, automatic-->
                 <div class="row">
                     <div class="input-field col s12">
@@ -116,7 +116,9 @@
                         </div>
                     </div>
                 </div>               
-            </form>
-        </div>
+           
+        
+            </div>
+        </form>
     </div>
 {% endblock %}

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-    <h4 class="center-align">EDIT KPI</h4>
+    <h4 class="center-align blue-grey-text">EDIT KPI</h4>
     <!--Add form-->
     <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_kpi', kpi_id = kpi._id)}}">
-            <div class="card-panel">
+        <form class="col s12 m8 offset-m2 text-darken-3" method="POST" action="{{ url_for('edit_kpi', kpi_id = kpi._id)}}">
+            <div class="card-panel blue-grey lighten-5">
                 <!-- inputs -->
                 <!-- input name -->
                 <div class="row">
