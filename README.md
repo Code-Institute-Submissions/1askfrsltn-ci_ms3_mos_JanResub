@@ -55,7 +55,7 @@ Super Admin access:
         02  | Login                                   |Yes    |Yes  | Yes 
         03  | Set up Organisation levels              |Yes    |Yes  | No
         03  | Set up users rights                     |Yes    | No  | No
-        04  | Set up roles                            |   Yes | No  | No 
+        04  | Set up roles                            |Yes | No  | No 
         05  | Set up participants                     |   Yes | Yes | No 
         06  | Set up meeting types                    |   Yes | Yes | No   
         07  | Set up meeting content                  |   Yes | Yes | No   

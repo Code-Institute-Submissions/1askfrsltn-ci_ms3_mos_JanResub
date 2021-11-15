@@ -440,6 +440,13 @@ def delete_completionstatus(completionstatus_id):
     flash("Action comlpetion status was deleted")
     return redirect(url_for('setup'))
 
+# Action delete function for user_dashboard=>edit template
+@app.route("/delete_action/<action_id>")
+def delete_action(action_id):
+    mongo.db.actions.remove({"_id": ObjectId(action_id)})
+    flash("Action was deleted")
+    return redirect(url_for('user_dashboard', username=session['user']))
+
 
 # setp admin kpi inputs page
 @app.route("/add_kpi", methods=["POST","GET"])
@@ -568,10 +575,13 @@ def add_completionstatus():
 # function to add actions
 @app.route("/add_action", methods=["POST","GET"])
 def add_action():
+    
+    action_number = str(mongo.db.actions.find().count()+1)
     if request.method=="POST":
+        action_number = str(mongo.db.actions.find().count()+1)    
         # create a variable for new action
         task={
-            "action_refno": request.form.get("action_refno"),
+            "action_refno": action_number,
             "action_name": request.form.get("action_name"),
             "action_due": request.form.get("action_due"),
             "action_accountable": request.form.get("action_accountable"),
@@ -584,13 +594,10 @@ def add_action():
         
         # insert new action inside actions collection
         mongo.db.actions.insert_one(task)
-        
+
         # show the message that the operation was done successfully
         flash("New action was successfully added")
         return redirect(url_for('user_dashboard', username=session['user']))
-
-    # action counter - not perfect needds to be ahcnge later
-    action_dept =mongo.db.actions.find().count()+1
     
     # variables for selection dropdown lists on add_action template
     users = mongo.db.users.find().sort("user_name", 1)
@@ -605,7 +612,7 @@ def add_action():
         meetings=meetings,
         depts=depts, 
         workstreams=workstreams, 
-        action_dept=action_dept,
+        action_number=action_number,
         completionstatus = completionstatus)
 
 
