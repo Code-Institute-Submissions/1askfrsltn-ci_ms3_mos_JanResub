@@ -89,14 +89,15 @@
                         <!--add full edit right button for admin and statusedit right button for other users-->
                         {% if session["user"] == "admin" %}
                             <td>
-                                <a href="{{url_for('copy_kpiinput',  kpiinput_id = input._id)}}" class="btn blue">COPY</a>
+                                <a href="{{url_for('copy_kpiinput',  kpiinput_id = input._id)}}" class="btn blue">CLONE</a>
                                 <a href="{{url_for('edit_kpiinput',  kpiinput_id = input._id)}}" class="btn blue-grey">EDIT</a>
                                 
                             </td>
                         {% else %}
-                        <td>
-                            <a href="{{url_for('copy_kpiinput',  kpiinput_id = input._id)}}" class="btn blue">COPY</a>
-                        </td>
+                            <td>
+                                <a href="{{url_for('copy_kpiinput',  kpiinput_id = input._id)}}" class="btn blue">CLONE
+                                </a>
+                            </td>
                         {% endif %}
                     </tr>
                 {%endfor%}
