@@ -185,10 +185,10 @@ def user_dashboard(username):
         flash("Please, login to access the page")
         return redirect (url_for('login'))
 
+
 @app.route("/logout")
 def logout():
-    flash("you have logged out")
-    
+    flash("You have succssfully logged out")
     # remove user from session cookies
     session.clear()
     return redirect("login")
@@ -756,6 +756,7 @@ def edit_completionstatus(completionstatus_id):
 @app.route("/edit_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
 def edit_kpiinput(kpiinput_id):
     if "user" in session:
+        flash("WARNING! You can not create new kpi input on this page! Edit and Delete ONLY!")
         # create kpiinput variable to prefill kpiinput input values in the form
         input = mongo.db.kpiinputs.find_one({"_id": ObjectId(kpiinput_id)})
 
@@ -1004,6 +1005,70 @@ def kpi_input():
         flash("Please, login to access the page")
         return redirect (url_for('login'))
         
+
+# create copy kpiinput  function
+@app.route("/copy_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
+def copy_kpiinput(kpiinput_id):
+    if "user" in session:
+        flash("WARNING! You can not edit kpi input on this page!")
+        # create kpiinput variable to prefill kpiinput input values in the form
+        input = mongo.db.kpiinputs.find_one({"_id": ObjectId(kpiinput_id)})
+
+        # variable for kpiowners select
+        owners = mongo.db.users.find()
+
+        # variable for KPIs list select
+        kpis = mongo.db.kpi.find()
+
+        # user variable
+        user = session["user"]
+
+        # kpi statuss variable for dropdown on edit_kpiinput template
+        kpistatuss = mongo.db.kpistatuss.find()
+
+        # create new kpiinput data into mongodb
+        if request.method == "POST":
+            copied_kpiinput = {
+                    "input_kpiname": request.form.get("input_kpiname"),
+                    "input_logdate": request.form.get("input_logdate"),
+                    "input_weeknumber": request.form.get("input_weeknumber"),
+                    "input_uom": request.form.get("input_uom"),
+                    "input_bsl": request.form.get("input_bsl"),
+                    "input_tgt": request.form.get("input_tgt"),
+                    "input_act": request.form.get("input_act"),
+                    "input_kpiowner": request.form.get("input_kpiowner"),
+                    "input_status": request.form.get("input_status")
+                }
+                
+            # insert new kpiinput into Mongo Db database
+            mongo.db.kpiinputs.insert(copied_kpiinput)
+            
+            # based on kpiinput define a variable to update  kpi collection fields
+            latestinput ={
+                "kpi_lastlogdate": request.form.get("input_logdate"),
+                "kpi_lastbsl": request.form.get("input_bsl"),
+                "kpi_lasttgt": request.form.get("input_tgt"),
+                "kpi_lastact": request.form.get("input_act"),
+                "kpi_laststatus": request.form.get("input_status")
+            }
+            
+            # update kpi collection:
+            mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
+            
+            flash("New KPI copied from previous successfully!")
+            
+            return redirect(url_for('kpi_input'))
+        return render_template("copy_kpiinput.html",  
+            input=input, 
+            user=user, 
+            owners=owners, 
+            kpis=kpis,
+            kpistatuss=kpistatuss)
+    # defensive programming message
+    else:
+        flash("Please, login to access the page")
+        return redirect (url_for('login'))
+
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":

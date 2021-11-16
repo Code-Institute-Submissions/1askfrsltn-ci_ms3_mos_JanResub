@@ -2063,6 +2063,9 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
 
 181. Change flash messages to smaller and more accurate 
 
+182. Added copy button to kpi_input: created templated, created insert function, linked the function to the button. 
+
+
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:
