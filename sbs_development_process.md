@@ -1982,7 +1982,68 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
                 weeknumber=date.today().strftime("%W")
 ## CREATE FILTERING OPTION FOR USER ON KPI PAGE
 
-177. 
+177. Create filter section on KPI_INPUT template:
+
+                <!--KPI Input filtering section-->
+                        <div class="row card-panel grey lighten-5 s12">
+                                <h6 class="align-left red-text text-darken-4">Search input by kpi, owner, weeknumber or status:</h6>
+                                <!--form for filter button # is used for trigerring reguest.method condition on app.py inside kpi_input template-->
+                                <form action="#" method="POST" class="s12">
+                                <!--Filters Section-->
+                                <div class="row">
+                                        <!--Filter dropdown-->
+                                        <div class="col s9">
+                                        <input value="" id="search_kpiinput" name="search_kpiinput" type="text">
+                                        <label for="search_kpiinput">type in text and press filter</label>
+                                        </div>
+                                        <div class="col">
+                                        <div class="row">
+                                                <div class="col s2">
+                                                <button type="submit" class="waves-effect blue-grey btn">
+                                                        <i class="fas fa-sort-amount-down prefix"> </i> </button>
+                                                </div>
+                                                <!--Reset button-->
+                                                <div class="col s2 right">
+                                                <a href="{{url_for('kpi_input')}}" class="red btn text-shadow"><i class="fas fa-refresh"></i></a>
+                                                </div>
+                                        </div>
+                                        </div>
+                                </div>
+                                </form>
+                        </div>
+
+178. Create the condition to show kpi inputs in the table for admin/non-admin login
+179. create nested condition for search buttons - complete code:
+
+                # nested coniditons to build kpi inputs table based on user login and  search text
+                if user=="admin":
+                        # create kpiinputs variable for table body values
+                        kpiintputs = mongo.db.kpiinputs.find().sort("input_weeknumber",1)
+                        # condition statement for sirting the week
+                        if request.method=="POST":
+                        
+                        # search variable if the form is submitted
+                        search_kpiinput=str(request.form.get("search_kpiinput"))
+                        
+                        # using search variable to generate kpiintputs for the table rendering
+                        kpiintputs=list(mongo.db.kpiinputs.find({"$text":{"$search":search_kpiinput}}))
+                
+                else:
+                        # variable for non-admin
+                        kpiintputs=list(mongo.db.kpiinputs.find({"$text":{"$search":user}}))
+                        
+                        # condition for non-admin when serhc button activated 
+                        if request.method=="POST":
+                        
+                        # variable for 4 fields index text search - input_kpiname, input_kpiowner, input_kpistatus, input_weeknumber - mongodb: input_kpiname_text_input_kpiowner_text_input_weeknumber_text_input_status_text
+                        search_kpiinput=request.form.get("search_kpiinput")
+                        
+                        # variable for search for 2 criterea user AND 4 fields text
+                        kpiintputs=list(mongo.db.kpiinputs.find({"input_kpiowner":user,
+                                "$text":{"$search":search_kpiinput}}))
+        
+        
+
 
 
 ## OTHER PROBLEMS TO SOLVE

@@ -810,21 +810,45 @@ def delete_action(action_id):
 
 
 # kpi inputs page - add input page
-@app.route("/kpi_input")
+@app.route("/kpi_input", methods=["POST","GET"])
 def kpi_input():
-    # create kpi input variable for the select loop on kpi_input
-    kpi = mongo.db.kpi.find()
+    # create kpi input variable for the loop on kpi_input
+    kpis = mongo.db.kpi.find()
 
+    # add user variable for title and nested statement
     user=session["user"]
-
-    if session['user']=="admin":
+    
+    # nested coniditons to build kpi inputs table based on user login and  search text
+    if user=="admin":
         # create kpiinputs variable for table body values
-        kpiintputs = mongo.db.kpiinputs.find()
+        kpiintputs = mongo.db.kpiinputs.find().sort("input_weeknumber",1)
+        # condition statement for sirting the week
+        if request.method=="POST":
+            
+            # search variable if the form is submitted
+            search_kpiinput=str(request.form.get("search_kpiinput"))
+            
+            # using search variable to generate kpiintputs for the table rendering
+            kpiintputs=list(mongo.db.kpiinputs.find({"$text":{"$search":search_kpiinput}}))
     
     else:
+        # variable for non-admin
         kpiintputs=list(mongo.db.kpiinputs.find({"$text":{"$search":user}}))
         
-    return render_template("kpi_input.html", kpiintputs=kpiintputs, user=user)
+        # condition for non-admin when serhc button activated 
+        if request.method=="POST":
+            
+            # variable for 4 fields index text search - input_kpiname, input_kpiowner, input_kpistatus, input_weeknumber - mongodb: input_kpiname_text_input_kpiowner_text_input_weeknumber_text_input_status_text
+            search_kpiinput=request.form.get("search_kpiinput")
+            
+            # variable for search for 2 criterea user AND 4 fields text
+            kpiintputs=list(mongo.db.kpiinputs.find({"input_kpiowner":user,
+                "$text":{"$search":search_kpiinput}}))
+    
+    return render_template("kpi_input.html", 
+        kpiintputs=kpiintputs, 
+        user=user, kpis=kpis)
+        
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":
