@@ -31,17 +31,21 @@ mongo = PyMongo(app)
 # create route decorator for home page
 @app.route("/home")
 def home():
-    # create list of dictionaries from kpiinputs collection in mongodb
-    kpiinputs = list(mongo.db.kpiinputs.find())
-    
-    # create list of input_kpiname values from kpiinputs list - thanks to stackoverflow help from Ismail Badawi: https://stackoverflow.com/questions/7271482/getting-a-list-of-values-from-a-list-of-dicts 
-    kpinames = [name['input_kpiname'] for name in kpiinputs]
-    
-    # use set method to create unique list of name
-    unames = set(kpinames)
-    
-    return render_template("home.html", kpiinputs=kpiinputs, kpinames=kpinames, unames=unames)
-
+    # if user in session:
+    if "user" in session:
+        # create list of dictionaries from kpiinputs collection in mongodb
+        kpiinputs = list(mongo.db.kpiinputs.find())
+        
+        # create list of input_kpiname values from kpiinputs list - thanks to stackoverflow help from Ismail Badawi: https://stackoverflow.com/questions/7271482/getting-a-list-of-values-from-a-list-of-dicts 
+        kpinames = [name['input_kpiname'] for name in kpiinputs]
+        
+        # use set method to create unique list of name
+        unames = set(kpinames)
+        
+        return render_template("home.html", kpiinputs=kpiinputs, kpinames=kpinames, unames=unames)
+    else:
+        flash("please login to access the page")
+        return redirect(url_for('login'))
 
 # create route decorator for login page
 @app.route("/login", methods=["GET", "POST"])
@@ -439,11 +443,13 @@ def add_completionstatus():
 # function to add actions
 @app.route("/add_action", methods=["POST","GET"])
 def add_action():
+    # variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
+    today=date.today().strftime("%d-%m-%Y")  
     
     action_number = str(mongo.db.actions.find().count()+1)
     if request.method=="POST":
         # added varialble for action_number on add_action form
-        action_number = str(mongo.db.actions.find().count()+1)    
+        action_number = str(mongo.db.actions.find().count()+1)  
         
         # create a variable for new action
         task={
@@ -480,7 +486,8 @@ def add_action():
         depts=depts, 
         workstreams=workstreams, 
         action_number=action_number,
-        completionstatus = completionstatus)
+        completionstatus = completionstatus,
+        today=today)
 
 
 # create edit_user function

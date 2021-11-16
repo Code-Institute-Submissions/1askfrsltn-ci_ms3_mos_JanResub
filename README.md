@@ -189,14 +189,14 @@ Website colors and design team will be simple and neutral, it means - limited am
     no. | Feature | Page | Status | Priority/Comment
     --|--|--|--| --|
     1 | Automate action numbers on add_action template                    | add_action | **done** | 1 - MUST
-    2 | Automate weeknumbers for all inputs                               | add_action | **done** | 2 - GOOD TO HAVE
-    3 | Change KPI input form                                             | kpi_input | not done | 1 - MUST
+    2 | Automate date for all inputs                                      | add_action | **done** | 2 - GOOD TO HAVE
+    3 | Change KPI input form                                             | kpi_input | **done** | 1 - MUST
     4 | Connect meetings page to PowerBI                                  | home.html | not done | 3 - last, important
-    5 | Make logdate automatic                                            | add_action.html | not done | 3 - last
+    5 | Make logdate automatic                                            | add_action.html | **done** | 3 - last
     6 | Automate action accountable based on user                         | add_action.html | not done | 3 - not crtical
     7 | Split function on def user_dashboard app.py                       | app.py | not done | 2 - will add points
     8 | Add completion status setup forms (add,edit,delete)               | edit_status, app.py | **done** | 1 - MUST
-    9 | Make navbar inner                                                 | base.html, css | not done | 3 - nice to have
+    9 | Make navbar thinner                                               | base.html, css | not done | 3 - nice to have
     10 | Add logo                                                         | base.html, css | not done | 3 - nice to have
     11 | Update user stories to reflect on what was coded                 | readme | not done | 1 - MUST
     12 | Create README table of content                                   | readme | not done | 1 - MUST
@@ -204,7 +204,7 @@ Website colors and design team will be simple and neutral, it means - limited am
     14 | Test application - log details                                   | readme | not done | 1 - MUST
     15 | Standardise all forms                                            | application | **done** | 1 - MUST
     16 | Standardise all icons                                            | application | **done**  | 2 - UX nice to have
-    17 | Add accountable on KPI input                                     | kpi input | not done | 1 - UX nice to have
+    17 | Add accountable on KPI input                                     | kpi input | **done** | 1 - UX nice to have
     18 | Add KPI input sign based on act-tgt delta                        | kpi input | not done | 3 - UX nice to have
     19 | Add security condition on each page                              | all templates | not done | 1 - must
     20 | Delete exisiting, add  KPI inputs for 4 KPIs for last 10 weeks   | KPI inputs, mongo | not done | 1 - good to have
@@ -215,7 +215,8 @@ Website colors and design team will be simple and neutral, it means - limited am
     25 | add kpiinput status on a table                                   | kpi_input| not done | 3 - nice to have
     26 | add filter by status on kpistatus table                          | kpi_input| not done | 3 - nice to have
     27 | add kpiinput owner on a table                                    | kpi_input| not done | 3 - nice to have
-    28 | add modal warning about deletion                                 | setup    | not done | 1 - defensive programming
+    28 | add copy button and template for non-admin user                  | kpi_input| not done | 2 - nice to have
+    29 | add modal warning about deletion                                 | setup    | not done | 1 - defensive programming
 
 ### TECHNOLOGIES
   * Languages

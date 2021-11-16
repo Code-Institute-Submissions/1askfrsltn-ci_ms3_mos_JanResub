@@ -2042,18 +2042,14 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
                         kpiintputs=list(mongo.db.kpiinputs.find({"input_kpiowner":user,
                                 "$text":{"$search":search_kpiinput}}))
         
-        
-
+## FIXING LAST ISSUES
+180. Developed delete kpi input functionality/button on edit_kpiinput template.  PROBLEM - delete function doesn't delete the document, and no error, flash message works fine      
 
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:
-- fix user_dashboard link
-- populate user-dashboard kpi summary based on user who logged in, find a way how to connect lastkpi inputs to user_dashboard
-- link mongo DB to Power Bi 
+- link mongo DB to Power Bi  - NOT DONE
 - link Power BI to an app on a home page
 - crete defensive code by making an if statuement on each page after login (recommendation by mentor 09-nov)
-- fix responsiveness issue on a kpiinouts page
-- fix edit kpiinput submit button issue - it works only if i usedropdown list
 
 
