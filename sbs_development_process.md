@@ -2041,10 +2041,9 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
                         kpiintputs=list(mongo.db.kpiinputs.find({"input_kpiowner":user,
                                 "$text":{"$search":search_kpiinput}}))
         
-## FIXING LAST ISSUES
-179. Developed delete kpi input functionality/button on edit_kpiinput template.  PROBLEM - delete function doesn't delete the document, and no error, flash message works fine 
+## DEFFENSIVE PROGRAMMING
 
-180. Include defensive programming component on app.py to redirect non-user to login page when user tries to access the page directly:
+179. Include defensive programming component on app.py to redirect non-user to login page when user tries to access the page directly:
 
                 # create edit_actionstatus input function
                 @app.route("/edit_actionstatus/<action_id>", methods=["POST", "GET"])
@@ -2058,6 +2057,11 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
                 else:
                         flash("Please, login to access the page")
                         return redirect (url_for('login')) 
+
+## FIXING LAST ISSUES
+180. Developed delete kpi input functionality/button on edit_kpiinput template.  PROBLEM - delete function doesn't delete the document, and no error, flash message works fine 
+
+181. Change flash messages to smaller and more accurate 
 
 
 ## OTHER PROBLEMS TO SOLVE

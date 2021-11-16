@@ -210,7 +210,7 @@ Website colors and design team will be simple and neutral, it means - limited am
     20 | Delete exisiting, add  KPI inputs for 4 KPIs for last 10 weeks   | KPI inputs, mongo | not done | 1 - good to have
     21 | Make meetings filter on a home page                              | home, app.py | not done | 1 - finsih project
     22 | Make s,m,l responsive classes on all forms                       | application| not done | 2 - finsih project
-    23 | change flash message                                             | application| not done | 3 - nice to have
+    23 | change flash message                                             | application| **done** | 3 - nice to have
     24 | add last logdat action                                           | user_dashboard| not done | 3 - nice to have
     25 | add kpiinput status on a table                                   | kpi_input| not done | 3 - nice to have
     26 | add filter by status on kpistatus table                          | kpi_input| not done | 3 - nice to have
