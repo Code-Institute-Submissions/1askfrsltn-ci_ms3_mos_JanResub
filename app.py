@@ -139,17 +139,20 @@ def user_dashboard(username):
         
         # action status filtering condition - activated after the action status is selected
         if request.method == "POST":
-            actions = list(mongo.db.actions.find({"action_status":action_status}))
+            actions = list(mongo.db.actions.find({"action_status": action_status}))
     
     # this part of the function is activated when the user logged in as non-admin
     else:
         
         # create kpis for KPI summary section if the user is non-admin
         kpis = list(mongo.db.kpi.find({"$text":{"$search":user}}))
+
         # create actions variable for non-admin
         actions = list(mongo.db.actions.find({"action_accountable": user}))
+
         # create actions variable for non-admin when filter is activated
         if request.method == "POST":
+
             # this filter has 2 filters - user and action status that is selected from filter section
             actions = list(mongo.db.actions.find({"action_accountable": user, "action_status":action_status}))   
 
@@ -244,208 +247,69 @@ def add_user():
 
     return render_template("add_user.html")
 
-# create edit_user function
-@app.route("/edit_user/<user_id>", methods=["POST", "GET"])
-def edit_user(user_id):
-    # create user variable to prefill user input values in the form
-    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    # update changed user data into mongodb
+
+# function to add kpiinput
+@app.route("/add_kpiinput", methods=["GET","POST"])
+def add_kpiinput():
+    # variable for kpistatuss dropdown
+    kpistatuss = mongo.db.kpistatuss.find()
+
+    # variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
+    today=date.today().strftime("%d-%m-%Y")
+
+    # variable for weeknumber, python documentation source: https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime 
+    weeknumber=date.today().strftime("%W")
+
+    # kpi variable for select element on kpi_name
+    kpi=mongo.db.kpi.find()
+
+    # variable for kpi_owner 
+    owners=mongo.db.users.find()
+
+    # if request method is post condition
     if request.method == "POST":
-        edituser = {
-                "user_name": request.form.get("user_name").lower(),
-                "user_email": request.form.get("user_email").lower(),
-                "user_password": generate_password_hash(request.form.
-                    get("user_password")),
-            }
-        # insert new user into Mongo Db database
-        mongo.db.users.update({"_id": ObjectId(user_id)}, edituser)
-        flash("User update successfull!")
-        return redirect(url_for('setup'))
-    return render_template("edit_user.html", user=user)
+        
+        # create a variable for kpi input
+        kpiinput={
+            "input_kpiowner": request.form.get("input_kpiowner"),
+            "input_kpiname": request.form.get("input_kpiname"),
+            "input_logdate": request.form.get("input_logdate"),
+            "input_weeknumber": request.form.get("input_weeknumber"),
+            "input_uom": request.form.get("input_uom"),
+            "input_bsl": request.form.get("input_bsl"),
+            "input_tgt": request.form.get("input_tgt"),
+            "input_act": request.form.get("input_act"),
+            "input_status": request.form.get("input_status")
+        }
 
-
-# create edit_department function
-@app.route("/edit_department/<dept_id>", methods=["POST", "GET"])
-def edit_department(dept_id):
-    # create dept variable to prefill user input values in the form
-    dept = mongo.db.depts.find_one({"_id": ObjectId(dept_id)})
-
-    # update changed department data into mongodb
-    if request.method == "POST":
-        editdept = {
-                "dept_name": request.form.get("dept_name"),
-                "dept_shortname": request.form.get("dept_shortname")
-            }
+        # insert new kpi input inside kpiinputs collection
+        mongo.db.kpiinputs.insert_one(kpiinput)
+        
+        # based on kpiinput define a variable to update  kpi collection fields
+        latestinput ={
+            "kpi_lastlogdate": request.form.get("input_logdate"),
+            "kpi_lastbsl": request.form.get("input_bsl"),
+            "kpi_lasttgt": request.form.get("input_tgt"),
+            "kpi_lastact": request.form.get("input_act"),
+            "kpi_laststatus": request.form.get("input_status")
+        }
+        
+        # update kpi collection for specific fields following MongoDb documentation -https://docs.mongodb.com/manual/reference/operator/update/set/. Problem: the code {$set:latestinput} did not work Johann from student support helped me - i had to correct the code and add "" - {"$set":latestinput}. 
+        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
+        
+        # show the message that the operation was done successfully
+        flash("KPI Input was successfully added")
+        
+        # redirect to home page
+        return redirect(url_for('kpi_input')) 
     
-    # insert new department into Mongo Db database
-        mongo.db.depts.update({"_id": ObjectId(dept_id)}, editdept)
-        flash("Deparment update successfull!")
-        return redirect(url_for('setup'))
-    return render_template("edit_department.html", dept=dept)
-
-
-# create edit_workstream function
-@app.route("/edit_workstream/<workstream_id>", methods=["POST", "GET"])
-def edit_workstream(workstream_id):
-    # create workstream variable to prefill workstream input values in the form
-    workstream = mongo.db.workstreams.find_one({"_id": ObjectId(workstream_id)})
-
-    # update changed workstream data into mongodb
-    if request.method == "POST":
-        editworkstream = {
-                "workstream_name": request.form.get("workstream_name"),
-                "workstream_shortname": request.form.get("workstream_shortname")
-            }
-    
-    # insert new department into Mongo Db database
-        mongo.db.workstreams.update({"_id": ObjectId(workstream_id)}, editworkstream)
-        flash("Workstream update successfull!")
-        return redirect(url_for('setup'))
-    return render_template("edit_workstream.html", workstream=workstream)
-
-
-# create edit_meeting function
-@app.route("/edit_meeting/<meeting_id>", methods=["POST", "GET"])
-def edit_meeting(meeting_id):
-    # create meeting variable to prefill meeting input values in the form
-    meeting = mongo.db.meetings.find_one({"_id": ObjectId(meeting_id)})
-
-    # update changed meeting data into mongodb
-    if request.method == "POST":
-        editmeeting = {
-                "meeting_name": request.form.get("meeting_name"),
-                "meeting_shortname": request.form.get("meeting_shortname")
-            }
-    
-    # insert new meeting into Mongo Db database
-        mongo.db.meetings.update({"_id": ObjectId(meeting_id)}, editmeeting)
-        flash("Meeting update successfull!")
-        return redirect(url_for('setup'))
-    return render_template("edit_meeting.html", meeting=meeting)
-
-
-# create edit_kpi function
-@app.route("/edit_kpi/<kpi_id>", methods=["POST", "GET"])
-def edit_kpi(kpi_id):
-    # create kpi variable to prefill kpi input values in the form
-    kpi = mongo.db.kpi.find_one({"_id": ObjectId(kpi_id)})
-
-    # update changed kpi data into mongodb
-    if request.method == "POST":
-        editkpi = {
-                "kpi_name": request.form.get("kpi_name"),
-                "kpi_shortname": request.form.get("kpi_shortname"),
-                "kpi_uom": request.form.get("kpi_uom"),
-                "kpi_description": request.form.get("kpi_description"),
-                "kpi_owner": request.form.get("kpi_owner")
-            }
-        # insert new kpi into Mongo Db database
-        mongo.db.kpi.update({"_id": ObjectId(kpi_id)}, editkpi)
-        flash("KPI update successfull!")
-        return redirect(url_for('setup'))
-    # define users variable for  KPI owner seectin
-    users=mongo.db.users.find().sort("user_name", 1)
-    return render_template("edit_kpi.html", kpi=kpi, users=users)
-
-
-# create edit_kpistatus function
-@app.route("/edit_kpistatus/<kpistatus_id>", methods=["POST", "GET"])
-def edit_kpistatus(kpistatus_id):
-    # create kpistatus variable to prefill kpistatus input values in the form
-    kpistatus = mongo.db.kpistatuss.find_one({"_id": ObjectId(kpistatus_id)})
-
-    # update changed kpistatus data into mongodb
-    if request.method == "POST":
-        editkpistatus = {
-                "kpistatus_name": request.form.get("kpistatus_name"),
-                "kpistatus_color": request.form.get("kpistatus_color")
-            }
-    
-    # insert new kpistatus into Mongo Db database
-        mongo.db.kpistatuss.update({"_id": ObjectId(kpistatus_id)}, editkpistatus)
-        flash("KPI Status update successfull!")
-        return redirect(url_for('setup'))
-    return render_template("edit_kpistatus.html", kpistatus=kpistatus)
-
-
-# create edit_completionstatus function
-@app.route("/edit_completionstatus/<completionstatus_id>", methods=["POST", "GET"])
-def edit_completionstatus(completionstatus_id):
-    # create completionstatus variable to prefill input value in the form
-    completionstatus = mongo.db.completionstatus.find_one({"_id": ObjectId(completionstatus_id)})
-
-    # update changed completionstatus data into mongodb
-    if request.method == "POST":
-        editcompletionstatus = {
-                "completionstatus_name": request.form.get("completionstatus_name")
-            }
-    
-    # insert new completionstatus into Mongo Db database
-        mongo.db.completionstatus.update({"_id": ObjectId(completionstatus_id)},editcompletionstatus)
-        flash("Action Completion Status update successfull!")
-        return redirect(url_for('setup'))
-    return render_template("edit_completionstatus.html", completionstatus=completionstatus)
-
-
-# user delete function for setup template
-@app.route("/delete_user/<user_id>")
-def delete_user(user_id):
-    mongo.db.users.remove({"_id": ObjectId(user_id)})
-    flash("User was deleted")
-    return redirect(url_for('setup'))
-
-# department delete function for setup template
-@app.route("/delete_department/<dept_id>")
-def delete_department(dept_id):
-    mongo.db.depts.remove({"_id": ObjectId(dept_id)})
-    flash("Department was deleted")
-    return redirect(url_for('setup'))
-
-
-# workstream delete function for setup template
-@app.route("/delete_workstream/<workstream_id>")
-def delete_workstream(workstream_id):
-    mongo.db.workstreams.remove({"_id": ObjectId(workstream_id)})
-    flash("Workstream was deleted")
-    return redirect(url_for('setup'))
-
-
-# meeting delete function for setup template
-@app.route("/delete_meeting/<meeting_id>")
-def delete_meeting(meeting_id):
-    mongo.db.meetings.remove({"_id": ObjectId(meeting_id)})
-    flash("Meeting was deleted")
-    return redirect(url_for('setup'))
-
-
-# KPI delete function for setup template
-@app.route("/delete_kpi/<kpi_id>")
-def delete_kpi(kpi_id):
-    mongo.db.kpi.remove({"_id": ObjectId(kpi_id)})
-    flash("The KPI was deleted")
-    return redirect(url_for('setup'))
-
-# KPI status delete function for setup template
-@app.route("/delete_kpistatus/<kpistatus_id>")
-def delete_kpistatus(kpistatus_id):
-    mongo.db.kpistatuss.remove({"_id": ObjectId(kpistatus_id)})
-    flash("The KPI Status was deleted")
-    return redirect(url_for('setup'))
-
-
-# Action completion status delete function for setup template
-@app.route("/delete_completionstatus/<completionstatus_id>")
-def delete_completionstatus(completionstatus_id):
-    mongo.db.completionstatus.remove({"_id": ObjectId(completionstatus_id)})
-    flash("Action comlpetion status was deleted")
-    return redirect(url_for('setup'))
-
-# Action delete function for user_dashboard=>edit template
-@app.route("/delete_action/<action_id>")
-def delete_action(action_id):
-    mongo.db.actions.remove({"_id": ObjectId(action_id)})
-    flash("Action was deleted")
-    return redirect(url_for('user_dashboard', username=session['user']))
+    # render add_kpi input page
+    return render_template("add_kpiinput.html", 
+        kpi=kpi,
+        kpistatuss=kpistatuss,
+        owners=owners,
+        weeknumber=weeknumber,
+        today=today)
 
 
 # setp admin kpi inputs page
@@ -619,94 +483,147 @@ def add_action():
         completionstatus = completionstatus)
 
 
-
-# kpi inputs page - add input page
-@app.route("/kpi_input")
-def kpi_input():
-    # create kpi input variable for the select loop on kpi_input
-    kpi = mongo.db.kpi.find()
-
-    # create kpiinputs variable for table body values
-    kpiintputs = mongo.db.kpiinputs.find()
-
-    return render_template("kpi_input.html", kpi=kpi, kpiintputs=kpiintputs)
-
-
-# filter function for kpi inputs page
-@app.route("/filter", methods = ["GET" , "POST"])
-def filter():
-    #  enable kpi for loop after filtering  
-    kpi = mongo.db.kpi.find()
-    
-    # make second form work after the filtering
-    input_kpiname = request.form.get("input_kpiname")
-    
-    # create variable for automatic KPI definition on the kpi input line 
-    kpiselection = input_kpiname
-    
-    # create inputs variable for KPI inputs list based on search request
-    kpiintputs = list(mongo.db.kpiinputs.find({"$text": {"$search":input_kpiname}}))
-    
-    # create inputs variable for KPI inputs list based on search request
-    return render_template("kpi_input.html", kpiintputs=kpiintputs, 
-        kpi=kpi, kpiselection=kpiselection)
-
-# function to add kpiinput
-@app.route("/add_kpiinput", methods=["GET","POST"])
-def add_kpiinput():
-    # variable for kpistatuss dropdown
-    kpistatuss=mongo.db.kpistatuss.find()
-
-    # variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
-    today=date.today().strftime("%d-%m-%Y")
-
-    # variable for weeknumber, python documentation source: https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime 
-    weeknumber=date.today().strftime("%W")
-
-    # variable for kpi_owner 
-    owners=mongo.db.users.find()
-
-    # if request method is post condition
+# create edit_user function
+@app.route("/edit_user/<user_id>", methods=["POST", "GET"])
+def edit_user(user_id):
+    # create user variable to prefill user input values in the form
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    # update changed user data into mongodb
     if request.method == "POST":
-        
-        # create a variable for kpi input
-        kpiinput={
-            "input_kpiowner": request.form.get("input_kpiowner"),
-            "input_kpiname": request.form.get("input_kpiname"),
-            "input_logdate": request.form.get("input_logdate"),
-            "input_weeknumber": request.form.get("input_weeknumber"),
-            "input_uom": request.form.get("input_uom"),
-            "input_bsl": request.form.get("input_bsl"),
-            "input_tgt": request.form.get("input_tgt"),
-            "input_act": request.form.get("input_act"),
-            "input_status": request.form.get("input_status")
-        }
+        edituser = {
+                "user_name": request.form.get("user_name").lower(),
+                "user_email": request.form.get("user_email").lower(),
+                "user_password": generate_password_hash(request.form.
+                    get("user_password")),
+            }
+        # insert new user into Mongo Db database
+        mongo.db.users.update({"_id": ObjectId(user_id)}, edituser)
+        flash("User update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_user.html", user=user)
 
-        # insert new kpi input inside kpiinputs collection
-        mongo.db.kpiinputs.insert_one(kpiinput)
-        
-        # based on kpiinput define a variable to update  kpi collection fields
-        latestinput ={
-            "kpi_lastlogdate": request.form.get("input_logdate"),
-            "kpi_lastbsl": request.form.get("input_bsl"),
-            "kpi_lasttgt": request.form.get("input_tgt"),
-            "kpi_lastact": request.form.get("input_act"),
-            "kpi_laststatus": request.form.get("input_status")
-        }
-        
-        # update kpi collection for specific fields following MongoDb documentation -https://docs.mongodb.com/manual/reference/operator/update/set/. Problem: the code {$set:latestinput} did not work Johann from student support helped me - i had to correct the code and add "" - {"$set":latestinput}. 
-        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
-        
-        # show the message that the operation was done successfully
-        flash("KPI Input was successfully added")
-        
-        # redirect to home page
-        return redirect(url_for('kpi_input')) 
-    return render_template("add_kpiinput.html", 
-        kpistatuss=kpistatuss,
-        owners=owners,
-        weeknumber=weeknumber,
-        today=today)
+
+# create edit_department function
+@app.route("/edit_department/<dept_id>", methods=["POST", "GET"])
+def edit_department(dept_id):
+    # create dept variable to prefill user input values in the form
+    dept = mongo.db.depts.find_one({"_id": ObjectId(dept_id)})
+
+    # update changed department data into mongodb
+    if request.method == "POST":
+        editdept = {
+                "dept_name": request.form.get("dept_name"),
+                "dept_shortname": request.form.get("dept_shortname")
+            }
+    
+    # insert new department into Mongo Db database
+        mongo.db.depts.update({"_id": ObjectId(dept_id)}, editdept)
+        flash("Deparment update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_department.html", dept=dept)
+
+
+# create edit_workstream function
+@app.route("/edit_workstream/<workstream_id>", methods=["POST", "GET"])
+def edit_workstream(workstream_id):
+    # create workstream variable to prefill workstream input values in the form
+    workstream = mongo.db.workstreams.find_one({"_id": ObjectId(workstream_id)})
+
+    # update changed workstream data into mongodb
+    if request.method == "POST":
+        editworkstream = {
+                "workstream_name": request.form.get("workstream_name"),
+                "workstream_shortname": request.form.get("workstream_shortname")
+            }
+    
+    # insert new department into Mongo Db database
+        mongo.db.workstreams.update({"_id": ObjectId(workstream_id)}, editworkstream)
+        flash("Workstream update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_workstream.html", workstream=workstream)
+
+
+# create edit_meeting function
+@app.route("/edit_meeting/<meeting_id>", methods=["POST", "GET"])
+def edit_meeting(meeting_id):
+    # create meeting variable to prefill meeting input values in the form
+    meeting = mongo.db.meetings.find_one({"_id": ObjectId(meeting_id)})
+
+    # update changed meeting data into mongodb
+    if request.method == "POST":
+        editmeeting = {
+                "meeting_name": request.form.get("meeting_name"),
+                "meeting_shortname": request.form.get("meeting_shortname")
+            }
+    
+    # insert new meeting into Mongo Db database
+        mongo.db.meetings.update({"_id": ObjectId(meeting_id)}, editmeeting)
+        flash("Meeting update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_meeting.html", meeting=meeting)
+
+
+# create edit_kpi function
+@app.route("/edit_kpi/<kpi_id>", methods=["POST", "GET"])
+def edit_kpi(kpi_id):
+    # create kpi variable to prefill kpi input values in the form
+    kpi = mongo.db.kpi.find_one({"_id": ObjectId(kpi_id)})
+
+    # update changed kpi data into mongodb
+    if request.method == "POST":
+        editkpi = {
+                "kpi_name": request.form.get("kpi_name"),
+                "kpi_shortname": request.form.get("kpi_shortname"),
+                "kpi_uom": request.form.get("kpi_uom"),
+                "kpi_description": request.form.get("kpi_description"),
+                "kpi_owner": request.form.get("kpi_owner")
+            }
+        # insert new kpi into Mongo Db database
+        mongo.db.kpi.update({"_id": ObjectId(kpi_id)}, editkpi)
+        flash("KPI update successfull!")
+        return redirect(url_for('setup'))
+    # define users variable for  KPI owner seectin
+    users=mongo.db.users.find().sort("user_name", 1)
+    return render_template("edit_kpi.html", kpi=kpi, users=users)
+
+
+# create edit_kpistatus function
+@app.route("/edit_kpistatus/<kpistatus_id>", methods=["POST", "GET"])
+def edit_kpistatus(kpistatus_id):
+    # create kpistatus variable to prefill kpistatus input values in the form
+    kpistatus = mongo.db.kpistatuss.find_one({"_id": ObjectId(kpistatus_id)})
+
+    # update changed kpistatus data into mongodb
+    if request.method == "POST":
+        editkpistatus = {
+                "kpistatus_name": request.form.get("kpistatus_name"),
+                "kpistatus_color": request.form.get("kpistatus_color")
+            }
+    
+    # insert new kpistatus into Mongo Db database
+        mongo.db.kpistatuss.update({"_id": ObjectId(kpistatus_id)}, editkpistatus)
+        flash("KPI Status update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_kpistatus.html", kpistatus=kpistatus)
+
+
+# create edit_completionstatus function
+@app.route("/edit_completionstatus/<completionstatus_id>", methods=["POST", "GET"])
+def edit_completionstatus(completionstatus_id):
+    # create completionstatus variable to prefill input value in the form
+    completionstatus = mongo.db.completionstatus.find_one({"_id": ObjectId(completionstatus_id)})
+
+    # update changed completionstatus data into mongodb
+    if request.method == "POST":
+        editcompletionstatus = {
+                "completionstatus_name": request.form.get("completionstatus_name")
+            }
+    
+    # insert new completionstatus into Mongo Db database
+        mongo.db.completionstatus.update({"_id": ObjectId(completionstatus_id)},editcompletionstatus)
+        flash("Action Completion Status update successfull!")
+        return redirect(url_for('setup'))
+    return render_template("edit_completionstatus.html", completionstatus=completionstatus)
 
 
 # create edit_kpi input function
@@ -725,6 +642,9 @@ def edit_kpiinput(kpiinput_id):
     # user variable
     user = session["user"]
 
+    # kpi statuss variable for dropdown on edit_kpiinput template
+    kpistatuss = mongo.db.kpistatuss.find()
+
     # update changed kpiinput data into mongodb
     if request.method == "POST":
         editkpiinput = {
@@ -735,7 +655,7 @@ def edit_kpiinput(kpiinput_id):
                 "input_bsl": request.form.get("input_bsl"),
                 "input_tgt": request.form.get("input_tgt"),
                 "input_act": request.form.get("input_act"),
-                "input_kpiowner": user,
+                "input_kpiowner": request.form.get("input_kpiowner"),
                 "input_status": request.form.get("input_status")
             }
             
@@ -761,7 +681,8 @@ def edit_kpiinput(kpiinput_id):
         input=input, 
         user=user, 
         owners=owners, 
-        kpis=kpis)
+        kpis=kpis,
+        kpistatuss=kpistatuss)
 
 
 # create edit_actionstatus input function
@@ -789,6 +710,7 @@ def edit_actionstatus(action_id):
         
         return redirect(url_for('user_dashboard', username=session["user"]))
     return render_template("edit_actionstatus.html",  action=action, completionstatus=completionstatus)
+
 
 # create edit_action function
 @app.route("/edit_action/<action_id>", methods=["POST", "GET"])
@@ -823,6 +745,86 @@ def edit_action(action_id):
         return redirect(url_for('user_dashboard', username=session["user"]))
     return render_template("edit_action.html",  action=action, completionstatus=completionstatus, users=users)
 
+
+# user delete function for setup template
+@app.route("/delete_user/<user_id>")
+def delete_user(user_id):
+    mongo.db.users.remove({"_id": ObjectId(user_id)})
+    flash("User was deleted")
+    return redirect(url_for('setup'))
+
+
+# department delete function for setup template
+@app.route("/delete_department/<dept_id>")
+def delete_department(dept_id):
+    mongo.db.depts.remove({"_id": ObjectId(dept_id)})
+    flash("Department was deleted")
+    return redirect(url_for('setup'))
+
+
+# workstream delete function for setup template
+@app.route("/delete_workstream/<workstream_id>")
+def delete_workstream(workstream_id):
+    mongo.db.workstreams.remove({"_id": ObjectId(workstream_id)})
+    flash("Workstream was deleted")
+    return redirect(url_for('setup'))
+
+
+# meeting delete function for setup template
+@app.route("/delete_meeting/<meeting_id>")
+def delete_meeting(meeting_id):
+    mongo.db.meetings.remove({"_id": ObjectId(meeting_id)})
+    flash("Meeting was deleted")
+    return redirect(url_for('setup'))
+
+
+# KPI delete function for setup template
+@app.route("/delete_kpi/<kpi_id>")
+def delete_kpi(kpi_id):
+    mongo.db.kpi.remove({"_id": ObjectId(kpi_id)})
+    flash("The KPI was deleted")
+    return redirect(url_for('setup'))
+
+
+# KPI status delete function for setup template
+@app.route("/delete_kpistatus/<kpistatus_id>")
+def delete_kpistatus(kpistatus_id):
+    mongo.db.kpistatuss.remove({"_id": ObjectId(kpistatus_id)})
+    flash("The KPI Status was deleted")
+    return redirect(url_for('setup'))
+
+
+# Action completion status delete function for setup template
+@app.route("/delete_completionstatus/<completionstatus_id>")
+def delete_completionstatus(completionstatus_id):
+    mongo.db.completionstatus.remove({"_id": ObjectId(completionstatus_id)})
+    flash("Action comlpetion status was deleted")
+    return redirect(url_for('setup'))
+
+# Action delete function for user_dashboard=>edit template
+@app.route("/delete_action/<action_id>")
+def delete_action(action_id):
+    mongo.db.actions.remove({"_id": ObjectId(action_id)})
+    flash("Action was deleted")
+    return redirect(url_for('user_dashboard', username=session['user']))
+
+
+# kpi inputs page - add input page
+@app.route("/kpi_input")
+def kpi_input():
+    # create kpi input variable for the select loop on kpi_input
+    kpi = mongo.db.kpi.find()
+
+    user=session["user"]
+
+    if session['user']=="admin":
+        # create kpiinputs variable for table body values
+        kpiintputs = mongo.db.kpiinputs.find()
+    
+    else:
+        kpiintputs=list(mongo.db.kpiinputs.find({"$text":{"$search":user}}))
+        
+    return render_template("kpi_input.html", kpiintputs=kpiintputs, user=user)
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":

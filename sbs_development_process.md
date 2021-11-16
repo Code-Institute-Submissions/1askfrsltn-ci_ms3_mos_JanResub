@@ -1973,13 +1973,17 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
                         <label for="input_weeknumber">Weeknumber</label>
                     </div>
                 </div>
-                
+
                 on app.py
                 # variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
                 today=date.today().strftime("%d-%m-%Y")
 
                 # variable for weeknumber, python documentation source: https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime 
                 weeknumber=date.today().strftime("%W")
+## CREATE FILTERING OPTION FOR USER ON KPI PAGE
+
+177. 
+
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:

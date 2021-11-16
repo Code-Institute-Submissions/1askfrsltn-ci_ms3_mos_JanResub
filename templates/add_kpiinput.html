@@ -10,7 +10,12 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-ellipsis-h prefix blue-grey-text"></i>
-                        <input value="" id="input_kpiname" name="input_kpiname" type="text" class="validate" required>
+                        <select id="input_kpiname" name="input_kpiname" class="materialize-textarea validate" required>
+                            <option value="" disabled selected></option>
+                            {%for kp in kpi %}
+                                <option value="{{kp.kpi_name}}">{{kp.kpi_name}}</option>
+                            {%endfor%}
+                        </select>
                         <label for="input_kpiname">KPI name</label>
                     </div>
                 </div>
