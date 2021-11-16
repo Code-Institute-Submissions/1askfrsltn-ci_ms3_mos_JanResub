@@ -1,7 +1,7 @@
 # import libraries and functions from packages
 import os
-from flask import (Flask, flash, render_template, 
-    redirect, request, session,url_for)
+from flask import (Flask, flash, render_template,
+    redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -36,13 +36,20 @@ def home():
         # create list of dictionaries from kpiinputs collection in mongodb
         kpiinputs = list(mongo.db.kpiinputs.find())
         
-        # create list of input_kpiname values from kpiinputs list - thanks to stackoverflow help from Ismail Badawi: https://stackoverflow.com/questions/7271482/getting-a-list-of-values-from-a-list-of-dicts 
+        ''' create list of input_kpiname values from kpiinputs 
+        list - thanks to stackoverflow
+        help from Ismail Badawi: 
+        https://stackoverflow.com/questions/7271482/
+        getting-a-list-of-values-from-a-list-of-dicts 
+        '''
         kpinames = [name['input_kpiname'] for name in kpiinputs]
+
         
         # use set method to create unique list of name
         unames = set(kpinames)
         
         return render_template("home.html", kpiinputs=kpiinputs, kpinames=kpinames, unames=unames)
+
     else:
         flash("please login to access the page")
         return redirect(url_for('login'))
@@ -122,11 +129,12 @@ def user_dashboard(username):
         username = mongo.db.users.find_one(
             {"user_name": session["user"]})["user_name"]
         
-        # create completionstatus variable for the loop on user_dashboard selected component
+        # create completionstatus variable for the loop 
+        # on user_dashboard selected component
         completionstatus = mongo.db.completionstatus.find()
         
         # define variable for automatic filter
-        user=session["user"]
+        user = session["user"]
         
         # define variable for filtering selection
         action_status=request.form.get('action_status')
@@ -267,33 +275,33 @@ def add_user():
     # defensive programming message
     else:
         flash("Please, login to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('login'))
 
 
 # function to add kpiinput
-@app.route("/add_kpiinput", methods=["GET","POST"])
+@app.route("/add_kpiinput", methods=["GET", "POST"])
 def add_kpiinput():
     if "user" in session:
         # variable for kpistatuss dropdown
         kpistatuss = mongo.db.kpistatuss.find()
 
         # variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
-        today=date.today().strftime("%d-%m-%Y")
+        today = date.today().strftime("%d-%m-%Y")
 
         # variable for weeknumber, python documentation source: https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime 
-        weeknumber=date.today().strftime("%W")
+        weeknumber = date.today().strftime("%W")
 
         # kpi variable for select element on kpi_name
-        kpi=mongo.db.kpi.find()
+        kpi = mongo.db.kpi.find()
 
         # variable for kpi_owner 
-        owners=mongo.db.users.find()
+        owners = mongo.db.users.find()
 
         # if request method is post condition
         if request.method == "POST":
             
             # create a variable for kpi input
-            kpiinput={
+            kpiinput = {
                 "input_kpiowner": request.form.get("input_kpiowner"),
                 "input_kpiname": request.form.get("input_kpiname"),
                 "input_logdate": request.form.get("input_logdate"),
@@ -309,7 +317,7 @@ def add_kpiinput():
             mongo.db.kpiinputs.insert_one(kpiinput)
             
             # based on kpiinput define a variable to update  kpi collection fields
-            latestinput ={
+            latestinput = {
                 "kpi_lastlogdate": request.form.get("input_logdate"),
                 "kpi_lastbsl": request.form.get("input_bsl"),
                 "kpi_lasttgt": request.form.get("input_tgt"),
@@ -318,8 +326,9 @@ def add_kpiinput():
             }
             
             # update kpi collection for specific fields following MongoDb documentation -https://docs.mongodb.com/manual/reference/operator/update/set/. Problem: the code {$set:latestinput} did not work Johann from student support helped me - i had to correct the code and add "" - {"$set":latestinput}. 
-            mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
-            
+            mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},
+            {"$set": latestinput})
+
             # show the message that the operation was done successfully
             flash("KPI Input was successfully added")
             
@@ -328,11 +337,11 @@ def add_kpiinput():
         
         # render add_kpi input page
         return render_template("add_kpiinput.html", 
-            kpi=kpi,
-            kpistatuss=kpistatuss,
-            owners=owners,
-            weeknumber=weeknumber,
-            today=today)
+            kpi = kpi,
+            kpistatuss = kpistatuss,
+            owners = owners,
+            weeknumber = weeknumber,
+            today = today)
     
     # defensive programming message
     else:
