@@ -27,8 +27,8 @@
                     {% if session.user %}  
                         {% if session.user|lower=="admin"|lower %}
                                 <li><a href="{{ url_for('setup')}}">SET UP</a></li>
+                                <li><a href="{{url_for('home')}}">MEETINGS</a></li>
                         {% endif %} 
-                    <li><a href="{{url_for('home')}}">MEETINGS</a></li>
                     <!--nav links visible when logged out-->
                         
                         <li><a href="{{url_for('user_dashboard', username=session['user'])}}">USER DASHBOARD</a></li>

@@ -801,12 +801,21 @@ def delete_completionstatus(completionstatus_id):
     flash("Action comlpetion status was deleted")
     return redirect(url_for('setup'))
 
+
 # Action delete function for user_dashboard=>edit template
 @app.route("/delete_action/<action_id>")
 def delete_action(action_id):
     mongo.db.actions.remove({"_id": ObjectId(action_id)})
     flash("Action was deleted")
     return redirect(url_for('user_dashboard', username=session['user']))
+
+
+# kpi input delete function for kpi_input=>edit kpiinput template for admin only
+@app.route("/delete_kpiinput/<kpiinput_id>")
+def delete_kpiinput(kpiinput_id):
+    mongo.db.kpiinputs.remove({"_id": ObjectId(kpiinput_id)})
+    flash("KPI input was deleted")
+    return redirect(url_for('kpi_input'))
 
 
 # kpi inputs page - add input page
@@ -847,7 +856,8 @@ def kpi_input():
     
     return render_template("kpi_input.html", 
         kpiintputs=kpiintputs, 
-        user=user, kpis=kpis)
+        user=user, 
+        kpis=kpis)
         
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.

@@ -99,14 +99,16 @@
                 <div class="row">
                     <div class="row">
                         <!--Cancell Button-->
-                        <div class="col s6">
-                            <a href="{{url_for('kpi_input')}}" class="waves-effect red waves-light right btn ">CANCEL</a>
+                        <div class="col s4">
+                            <a href="{{url_for('kpi_input')}}" class="waves-effect waves-red btn-flat right ">CANCEL</a>
                         </div>
                         <!--Add action Button-->
-                        <div class="row">
-                            <div class="col s6 right">
-                                <button type="submit" class="btn blue-grey text-shadow">SUBMIT</button> 
-                            </div>
+                        <div class="col s4 center-align">
+                            <button type="submit" class="btn blue-grey text-shadow">SUBMIT</button> 
+                        </div>
+                         <!--Add action Button-->
+                        <div class="col s4 left">
+                            <a href="{{url_for('delete_kpiinput', kpiinput_id=input._id)}}" class="waves-effect red waves-light btn ">DELETE</a>
                         </div>
                     </div>
                 </div>           
