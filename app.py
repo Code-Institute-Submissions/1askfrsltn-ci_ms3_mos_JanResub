@@ -140,7 +140,7 @@ def user_dashboard(username):
         action_status=request.form.get('action_status')
 
         # variable for action status selection after it has been selected by filter
-        actionstatusselection =  action_status
+        actionstatusselection = action_status
         
         # define variables for kpis and actions loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter, this nested conditions should also be used for filter section of actions
         if user == "admin":
@@ -672,9 +672,12 @@ def edit_meeting(meeting_id):
 # create edit_kpi function
 @app.route("/edit_kpi/<kpi_id>", methods=["POST", "GET"])
 def edit_kpi(kpi_id):
-    if "user" in sessin:
+    if "user" in session:
         # create kpi variable to prefill kpi input values in the form
         kpi = mongo.db.kpi.find_one({"_id": ObjectId(kpi_id)})
+
+        # owners or dropdown
+
 
         # update changed kpi data into mongodb
         if request.method == "POST":
@@ -685,13 +688,16 @@ def edit_kpi(kpi_id):
                     "kpi_description": request.form.get("kpi_description"),
                     "kpi_owner": request.form.get("kpi_owner")
                 }
+            
             # insert new kpi into Mongo Db database
             mongo.db.kpi.update({"_id": ObjectId(kpi_id)}, editkpi)
+            
             flash("KPI update successfull!")
             return redirect(url_for('setup'))
+        
         # define users variable for  KPI owner seectin
         users=mongo.db.users.find().sort("user_name", 1)
-        return render_template("edit_kpi.html", kpi=kpi, users=users)
+        return render_template("edit_kpi.html", kpi=kpi, users=users, )
     
     # defensive programming message
     else:
