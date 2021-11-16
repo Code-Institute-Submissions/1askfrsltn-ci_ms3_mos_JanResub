@@ -2012,8 +2012,7 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
                                 </form>
                         </div>
 
-178. Create the condition to show kpi inputs in the table for admin/non-admin login
-179. create nested condition for search buttons - complete code:
+178. Create the condition to show kpi inputs in the table for admin/non-admin login and create nested condition for search buttons - complete code:
 
                 # nested coniditons to build kpi inputs table based on user login and  search text
                 if user=="admin":
@@ -2043,7 +2042,22 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
                                 "$text":{"$search":search_kpiinput}}))
         
 ## FIXING LAST ISSUES
-180. Developed delete kpi input functionality/button on edit_kpiinput template.  PROBLEM - delete function doesn't delete the document, and no error, flash message works fine      
+179. Developed delete kpi input functionality/button on edit_kpiinput template.  PROBLEM - delete function doesn't delete the document, and no error, flash message works fine 
+
+180. Include defensive programming component on app.py to redirect non-user to login page when user tries to access the page directly:
+
+                # create edit_actionstatus input function
+                @app.route("/edit_actionstatus/<action_id>", methods=["POST", "GET"])
+                def edit_actionstatus(action_id):
+                # prevent non-authorised direct access to the page with defensive programming
+                if "user" in session:
+                        # find the right action for status update
+                        action = mongo.db.actions.find_one({"_id": ObjectId(action_id)})
+                        ...
+                # defensive programming message
+                else:
+                        flash("Please, login to access the page")
+                        return redirect (url_for('login')) 
 
 
 ## OTHER PROBLEMS TO SOLVE

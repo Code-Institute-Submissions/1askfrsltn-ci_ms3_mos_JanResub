@@ -191,9 +191,9 @@ Website colors and design team will be simple and neutral, it means - limited am
     1 | Automate action numbers on add_action template                    | add_action | **done** | 1 - MUST
     2 | Automate date for all inputs                                      | add_action | **done** | 2 - GOOD TO HAVE
     3 | Change KPI input form                                             | kpi_input | **done** | 1 - MUST
-    4 | Connect meetings page to PowerBI                                  | home.html | not done | 3 - last, important
+    4 | Connect meetings page to PowerBI                                  | home.html | **done**  | 3 - last, important
     5 | Make logdate automatic                                            | add_action.html | **done** | 3 - last
-    6 | Automate action accountable based on user                         | add_action.html | not done | 3 - not crtical
+    6 | Automate action accountable based on user                         | add_action.html | not needed | 3 - not crtical
     7 | Split function on def user_dashboard app.py                       | app.py | not done | 2 - will add points
     8 | Add completion status setup forms (add,edit,delete)               | edit_status, app.py | **done** | 1 - MUST
     9 | Make navbar thinner                                               | base.html, css | not done | 3 - nice to have
@@ -206,7 +206,7 @@ Website colors and design team will be simple and neutral, it means - limited am
     16 | Standardise all icons                                            | application | **done**  | 2 - UX nice to have
     17 | Add accountable on KPI input                                     | kpi input | **done** | 1 - UX nice to have
     18 | Add KPI input sign based on act-tgt delta                        | kpi input | not done | 3 - UX nice to have
-    19 | Add security condition on each page                              | all templates | not done | 1 - must
+    19 | Add security condition on each page                              | all templates | **done** | 1 - must
     20 | Delete exisiting, add  KPI inputs for 4 KPIs for last 10 weeks   | KPI inputs, mongo | not done | 1 - good to have
     21 | Make meetings filter on a home page                              | home, app.py | not done | 1 - finsih project
     22 | Make s,m,l responsive classes on all forms                       | application| not done | 2 - finsih project
