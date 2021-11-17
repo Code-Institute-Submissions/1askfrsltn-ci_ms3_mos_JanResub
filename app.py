@@ -32,7 +32,8 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
     # if user in session defensive progremming, 2nd condition to prevent direct access to admin pages from regular user profilles:
-    if session["user"]=="admin":
+    if "user" in session and session["user"] == "admin":
+        
         # create list of dictionaries from kpiinputs collection in mongodb
         kpiinputs = list(mongo.db.kpiinputs.find())
         
@@ -200,7 +201,9 @@ def logout():
 # setup router and function
 @app.route("/admin_setup")
 def setup():
-    if session["user"] == "admin":
+    
+    # prevent direct access
+    if "user" in session and session["user"] == "admin":
 
         # collect all the users
         users = mongo.db.users.find()
@@ -241,7 +244,7 @@ def setup():
 def add_user():
     
     # defensive programming
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         
         # add user functionality
         if request.method == "POST":
@@ -359,7 +362,7 @@ def add_kpiinput():
 # setp admin kpi inputs page
 @app.route("/add_kpi", methods=["POST","GET"])
 def add_kpi():
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         # add select dropdown list
         owners = mongo.db.users.find()
 
@@ -392,7 +395,7 @@ def add_kpi():
 def add_department():
     
     # defensive programming
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         if request.method == "POST":
             
             # create a variable for new department
@@ -418,7 +421,7 @@ def add_department():
 # create setup function for adding worksream
 @app.route("/add_workstream", methods=["POST", "GET"])
 def add_workstream():
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         if request.method == "POST":
             
             # create a variable for new workstream
@@ -444,7 +447,7 @@ def add_workstream():
 # create setup function to add new meeting
 @app.route("/add_meeting", methods=["POST", "GET"])
 def add_meeting():
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         if request.method == "POST":  
             # create a variable for new meeting
             new_meeting = {
@@ -469,7 +472,9 @@ def add_meeting():
 # create setup function to add new kpi status
 @app.route("/add_kpistatus", methods=["POST", "GET"])
 def add_kpistatus():
-    if session["user"]=="admin":
+    
+    # prevent direct access to th etemplate
+    if "user" in session and session["user"]=="admin":
         if request.method == "POST":
             
             # create a variable for new meeting
@@ -496,7 +501,7 @@ def add_kpistatus():
 def add_completionstatus():
     
     # defensive programming
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         if request.method == "POST":
             
             # create a variable for new meeting
@@ -579,7 +584,7 @@ def add_action():
 def edit_user(user_id):
     
     # defensive programming - access to admin only
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
 
         # create user variable to prefill user input values in the form
         user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
@@ -609,7 +614,7 @@ def edit_user(user_id):
 def edit_department(dept_id):
     
     # defensive programming to prevent from direct access
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
 
         # create dept variable to prefill user input values in the form
         dept = mongo.db.depts.find_one({"_id": ObjectId(dept_id)})
@@ -637,7 +642,9 @@ def edit_department(dept_id):
 @app.route("/edit_workstream/<workstream_id>", methods=["POST", "GET"])
 def edit_workstream(workstream_id):
     
-    if session["user"]=="admin":
+    # prevent direct non-admin access to template
+    if "user" in session and session["user"]=="admin":
+        
         # create workstream variable to prefill workstream input values in the form
         workstream = mongo.db.workstreams.find_one({"_id": ObjectId(workstream_id)})
 
@@ -664,7 +671,10 @@ def edit_workstream(workstream_id):
 # create edit_meeting function
 @app.route("/edit_meeting/<meeting_id>", methods=["POST", "GET"])
 def edit_meeting(meeting_id):
-    if session["user"]=="admin":
+    
+    # prevent direct non-admin access to thetemplate
+    if "user" in session and session["user"]=="admin":
+        
         # create meeting variable to prefill meeting input values in the form
         meeting = mongo.db.meetings.find_one({"_id": ObjectId(meeting_id)})
 
@@ -692,7 +702,7 @@ def edit_meeting(meeting_id):
 def edit_kpi(kpi_id):
     
     # prevent from direct access by other users
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         
         # create kpi variable to prefill kpi input values in the form
         kpi = mongo.db.kpi.find_one({"_id": ObjectId(kpi_id)})
@@ -728,7 +738,7 @@ def edit_kpi(kpi_id):
 def edit_kpistatus(kpistatus_id):
     
     # prevent from direct access
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         
         # create kpistatus variable to prefill kpistatus input values in the form
         kpistatus = mongo.db.kpistatuss.find_one({"_id": 
@@ -760,7 +770,7 @@ def edit_kpistatus(kpistatus_id):
 def edit_completionstatus(completionstatus_id):
     
     # prevent direct access
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         
         # create completionstatus variable to prefill input value in the form
         completionstatus = mongo.db.completionstatus.find_one({"_id": ObjectId(completionstatus_id)})
@@ -788,7 +798,7 @@ def edit_completionstatus(completionstatus_id):
 def edit_kpiinput(kpiinput_id):
     
     # prevent form direct access by other users
-    if session["user"]=="admin":
+    if "user" in session and session["user"]=="admin":
         
         # create kpiinput variable to prefill kpiinput input values in the form
         input = mongo.db.kpiinputs.find_one({"_id": ObjectId(kpiinput_id)})
@@ -888,8 +898,8 @@ def edit_actionstatus(action_id):
 @app.route("/edit_action/<action_id>", methods=["POST", "GET"])
 def edit_action(action_id):
     
-    # prevent form direct access by ther users
-    if session["user"]=="admin":
+    # prevent from direct access by non-admin 
+    if "user" in session and session["user"]=="admin":
         
         # find the right action for update
         action = mongo.db.actions.find_one({"_id": ObjectId(action_id)})

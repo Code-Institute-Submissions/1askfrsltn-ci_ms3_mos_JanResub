@@ -2043,19 +2043,19 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
         
 ## DEFFENSIVE PROGRAMMING
 
-179. Include defensive programming component on app.py to redirect non-user to login page when user tries to access the page directly:
+179. Include defensive programming component on app.py to redirect non-user to login page when user tries to access the page directly (see testing page for more details on each fuunction testing):
 
                 # create edit_actionstatus input function
                 @app.route("/edit_actionstatus/<action_id>", methods=["POST", "GET"])
                 def edit_actionstatus(action_id):
                 # prevent non-authorised direct access to the page with defensive programming
-                if "user" in session:
+                if "user" in session and session["user"]=="admin":
                         # find the right action for status update
                         action = mongo.db.actions.find_one({"_id": ObjectId(action_id)})
                         ...
                 # defensive programming message
                 else:
-                        flash("Please, login to access the page")
+                        flash("Please, login as Admin to access the page")
                         return redirect (url_for('login')) 
 
 ## FIXING LAST ISSUES
@@ -2084,6 +2084,8 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
 184. PROBLEM: The field value on edit template when disabled appeared as _null_  when  inserted into mongo db
 
 185. Fixed the problem with flash message from copy/edit_kpinput templatepopping up on KPI-input page - replaced flash with flash-like html message on copy/edit_kpiinput
+
+186. defensive
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:

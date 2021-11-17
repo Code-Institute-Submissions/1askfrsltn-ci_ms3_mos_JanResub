@@ -8,11 +8,8 @@
   hwen started the application was built for educational purposes only.
 
 Link to the Application: [Meetings Hub](http://ask-pft-meetinghub.herokuapp.com/)
-
-Super Admin access:
-    * _Login_: Admin; 
-    * _Password_: AskCode1;
 #
+
 ## **User Experience (UX)**
 ### GOALS
 1. **For user** - the application will help a meeting chair to navigate thorugh KPIs Viusuals during the meeting, by using filters KPIs will be filtered by accountability. The performance of each participant will be visualised through Key Perrformance Indicators and those KPIs that require action effort will be conditionally highlighted. The visualisation will help to quickly identify the preformance level and address the variance with actions assigned to meeting participants.
