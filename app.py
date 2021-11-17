@@ -32,7 +32,7 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
     # if user in session defensive progremming, 2nd condition to prevent direct access to admin pages from regular user profilles:
-    if "user" in session and session["user"]=="admin":
+    if session["user"]=="admin":
         # create list of dictionaries from kpiinputs collection in mongodb
         kpiinputs = list(mongo.db.kpiinputs.find())
         
@@ -51,7 +51,7 @@ def home():
         return render_template("home.html", kpiinputs=kpiinputs, kpinames=kpinames, unames=unames)
 
     else:
-        flash("please login as admin to access the page")
+        flash("Please login as Admin to access the page")
         return redirect(url_for('login'))
 
 # create route decorator for login page
@@ -124,8 +124,10 @@ def register():
 # create route decorator for user dashboard page
 @app.route("/user_dashboard/<username>", methods=["POST", "GET"])
 def user_dashboard(username):
-    # if user in session defensive progremming:
+    
+    # if user in session defensive programming:
     if "user" in session:
+        
         # create username variable for user_dashboard template entrance
         username = mongo.db.users.find_one(
             {"user_name": session["user"]})["user_name"]
@@ -198,7 +200,7 @@ def logout():
 # setup router and function
 @app.route("/admin_setup")
 def setup():
-    if "user" in session:
+    if session["user"] == "admin":
 
         # collect all the users
         users = mongo.db.users.find()
@@ -231,18 +233,22 @@ def setup():
             kpistatuss=kpistatuss)
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 # add user route decorator and add_user function
 @app.route("/add_user", methods=["POST", "GET"])
 def add_user():
+    
     # defensive programming
     if session["user"]=="admin":
+        
         # add user functionality
         if request.method == "POST":
+            
             # checks database if the user_email already added
-            existing_email = mongo.db.users.find_one({"user_email": request.form.get("user_email")})
+            existing_email = mongo.db.users.find_one({"user_email": request.
+                form.get("user_email")})
 
             existing_user = mongo.db.users.find_one({"user_name": request.form.
                 get("user_name")})
@@ -275,7 +281,7 @@ def add_user():
     
     # defensive programming message
     else:
-        flash("Please, login as admin to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect(url_for('login'))
 
 
@@ -346,14 +352,14 @@ def add_kpiinput():
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # setp admin kpi inputs page
 @app.route("/add_kpi", methods=["POST","GET"])
 def add_kpi():
-    if "user" in session:
+    if session["user"]=="admin":
         # add select dropdown list
         owners = mongo.db.users.find()
 
@@ -377,15 +383,16 @@ def add_kpi():
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # create setup function for adding department
 @app.route("/add_department",methods=["POST","GET"])
 def add_department():
+    
     # defensive programming
-    if "user" in session:
+    if session["user"]=="admin":
         if request.method == "POST":
             
             # create a variable for new department
@@ -404,14 +411,14 @@ def add_department():
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # create setup function for adding worksream
 @app.route("/add_workstream", methods=["POST", "GET"])
 def add_workstream():
-    if "user" in session:
+    if session["user"]=="admin":
         if request.method == "POST":
             
             # create a variable for new workstream
@@ -430,14 +437,14 @@ def add_workstream():
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # create setup function to add new meeting
 @app.route("/add_meeting", methods=["POST", "GET"])
 def add_meeting():
-    if "user" in session:
+    if session["user"]=="admin":
         if request.method == "POST":  
             # create a variable for new meeting
             new_meeting = {
@@ -455,14 +462,14 @@ def add_meeting():
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
     
 
 # create setup function to add new kpi status
 @app.route("/add_kpistatus", methods=["POST", "GET"])
 def add_kpistatus():
-    if "user" in session:
+    if session["user"]=="admin":
         if request.method == "POST":
             
             # create a variable for new meeting
@@ -480,14 +487,16 @@ def add_kpistatus():
         return render_template("add_kpistatus.html")
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # create setup function to add new action completion status
 @app.route("/add_completionstatus", methods=["POST", "GET"])
 def add_completionstatus():
-    if "user" in session:
+    
+    # defensive programming
+    if session["user"]=="admin":
         if request.method == "POST":
             
             # create a variable for new meeting
@@ -505,7 +514,7 @@ def add_completionstatus():
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
@@ -568,10 +577,13 @@ def add_action():
 # create edit_user function
 @app.route("/edit_user/<user_id>", methods=["POST", "GET"])
 def edit_user(user_id):
-    if "user" in session:
+    
+    # defensive programming - access to admin only
+    if session["user"]=="admin":
 
         # create user variable to prefill user input values in the form
         user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+
         # update changed user data into mongodb
         if request.method == "POST":
             edituser = {
@@ -588,13 +600,17 @@ def edit_user(user_id):
 
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
+
 
 # create edit_department function
 @app.route("/edit_department/<dept_id>", methods=["POST", "GET"])
 def edit_department(dept_id):
-    if "user" in session:
+    
+    # defensive programming to prevent from direct access
+    if session["user"]=="admin":
+
         # create dept variable to prefill user input values in the form
         dept = mongo.db.depts.find_one({"_id": ObjectId(dept_id)})
 
@@ -613,14 +629,15 @@ def edit_department(dept_id):
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, as Admin login to access the page")
         return redirect (url_for('login'))
 
 
 # create edit_workstream function
 @app.route("/edit_workstream/<workstream_id>", methods=["POST", "GET"])
 def edit_workstream(workstream_id):
-    if "user" in session:
+    
+    if session["user"]=="admin":
         # create workstream variable to prefill workstream input values in the form
         workstream = mongo.db.workstreams.find_one({"_id": ObjectId(workstream_id)})
 
@@ -640,14 +657,14 @@ def edit_workstream(workstream_id):
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # create edit_meeting function
 @app.route("/edit_meeting/<meeting_id>", methods=["POST", "GET"])
 def edit_meeting(meeting_id):
-    if "user" in session:
+    if session["user"]=="admin":
         # create meeting variable to prefill meeting input values in the form
         meeting = mongo.db.meetings.find_one({"_id": ObjectId(meeting_id)})
 
@@ -666,19 +683,19 @@ def edit_meeting(meeting_id):
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # create edit_kpi function
 @app.route("/edit_kpi/<kpi_id>", methods=["POST", "GET"])
 def edit_kpi(kpi_id):
-    if "user" in session:
+    
+    # prevent from direct access by other users
+    if session["user"]=="admin":
+        
         # create kpi variable to prefill kpi input values in the form
         kpi = mongo.db.kpi.find_one({"_id": ObjectId(kpi_id)})
-
-        # owners or dropdown
-
 
         # update changed kpi data into mongodb
         if request.method == "POST":
@@ -702,16 +719,20 @@ def edit_kpi(kpi_id):
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # create edit_kpistatus function
 @app.route("/edit_kpistatus/<kpistatus_id>", methods=["POST", "GET"])
 def edit_kpistatus(kpistatus_id):
-    if "user" in session:
+    
+    # prevent from direct access
+    if session["user"]=="admin":
+        
         # create kpistatus variable to prefill kpistatus input values in the form
-        kpistatus = mongo.db.kpistatuss.find_one({"_id": ObjectId(kpistatus_id)})
+        kpistatus = mongo.db.kpistatuss.find_one({"_id": 
+            ObjectId(kpistatus_id)})
 
         # update changed kpistatus data into mongodb
         if request.method == "POST":
@@ -729,7 +750,7 @@ def edit_kpistatus(kpistatus_id):
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
@@ -737,7 +758,10 @@ def edit_kpistatus(kpistatus_id):
 @app.route("/edit_completionstatus/<completionstatus_id>", 
     methods=["POST", "GET"])
 def edit_completionstatus(completionstatus_id):
-    if "user" in session:
+    
+    # prevent direct access
+    if session["user"]=="admin":
+        
         # create completionstatus variable to prefill input value in the form
         completionstatus = mongo.db.completionstatus.find_one({"_id": ObjectId(completionstatus_id)})
 
@@ -755,14 +779,16 @@ def edit_completionstatus(completionstatus_id):
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # create edit_kpi input function
 @app.route("/edit_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
 def edit_kpiinput(kpiinput_id):
-    if "user" in session:
+    
+    # prevent form direct access by other users
+    if session["user"]=="admin":
         
         # create kpiinput variable to prefill kpiinput input values in the form
         input = mongo.db.kpiinputs.find_one({"_id": ObjectId(kpiinput_id)})
@@ -779,7 +805,6 @@ def edit_kpiinput(kpiinput_id):
         # kpi statuss variable for dropdown on edit_kpiinput template
         kpistatuss = mongo.db.kpistatuss.find()
         
-
         # update changed kpiinput data into mongodb
         if request.method == "POST":
             editkpiinput = {
@@ -818,15 +843,17 @@ def edit_kpiinput(kpiinput_id):
             owners=owners, 
             kpis=kpis,
             kpistatuss=kpistatuss)
+    
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 
 # create edit_actionstatus input function
 @app.route("/edit_actionstatus/<action_id>", methods=["POST", "GET"])
 def edit_actionstatus(action_id):
+    
     # prevent non-authorised direct access to the page with defensive programming
     if "user" in session:
         # find the right action for status update
@@ -860,7 +887,10 @@ def edit_actionstatus(action_id):
 # create edit_action function
 @app.route("/edit_action/<action_id>", methods=["POST", "GET"])
 def edit_action(action_id):
-    if "user" in session:
+    
+    # prevent form direct access by ther users
+    if session["user"]=="admin":
+        
         # find the right action for update
         action = mongo.db.actions.find_one({"_id": ObjectId(action_id)})
         
@@ -881,7 +911,7 @@ def edit_action(action_id):
                     "action_status": request.form.get("action_status")
                 }
             
-            # update an action with actionstatus in collection - address only specific field that was changed
+            # update an action in collection - address only specific fields that was changed
             mongo.db.actions.update({"_id": ObjectId(action_id)},{"$set":editaction})
             
             # inform about successfull completion
@@ -892,7 +922,7 @@ def edit_action(action_id):
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as Admin to access the page")
         return redirect (url_for('login'))
 
 # user delete function for setup template
@@ -970,7 +1000,9 @@ def delete_kpiinput(kpiinput_id):
 # kpi inputs page - add input page
 @app.route("/kpi_input", methods=["POST","GET"])
 def kpi_input():
+    # prevent direct access from non-user
     if "user" in session:
+        
         # create kpi input variable for the loop on kpi_input
         kpis = mongo.db.kpi.find()
 
@@ -979,8 +1011,10 @@ def kpi_input():
         
         # nested coniditons to build kpi inputs table based on user login and  search text
         if user=="admin":
+            
             # create kpiinputs variable for table body values
             kpiintputs = mongo.db.kpiinputs.find().sort("input_weeknumber",1)
+            
             # condition statement for sirting the week
             if request.method=="POST":
                 
@@ -991,6 +1025,7 @@ def kpi_input():
                 kpiintputs=list(mongo.db.kpiinputs.find({"$text":{"$search":search_kpiinput}}))
         
         else:
+            
             # variable for non-admin
             kpiintputs=list(mongo.db.kpiinputs.find({"$text":{"$search":user}}))
             
@@ -1017,6 +1052,7 @@ def kpi_input():
 # create copy kpiinput  function
 @app.route("/copy_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
 def copy_kpiinput(kpiinput_id):
+    # prevent form direct access from non-user
     if "user" in session:
         # create kpiinput variable to prefill kpiinput input values in the form
         input = mongo.db.kpiinputs.find_one({"_id": ObjectId(kpiinput_id)})
