@@ -32,7 +32,7 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
     # if user in session defensive progremming:
-    if user in session == admin:
+    if user in session and session['user']==admin:
         
         # create list of dictionaries from kpiinputs collection in mongodb
         kpiinputs = list(mongo.db.kpiinputs.find())
