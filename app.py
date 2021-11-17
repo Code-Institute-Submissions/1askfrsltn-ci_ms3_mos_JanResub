@@ -53,7 +53,7 @@ def home():
 
     else:
         flash("Please login as Admin to access the page")
-        return redirect(url_for('login'))
+        return redirect(url_for('logout'))
 
 # create route decorator for login page
 @app.route("/login", methods=["GET", "POST"])
@@ -187,7 +187,7 @@ def user_dashboard(username):
         return redirect(url_for('login'), username=user)
     else:
         flash("Please, login to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 @app.route("/logout")
@@ -237,7 +237,7 @@ def setup():
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 # add user route decorator and add_user function
 @app.route("/add_user", methods=["POST", "GET"])
@@ -285,7 +285,7 @@ def add_user():
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect(url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # function to add kpiinput
@@ -356,7 +356,7 @@ def add_kpiinput():
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # setp admin kpi inputs page
@@ -387,7 +387,7 @@ def add_kpi():
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create setup function for adding department
@@ -415,7 +415,7 @@ def add_department():
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create setup function for adding worksream
@@ -441,7 +441,7 @@ def add_workstream():
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create setup function to add new meeting
@@ -466,7 +466,7 @@ def add_meeting():
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
     
 
 # create setup function to add new kpi status
@@ -493,7 +493,7 @@ def add_kpistatus():
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create setup function to add new action completion status
@@ -520,7 +520,7 @@ def add_completionstatus():
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # function to add actions
@@ -576,7 +576,7 @@ def add_action():
     # defensive programming message
     else:
         flash("Please, login to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create edit_user function
@@ -606,7 +606,7 @@ def edit_user(user_id):
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create edit_department function
@@ -634,8 +634,8 @@ def edit_department(dept_id):
     
     # defensive programming message
     else:
-        flash("Please, as Admin login to access the page")
-        return redirect (url_for('login'))
+        flash("Please, login as Admin  to access the page")
+        return redirect(url_for('logout'))
 
 
 # create edit_workstream function
@@ -665,7 +665,7 @@ def edit_workstream(workstream_id):
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create edit_meeting function
@@ -694,7 +694,7 @@ def edit_meeting(meeting_id):
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create edit_kpi function
@@ -730,7 +730,7 @@ def edit_kpi(kpi_id):
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create edit_kpistatus function
@@ -761,7 +761,7 @@ def edit_kpistatus(kpistatus_id):
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create edit_completionstatus function
@@ -790,7 +790,7 @@ def edit_completionstatus(completionstatus_id):
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create edit_kpi input function
@@ -857,7 +857,7 @@ def edit_kpiinput(kpiinput_id):
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # create edit_actionstatus input function
@@ -891,7 +891,7 @@ def edit_actionstatus(action_id):
     # defensive programming message
     else:
         flash("Please, login to access the page")
-        return redirect (url_for('login')) 
+        return redirect(url_for('logout')) 
 
 
 # create edit_action function
@@ -933,7 +933,7 @@ def edit_action(action_id):
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 # user delete function for setup template
 @app.route("/delete_user/<user_id>")
@@ -1056,7 +1056,7 @@ def kpi_input():
     # defensive programming message
     else:
         flash("Please, login to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
         
 
 # create copy kpiinput  function
@@ -1120,7 +1120,7 @@ def copy_kpiinput(kpiinput_id):
     # defensive programming message
     else:
         flash("Please, login to access the page")
-        return redirect (url_for('login'))
+        return redirect(url_for('logout'))
 
 
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
