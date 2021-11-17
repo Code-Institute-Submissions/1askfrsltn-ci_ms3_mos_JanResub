@@ -32,7 +32,8 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
     # if user in session defensive progremming:
-    if "user" in session:
+    if user in session == admin:
+        
         # create list of dictionaries from kpiinputs collection in mongodb
         kpiinputs = list(mongo.db.kpiinputs.find())
         
@@ -1017,7 +1018,6 @@ def kpi_input():
 @app.route("/copy_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
 def copy_kpiinput(kpiinput_id):
     if "user" in session:
-
         # create kpiinput variable to prefill kpiinput input values in the form
         input = mongo.db.kpiinputs.find_one({"_id": ObjectId(kpiinput_id)})
 
