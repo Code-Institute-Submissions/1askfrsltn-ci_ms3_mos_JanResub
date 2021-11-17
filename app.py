@@ -28,43 +28,6 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-# create route decorator for home page
-
-@app.route("/home", methods=["GET", "POST"])
-def home():
-    # if user in session defensive progremming, 2nd condition to prevent direct access to admin pages from regular user profilles:
-    if "user" in session and session["user"] == "admin":
-        '''
-        # create list of dictionaries from kpiinputs collection in mongodb
-        kpiinputs = list(mongo.db.kpiinputs.find())
-        
-         create list of input_kpiname values from kpiinputs 
-        list - thanks to stackoverflow
-        help from Ismail Badawi: 
-        https://stackoverflow.com/questions/7271482/
-        getting-a-list-of-values-from-a-list-of-dicts 
-        
-        kpinames = [name['input_kpiname'] for name in kpiinputs]
-
-        
-        # use set method to create unique list of name
-        unames = set(kpinames)
-        '''
-        # define meetings variable for dropdown select element
-        meetings = mongo.db.meetings.find()
-
-        meetingname = request.form.get("meeting_name")
-
-        link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
-        
-        meetingname = request.form.get("meeting_name")
-
-        return render_template("home.html", meetings=meetings, link=link, meetingname=meetingname)
-
-    # defensive programming    
-    else:
-        flash("Please login as Admin to access the page")
-        return redirect(url_for('logout'))
 
 
 # create route decorator for login page
@@ -132,6 +95,29 @@ def register():
         flash("Registration successfull!")
         return redirect(url_for('user_dashboard', username=session["user"]))
     return render_template("register.html")
+
+
+# create route decorator for home page
+@app.route("/home", methods=["GET", "POST"])
+def home():
+    # if user in session defensive progremming, 2nd condition to prevent direct access to admin pages from regular user profilles:
+    if "user" in session and session["user"] == "admin":
+        # define meetings variable for dropdown select element
+        meetings = mongo.db.meetings.find()
+        
+        meetingname = "MS3"
+
+        if request.method==["POST"]:
+            meetingname = request.form.get("meetingname")
+
+        link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
+
+        return render_template("home.html", meetings=meetings, meetingname=meetingname, link=link)
+    
+    # defensive programming    
+    else:
+        flash("Please login as Admin to access the page")
+        return redirect(url_for('logout'))
 
 
 # create route decorator for user dashboard page

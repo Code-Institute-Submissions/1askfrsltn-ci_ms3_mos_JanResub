@@ -3,28 +3,27 @@
     <h4 class="center-align">MEETTNG DASHBOARD</h4>
     <!--Filters-->
     <div class="row">
-    <form class="col s12 m9" method="POST" action="{{url_for('home')}}">
+    <form class="col s12 m9" action="{{url_for('home')}}" method="POST">
         <div class="col s6 m4 input-field">
-            <select id="meeting_name" name="meeting_name" class="materialize-textarea validate" required>
-                <option value="MS3" disabled selected ><p class= "grey-text">MS3</p>
+            <select id="meetingname" name="meetingname" class="materialize-textarea validate" required>
+                <option value="{{ meetingname }}" selected >{{ meetingname }}<p class= "grey-text"></p>
                    </option>
                 {%for meeting in meetings %}
                     <option value="{{meeting.meeting_name}}">{{meeting.meeting_name}}</option>
                 {%endfor%}
             </select>
-            <label for="meeting_name">Select Meeitng</label>
+            <label for="meetingname">Select Meeitng</label>
         </div>  
         <div class="col s2">
-                <button type="submit" href="{{url_for('home')}}" class="align-left red text-darken-4 right btn"><i class="fas fa-sort-amount-down"></i>
+                <button type="submit" class="align-left red text-darken-4 right btn"><i class="fas fa-sort-amount-down"></i>
                 </button>
         </div>
-    </form> 
-    </div>
-        <div class="row card-panel grey lighten-5 s9 center-align">
-            <p>{{meetingname}} Dashboard : </p>
-            <iframe width="800" height="400" src="{{link}}" frameborder="0" allowFullScreen="true">
-            </iframe>
         </div>
-        
-    </div>
+            <div class="row card-panel grey lighten-5 s9 center-align">
+                <p> {{ meetingname }} Dashboard : </p>
+                <iframe width="800" height="400" src="{{ link }}" frameborder="0" allowFullScreen="true">
+                </iframe>
+            </div>
+        </div>
+    </form> 
 {% endblock %}
