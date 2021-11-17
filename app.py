@@ -52,12 +52,10 @@ def home():
         '''
         # define meetings variable for dropdown select element
         meetings = mongo.db.meetings.find()
-        
-        # variable for selected meeting name
-        meetingname=request.form.get("meeting_name")
-        
-        # variable to get link to the dashbard for home page
-        link = mongo.db.meetings.find_one({"meeting_name": meetingname })['meeting_dashboardlink']
+
+        meetingname = request.form.get("meeting_name")
+
+        link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
         
         meetingname = request.form.get("meeting_name")
 
