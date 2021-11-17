@@ -31,7 +31,7 @@ mongo = PyMongo(app)
 # create route decorator for home page
 @app.route("/home")
 def home():
-    # if user in session defensive progremming:
+    # if user in session defensive progremming, 2nd condition to prevent direct access to admin pages from regular user profilles:
     if "user" in session and session["user"]=="admin":
         # create list of dictionaries from kpiinputs collection in mongodb
         kpiinputs = list(mongo.db.kpiinputs.find())
@@ -51,7 +51,7 @@ def home():
         return render_template("home.html", kpiinputs=kpiinputs, kpinames=kpinames, unames=unames)
 
     else:
-        flash("please login to access the page")
+        flash("please login as admin to access the page")
         return redirect(url_for('login'))
 
 # create route decorator for login page
@@ -238,7 +238,7 @@ def setup():
 @app.route("/add_user", methods=["POST", "GET"])
 def add_user():
     # defensive programming
-    if "user" in session:
+    if session["user"]=="admin":
         # add user functionality
         if request.method == "POST":
             # checks database if the user_email already added
@@ -275,7 +275,7 @@ def add_user():
     
     # defensive programming message
     else:
-        flash("Please, login to access the page")
+        flash("Please, login as admin to access the page")
         return redirect(url_for('login'))
 
 
