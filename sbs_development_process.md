@@ -2063,14 +2063,30 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
 
 181. Change flash messages to smaller and more accurate 
 
-182. Added copy button to kpi_input: created templated, created insert function, linked the function to the button. 
+182. Added copy button to kpi_input template: created templated, created insert function, linked the function to the blue color button. 
 
+183. PROBLEM: Fixed problem with log out - it did not flash:
+                Initial code:
+
+                @app.route("/logout") 
+                def logout():
+                        flash("You have logged out")
+                        # remove user from session cookies
+                        session.clear()
+                        return redirect("login")
+                Fixed Code:
+                @app.route("/logout")
+                def logout():
+                        # remove user from session cookies
+                        session.clear()
+                        flash("You have logged out")
+                        return redirect("login")
+184. PROBLEM: The field value on edit template when disabled appeared as _null_  when  inserted into mongo db
 
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:
 - link mongo DB to Power Bi  - NOT DONE
-- link Power BI to an app on a home page
 - crete defensive code by making an if statuement on each page after login (recommendation by mentor 09-nov)
 
 

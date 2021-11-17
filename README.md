@@ -160,29 +160,29 @@ Website colors and design team will be simple and neutral, it means - limited am
 ### FEATURES
   * Existing Features
     no. | Feature | Page | Status 
-    --|--|--|--
-    0  | Template using Flask | base.html | done
-    1  | Register page with basic security requirements | register.html | done
-    2  | Login page  for other users | login.html | done
-    3  | Navbar on base template + mobile navbar | base.html | done
-    4  | Input forms | add_action, kpi_inputs + 6 templates connected to setup | done
-    5  | Edit input forms | 9 templates - edit_kpi | done
-    6  | Show buttons based on user rights | user_dashboard | done
-    7  | Connect input forms to MongoDb | app.py | done
-    8  | Dropdowns based on materialise select library | add/edit templates, app.py, js | done
-    9  | Calendar datepicker | add/edit templates, app.py | done
-    10 | Calendar datepicker | add/edit templates, app.py | done
-    11 | For loops to visualise content form mongo collections | user_dashboard, app.py | done
-    12 | Automatic filtering inside for loops based on user login | user_dashboard, app.py | done
-    13 | Dropdown filters of actions and KpIs for "for" loops | user_dashboard, kpiinput, app.py | done
-    14 | Automatic icons setup based on action status | user_dashboard, app.py | done 
-    15 | Table buttons that depend on user on KPI status | user_dashboard, app.py | done 
-    16 | Cancell buttons to return to user_dashboard | add/edit forms | done 
-    17 | CREATE new inputs as mongo document in collection | user_dashboard, kpi_inputs, app.py | done  
-    18 | READ inputs in mongodb document in collection | user_dashboard, kpi_inputs, app.py | done 
-    19 | UPDATE inputs in mongodb document in collection | 9 edit forms, app.py | done 
-    20 | DELETE inputs / documents in collection | setup, app.py | done 
-    21 | Spyscroll for long pages | setup, app.py, js, materialise | done 
+    --  |--       |--     |--
+    0   | Template using Flask                                  | base.html                                               | done
+    1  | Register page with basic security requirements         | register.html                                           | done
+    2  | Login page  for other users                            | login.html                                              | done
+    3  | Navbar on base template + mobile navbar                | base.html                                               | done
+    4  | Input forms                                            | add_action, kpi_inputs + 6 templates connected to setup | done
+    5  | Edit input forms                                       | 9 templates - edit_kpi                                  | done
+    6  | Show buttons based on user rights                      | user_dashboard                                          | done
+    7  | Connect input forms to MongoDb                         | app.py                                                  | done
+    8  | Dropdowns based on materialise select library          | add/edit templates, app.py, js                          | done
+    9  | Calendar datepicker                                    | add/edit templates, app.py                              | done
+    10 | Calendar datepicker                                    | add/edit templates, app.py                              | done
+    11 | For loops to visualise content form mongo collections  | user_dashboard, app.py                                  | done
+    12 | Automatic filtering inside for loops based on user login | user_dashboard, app.py                                | done
+    13 | Dropdown filters of actions and KpIs for "for" loops   | user_dashboard, kpiinput, app.py                        | done
+    14 | Automatic icons setup based on action status           | user_dashboard, app.py                                  | done 
+    15 | Table buttons that depend on user on KPI status        | user_dashboard, app.py                                  | done 
+    16 | Cancell buttons to return to user_dashboard            | add/edit forms                                          | done 
+    17 | CREATE new inputs as mongo document in collection      | user_dashboard, kpi_inputs, app.py                      | done  
+    18 | READ inputs in mongodb document in collection          | user_dashboard, kpi_inputs, app.py                      | done 
+    19 | UPDATE inputs in mongodb document in collection        | 9 edit forms, app.py                                    | done 
+    20 | DELETE inputs / documents in collection                | setup, app.py                                           | done 
+    21 | Spyscroll for long pages                               | setup, app.py, js, materialise                          | done 
 
     
   * Features left to Implement as of 15-nov
@@ -193,13 +193,13 @@ Website colors and design team will be simple and neutral, it means - limited am
     3 | Change KPI input form                                             | kpi_input | **done** | 1 - MUST
     4 | Connect meetings page to PowerBI                                  | home.html | **done**  | 3 - last, important
     5 | Make logdate automatic                                            | add_action.html | **done** | 3 - last
-    6 | Automate action accountable based on user                         | add_action.html | not needed | 3 - not crtical
+    6 | Automate action accountable based on user                         | add_action.html | -- | not crtical
     7 | Split function on def user_dashboard app.py                       | app.py | not done | 2 - will add points
     8 | Add completion status setup forms (add,edit,delete)               | edit_status, app.py | **done** | 1 - MUST
-    9 | Make navbar thinner                                               | base.html, css | not done | 3 - nice to have
+    9 | Make navbar thinner                                               | base.html, css | **done** | 3 - tested, not needed
     10 | Add logo                                                         | base.html, css | not done | 3 - nice to have
     11 | Update user stories to reflect on what was coded                 | readme | not done | 1 - MUST
-    12 | Create README table of content                                   | readme | not done | 1 - MUST
+    12 | Create README table of content                                   | readme | not done | 2 - MUST
     13 | Create testing page and table of content in md                   | readme | not done | 1 - MUST
     14 | Test application - log details                                   | readme | not done | 1 - MUST
     15 | Standardise all forms                                            | application | **done** | 1 - MUST
@@ -211,7 +211,7 @@ Website colors and design team will be simple and neutral, it means - limited am
     21 | Make meetings filter on a home page                              | home, app.py | not done | 1 - finsih project
     22 | Make s,m,l responsive classes on all forms                       | application| not done | 2 - finsih project
     23 | change flash message                                             | application| **done** | 3 - nice to have
-    24 | add last logdat action                                           | user_dashboard| not done | 3 - nice to have
+    24 | add last logdat action                                           | user_dashboard| not needed | 3 - nice to have
     25 | add kpiinput status on a table                                   | kpi_input| not done | 3 - nice to have
     26 | add filter by status on kpistatus table                          | kpi_input| not done | 3 - nice to have
     27 | add kpiinput owner on a table                                    | kpi_input| not done | 3 - nice to have
@@ -236,7 +236,7 @@ Website colors and design team will be simple and neutral, it means - limited am
     - Databases 
     - Mongo DB - non-relational database
   * Tools
-#
+  
 ## TESTING [link](link to anoher .md file)
   ### Navigation
   ### Browser Compatibilty
