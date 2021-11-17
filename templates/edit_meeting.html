@@ -22,6 +22,30 @@
                         <label for="meeting_shortname">Meeting Shortname</label>
                     </div>
                 </div>
+                <!--meeting dashboard link provided-->
+                <div class="row">
+                    <input-field class="s12 col">
+                        <div class="switch">
+                            <label for="meeting_linkdefined">
+                                {% if meeting.meeting_linkdefined=="link defined" %}
+                                    <input type="checkbox" id="meeting_linkdefined" name="meeting_linkdefined" checked>
+                                {% else %}
+                                    <input type="checkbox" id="meeting_linkdefined" name="meeting_linkdefined">
+                                {%endif%}
+                                <span class="lever"></span>link defined
+                            </label>
+                        </div>
+                    </input-field>
+                </div>
+                <!--meeting dashboard link-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-code prefix blue-grey-text text-darken-1"></i>
+                        <textarea id="meeting_dashboardlink" name="meeting_dashboardlink" type="text" class="validate materialize-textarea" required> {{meeting.meeting_dashboardlink}}                            
+                        </textarea>
+                        <label for="meeting_dashboardlink">Meeting Dashboard Link</label>
+                    </div>
+                </div>
                 <!--buttons-->
                 <div class="row">
                     <div class="row">

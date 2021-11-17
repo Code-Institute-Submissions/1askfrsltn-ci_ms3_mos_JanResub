@@ -29,31 +29,45 @@ mongo = PyMongo(app)
 
 @app.route("/")
 # create route decorator for home page
-@app.route("/home")
+
+@app.route("/home", methods=["GET", "POST"])
 def home():
     # if user in session defensive progremming, 2nd condition to prevent direct access to admin pages from regular user profilles:
     if "user" in session and session["user"] == "admin":
-        
+        '''
         # create list of dictionaries from kpiinputs collection in mongodb
         kpiinputs = list(mongo.db.kpiinputs.find())
         
-        ''' create list of input_kpiname values from kpiinputs 
+         create list of input_kpiname values from kpiinputs 
         list - thanks to stackoverflow
         help from Ismail Badawi: 
         https://stackoverflow.com/questions/7271482/
         getting-a-list-of-values-from-a-list-of-dicts 
-        '''
+        
         kpinames = [name['input_kpiname'] for name in kpiinputs]
 
         
         # use set method to create unique list of name
         unames = set(kpinames)
+        '''
+        # define meetings variable for dropdown select element
+        meetings = mongo.db.meetings.find()
         
-        return render_template("home.html", kpiinputs=kpiinputs, kpinames=kpinames, unames=unames)
+        # variable for selected meeting name
+        meetingname=request.form.get("meeting_name")
+        
+        # variable to get link to the dashbard for home page
+        link = mongo.db.meetings.find_one({"meeting_name": meetingname })['meeting_dashboardlink']
+        
+        meetingname = request.form.get("meeting_name")
 
+        return render_template("home.html", meetings=meetings, link=link, meetingname=meetingname)
+
+    # defensive programming    
     else:
         flash("Please login as Admin to access the page")
         return redirect(url_for('logout'))
+
 
 # create route decorator for login page
 @app.route("/login", methods=["GET", "POST"])
@@ -449,10 +463,16 @@ def add_workstream():
 def add_meeting():
     if "user" in session and session["user"]=="admin":
         if request.method == "POST":  
+            
+            # check if link  is defined
+            link_defined = "link defined" if request.form.get("meeting_linkdefined") else "not defined"
+
             # create a variable for new meeting
             new_meeting = {
+                "meeting_linkdefined": link_defined,
                 "meeting_name": request.form.get("meeting_name"),
-                "meeting_shortname": request.form.get("meeting_shortname")
+                "meeting_shortname": request.form.get("meeting_shortname"),
+                "meeting_dashboardlink": request.form.get("meeting_dashboardlink")
             }
 
             # insert new add_department inside status collection
@@ -680,9 +700,14 @@ def edit_meeting(meeting_id):
 
         # update changed meeting data into mongodb
         if request.method == "POST":
+            # check if link  is defined
+            link_defined = "link defined" if request.form.get("meeting_linkdefined") else "not defined"
+
             editmeeting = {
+                    "meeting_linkdefined": link_defined,
                     "meeting_name": request.form.get("meeting_name"),
-                    "meeting_shortname": request.form.get("meeting_shortname")
+                    "meeting_shortname": request.form.get("meeting_shortname"),
+                    "meeting_dashboardlink": request.form.get("meeting_dashboardlink")
                 }
         
         # insert new meeting into Mongo Db database

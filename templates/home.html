@@ -3,18 +3,28 @@
     <h4 class="center-align">MEETTNG DASHBOARD</h4>
     <!--Filters-->
     <div class="row">
-        <div class="col s1">
-            <h6 class="align-left blue-grey-text text-darken-4 right"> <i class="fas fa-filter"></i></h6>
-        </div>
-        <div class="col s3">
-            <select id="" name="" class="validate" required>
-                <option value="meeitng" disabled selected>Meeting</option>
-                <option value="Meeting">Meeting</option>
+    <form class="col s12 m9" method="POST" action="{{url_for('home')}}">
+        <div class="col s6 m4 input-field">
+            <select id="meeting_name" name="meeting_name" class="materialize-textarea validate" required>
+                <option value="select meeting" disabled selected > <p class= "grey-text"></p>
+                   </option>
+                {%for meeting in meetings %}
+                    <option value="{{meeting.meeting_name}}">{{meeting.meeting_name}}</option>
+                {%endfor%}
             </select>
-        </div>           
-    </div>
-        <div class="row card-panel grey lighten-5 s12 center-align">
-            <iframe width="800" height="400" src="https://app.powerbi.com/reportEmbed?reportId=a27ea234-83c7-4733-a335-39d2e5fd721d&autoAuth=true&ctid=1658a6b1-ef3a-4f3b-9aed-5da136a40aa5&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXVzLW5vcnRoLWNlbnRyYWwtcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQvIn0%3D" frameborder="0" allowFullScreen="true"></iframe>
+            <label for="meeting_name">Select Meeitng</label>
+        </div>  
+        <div class="col s2">
+                <button type="submit" href="{{url_for('home')}}" class="align-left red text-darken-4 right btn"><i class="fas fa-sort-amount-down"></i>
+                </button>
         </div>
+    </form> 
+    </div>
+        <div class="row card-panel grey lighten-5 s9 center-align">
+            <p>{{meetingname}} Dashboard : </p>
+            <iframe width="800" height="400" src="{{link}}" frameborder="0" allowFullScreen="true">
+            </iframe>
+        </div>
+        
     </div>
 {% endblock %}
