@@ -32,8 +32,7 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
     # if user in session defensive progremming:
-    if session['user']==admin:
-        
+    if "user" in session and session["user"]=="admin":
         # create list of dictionaries from kpiinputs collection in mongodb
         kpiinputs = list(mongo.db.kpiinputs.find())
         
@@ -62,7 +61,7 @@ def login():
     if request.method == "POST":
         existing_user = mongo.db.users.find_one(
             {"user_name": request.form.get("user_name").lower()})
-        # checks if user_name exists - !!! I want to use email - find the way
+        # checks if user_name exists 
         if existing_user:
             if check_password_hash(
                 existing_user["user_password"], request.form.get
@@ -85,6 +84,7 @@ def login():
 # create route decorator for register page
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    
     # registration functionality
     if request.method == "POST":
         
