@@ -6,7 +6,7 @@
     <form class="col s12 m9" method="POST" action="{{url_for('home')}}">
         <div class="col s6 m4 input-field">
             <select id="meeting_name" name="meeting_name" class="materialize-textarea validate" required>
-                <option value="select meeting" disabled selected > <p class= "grey-text"></p>
+                <option value="MS3" disabled selected ><p class= "grey-text">MS3</p>
                    </option>
                 {%for meeting in meetings %}
                     <option value="{{meeting.meeting_name}}">{{meeting.meeting_name}}</option>
