@@ -2083,10 +2083,13 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
                         return redirect("login")
 184. PROBLEM: The field value on edit template when disabled appeared as _null_  when  inserted into mongo db
 
+185. Fixed the problem with flash message from copy/edit_kpinput templatepopping up on KPI-input page - replaced flash with flash-like html message on copy/edit_kpiinput
 
 ## OTHER PROBLEMS TO SOLVE
 still to do:
 - link mongo DB to Power Bi  - NOT DONE
 - crete defensive code by making an if statuement on each page after login (recommendation by mentor 09-nov)
+- pdf/email user dashboard summary
+- use email to login instead of user name
 
 

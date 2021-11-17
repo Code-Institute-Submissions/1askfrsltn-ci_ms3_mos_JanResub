@@ -778,9 +778,7 @@ def edit_kpiinput(kpiinput_id):
         # kpi statuss variable for dropdown on edit_kpiinput template
         kpistatuss = mongo.db.kpistatuss.find()
         
-        # waring for the user to prevent him from using this page for adding new kpiinput using this page
-        flash("WARNING! You can not create new kpi input on this page!")
-        
+
         # update changed kpiinput data into mongodb
         if request.method == "POST":
             editkpiinput = {
@@ -1019,9 +1017,7 @@ def kpi_input():
 @app.route("/copy_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
 def copy_kpiinput(kpiinput_id):
     if "user" in session:
-        # warning to useer who wants to create a clone only
-        flash("WARNING! You can not edit kpi input on this page!")
-        
+
         # create kpiinput variable to prefill kpiinput input values in the form
         input = mongo.db.kpiinputs.find_one({"_id": ObjectId(kpiinput_id)})
 
