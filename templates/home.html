@@ -3,8 +3,10 @@
     <h4 class="center-align">MEETTNG DASHBOARD</h4>
     <!--Filters-->
     <div class="row">
-    <form class="col s12 m9" action="{{url_for('home')}}" method="POST">
-        <div class="col s6 m4 input-field">
+    <!--form for meeting selection-->
+    <form class="col" action="{{url_for('home')}}" method="POST">
+        <div class="row">
+        <div class="col s12 m9 input-field">
             <select id="meetingname" name="meetingname" class="materialize-textarea validate" required>
                 <option value="{{ meetingname }}" selected >{{ meetingname }}<p class= "grey-text"></p>
                    </option>
@@ -13,17 +15,17 @@
                 {%endfor%}
             </select>
             <label for="meetingname">Select Meeitng</label>
-        </div>  
-        <div class="col s2">
-                <button type="submit" class="align-left red text-darken-4 right btn"><i class="fas fa-sort-amount-down"></i>
-                </button>
         </div>
+        <!--Button to select meeting-->  
+        <div class="col s6 m3 input-field left">
+            <button type="submit" class="align-left red text-darken-4 right btn"><i class="fas fa-sort-amount-down"></i>
+            </button>
         </div>
-            <div class="row card-panel grey lighten-5 s9 center-align">
-                <p> {{ meetingname }} Dashboard : </p>
-                <iframe width="800" height="400" src="{{ link }}" frameborder="0" allowFullScreen="true">
-                </iframe>
-            </div>
-        </div>
+    </div>
+        <!--dashboard section-->
+            <iframe width="800" height="400" src="{{ link }}" frameborder="0" allowFullScreen="true" class="card-panel">
+            </iframe>
+
+
     </form> 
 {% endblock %}
