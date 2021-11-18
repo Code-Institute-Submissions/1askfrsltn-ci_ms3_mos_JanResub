@@ -8,6 +8,7 @@
             <div class="col s12 m7 input-field">
                 <!--support from Kevin - he recommended to use Jquery to fix an issue with filtering and getting an url-->
                 <select id="meeting_name">
+                    <option value=" " disabled selected> </option>
                     {%for meeting in meetings %}
                         <option value="{{ meeting.meeting_name }}" data-url="{{ meeting.meeting_dashboardlink}}">{{ meeting.meeting_name }}</option>
                     {%endfor%}
@@ -17,7 +18,7 @@
             </div>
             <!--Button to select meeting-->  
             <div class="col s6 m3 input-field left">
-                <button type="submit" class="align-left red text-darken-4 right btn"><i class="fas fa-sort-amount-down"></i>
+                <button type="submit" class="align-left red text-darken-4 right btn"><i class="fas fa-refresh"></i>
                 </button>
             </div>
         </div>

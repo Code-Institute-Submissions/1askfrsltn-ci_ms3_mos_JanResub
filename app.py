@@ -108,22 +108,22 @@ def home():
         meetings = mongo.db.meetings.find()
 
         # form submission conditon - activating the filter
-        if request.method==["POST"]:
+        if request.method == ["POST"]:
             # collect the input and assign to variable
             meetingname = request.form.get("meeting_name")
 
             # use variable to get link from the meeting document
             link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
         
-        # default variable for meeting name
-        meetingname = "MS3"
+        # default variable for meeting name to avoid "TypeError: 'NoneType' object is not subscriptable"
+        meetingname = "MS1"
         
         # default variable for iframe link
         link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
 
         return render_template("home.html", meetings=meetings, meetingname=meetingname, link=link)
 
-    # defensive programming    
+    # defensive programming   
     else:
         flash("Please login as Admin to access the page")
         return redirect(url_for('logout'))
