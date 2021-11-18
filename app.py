@@ -100,20 +100,29 @@ def register():
 # create route decorator for home page
 @app.route("/home", methods=["GET", "POST"])
 def home():
-    # if user in session defensive progremming, 2nd condition to prevent direct access to admin pages from regular user profilles:
+    
+    # prevent direct access to admin pages from regular user profilles:
     if "user" in session and session["user"] == "admin":
+
         # define meetings variable for dropdown select element
         meetings = mongo.db.meetings.find()
-        
-        meetingname = "MS3"
 
+        # form submission conditon - activating the filter
         if request.method==["POST"]:
-            meetingname = request.form.get("meetingname")
+            # collect the input and assign to variable
+            meetingname = request.form.get("meeting_name")
 
+            # use variable to get link from the meeting document
+            link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
+        
+        # default variable for meeting name
+        meetingname = "MS3"
+        
+        # default variable for iframe link
         link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
 
         return render_template("home.html", meetings=meetings, meetingname=meetingname, link=link)
-    
+
     # defensive programming    
     else:
         flash("Please login as Admin to access the page")
