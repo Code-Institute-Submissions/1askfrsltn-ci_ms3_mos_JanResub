@@ -33,6 +33,6 @@ $(document).ready(function(){
       let selectedElement = $('#meeting_name').find('option:selected');
       let url = selectedElement.data('url');
       document.getElementById('mdashboard').src = url;
-  };
+    };
     
   });

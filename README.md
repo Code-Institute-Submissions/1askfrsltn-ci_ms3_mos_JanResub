@@ -1,100 +1,128 @@
 # MS3 - Management Operating System (MOS) - Meetings Hub
-#
+
+
 ## **Introduction**
 
-  A "Meetings Hub" project is a web application to digitalise an effective performance management via structured meetings focused on Key Performance Indicators (KPIs) and corrective actions. The app is built based on one of the modules of "Digital Results Hub"(DRH) - a solution developed for a real consulting company. This module helps to digitise  Management Operatiing System (MOS) elements of the consulting methodology. 
+  A "M-Hub" - Meeting Hub project is a web application to digitalise an effective performance management via structured meetings focused on Key Performance Indicators (KPIs) and corrective actions. The app is built based on one of the modules of "Digital Results Hub"(DRH) - a solution developed for a real consulting company. This module helps to digitise  Management Operatiing System (MOS) elements of the consulting methodology. 
   "Meeitngs Hub" is a part of more extensive solution that was developed in 2021 by a global consulting company. Initial solution consists of 4 modules and "Meetings Hub" is one of 4 modules.
   "Meeitngs Hub" consists of meetings, KPIs adn actions reviewed during the meetings. Meeting Hub solution is a digital product that is normally installed at the client's site. It helps the client to improve meetings quality and manage productivity through standard process of looking at performance trends and defiining actions to address the variance between plananed and actual performance. 
   hwen started the application was built for educational purposes only.
 
 Link to the Application: [Meetings Hub](http://ask-pft-meetinghub.herokuapp.com/)
-#
+
+
 ## **User Experience (UX)**
-### GOALS
-1. **For user** - the application will help a meeting chair to navigate thorugh KPIs Viusuals during the meeting, by using filters KPIs will be filtered by accountability. The performance of each participant will be visualised through Key Perrformance Indicators and those KPIs that require action effort will be conditionally highlighted. The visualisation will help to quickly identify the preformance level and address the variance with actions assigned to meeting participants.
-2. **For Meeting participants** - the appliaction will help to understand through KPIs where they are expected to report to their meeting chair, suggest corrective actions, systematically follow up on actions and communicate actions completion during the meeting.
-3. **For user with admin right** - the application will help the user with admin rihgths (secretary) to administer inputs for KPIs, inputs for actions, update actions statuses. That will be done prior to the meetings defined in applications
-4. **For all the client's participants** - it will help to register and login to obtain an access to a set of performance indicators to manage department effectiveness and report performance throguh KPIs during the meeting. 
-5. **For a developer** - the application is a simultaion of a real product that is currently in demand from industrial clients - large scale organisations with several levels of management. This app will help the developer to demosntrate the developer skills for potential emloyer that employ developer for consulting service. It can potentially be sold to his current employer who currently develops Digital Results HUb using other platforms (Azure, Power Bi etc.)
+### **GOALS**
+There are 4 goals of this appliaction:
+1. **For developer** - as a codeinstitute student I wanted to create an appliation as close to a real solution as possible- an  application close to real product that is currently in demand. It would help me to demosntrate the developer skills for potential employer in consulting industry. With further improvement it can potentially be sold to my employer who currently develops Digital Results Hub using other platforms (Javascript, Azure, Power Bi, Sharepoint etc.)
+2. **For client** - the application will help a meeting chair to navigate thorugh KPIs Viusuals during the meeting, by using filters KPIs will be filtered by accountability. The performance of each participant will be visualised through Key Perrformance Indicators and those KPIs that require action effort will be conditionally highlighted. The visualisation will help to quickly identify the preformance level and address the variance with actions assigned to meeting participants.
+3. **For user with admin right** - the application will help the user with admin rihgths to administer inputs for KPIs, inputs for actions, update actions statuses. That will be done prior to the meetings defined in applications
+4. **For all the other users** - it will help to get an access to up to dat information about kpi data and actions, helping them to report about department effectiveness and performance throguh result oriented actions during the meeting. 
 
-
-### USER STORIES
-#### As a Site User
-  - _USER STORY 1_: The admin user registers with super admin rights, 
-  - _USER STORY 2_: The admin user defines MOS system elements parameters: roles,  participants, participants rights, meetings structure, meetings inputs parameters (KPIs and Actions), define accountability for teh KPIs and Atcions
-  - _USER STORY 4_: The admin user prepare for the meeting prior to the meeting: update KPIs inputs, update action Status inputs, 
-  - _USER STORY 5_: The admin user enters new actions after each meeting based on results of the meeting
-  - _USER STORY 5_: each meeting participant can navigate through meeting dashboard
-  - _USER STORY 5_: each meeting participant can use tablet or mobile to look at the dashboard and prepare for the meeting
-  - _USER STORY 6_: The admon is able to navigate during the meeting using filters on the dashboard to facilitate the dicussion between participants during te meeting.
-  - _USER STORY 6_: The information is enetered to the cloud based non-relational database and can ve accessed by the developer
-
-#### As an Appliaction Buyer
-  - _USER STORY 7_: Consulting company who sees the product adding value to the methodolgy is willing to integrate this application into their Digital Results Hub 
-
+### **USER STORIES**
 #### As a Developer
-  - _USER STORY 8_: Developer wants to copy the app code to sell it to a consulting company that currently employ developer or to sell it in the future.
-  - _USER STORY 9_: Developer can use an app to show how software development skils can add value to consulting skills. Tha consulting approach can be digitalised. 
+  - _USER STORY 1_: Developer can use an app to show how the software development skils can add value to consulting skills. 
 
-### DESIGN PROCESS
+#### As an admin Site User
+  - _USER STORY 2_: The admin user registers with super admin rights, 
+  - _USER STORY 3_: The admin user defines a system elements parameters: roles,  participants, participants rights, meetings structure, meetings inputs parameters (KPIs and Actions), define accountability for teh KPIs and Atcions, edit actions and kpiinputs, define link to meeting dashboards
+  - _USER STORY 4_: The admin user prepares for the meeting prior to the meeting: edit/add KPIs inputs, update actions, 
+  - _USER STORY 5_: The admin user enters new actions after each meeting based on results of the meeting
+  - _USER STORY 6_ : search actions by completion status, search kpi data inputs
+  - _USER STORY 7_ : navigate through through the navigation
+  - _USER STORY 8_ : use mobile phone to execute the same functions as PC version
+
+#### As a regular User
+  - _USER STORY 9_ : Check the status of curent actions, check if new actions are needed, update the status of existing actions
+  - _USER STORY 10_ : add new kpi data inputs from blank form, add new kpis by copying them from existing kpis 
+  - _USER STORY 11_ : search actions by completion status, search kpi inputs by various parameters (name, week, status, owner)
+  - _USER STORY 12_: Navigate through the pages
+
+### **DESIGN PROCESS**
+In UX design process I used 5 planes according to Jesse James Garret who wrote an article on 5 planes of UX design, more information can be found [here](https://mersus.io/user-experience-design-corporate-vr/) - Strategy Plain, Scope Plain, Structure Plain, Skeleton PLain, Surfce Plain:
 * _Strategy Plain_: 
-    * The application is a product for the client. The client shall own a database and needs to be able to migrate to any platform that he wants to.
-    * From another side, the client can just use the appliactin without knowing what it consists of.
-    * There will be 2 levels of rights - admin and user
-    * the application can be used for 1 department fr organisation or for multisite organsiation
+The strategy plain is best explained throguh the client's needs, so early in the process I have defined basic client needs that client wants to meet with my application:
+  * _CLEINT NEEDS_
+    * The application is a product for the client. The client has a need to digitise meetings and standardise the way they are conducted to make them maximum effective. 
+    * Therefore, the Client as achair needs to have a meeting dashboard to review the KPIs (Key Performance Indicators), while reviewing KPIs s/he also needs to see which indicators actual performance is behind the target, assign actions for those that are behind and follow up on actions completion next meeting. 
+    * That means that each participant will have a KPIs assigned to him. In order to be effective during the meeting s/he will need to prepare prior to the meeitng by 
+      1) updating the baseline, target and actual for each KPI that s/he is accountable for - that will be called "kpi input" for each meeting occasion, 
+      2) creating a new action If the KPI has a red status  
+      3) checking that actions assigned to her(him) are done, and therefore updating the status appropriately
+    * In order to be functional there must be a special user who will administer the application. This user will have a special admin rights. Admin right will allow this user to:
+      1) Assign the right to any other user
+      2) Set basic parameters for major inputs such as user name, kpi, actions, meetings, departments, action completion status and kpi input status. 
+      3) This user with special rights will need an access to all the actions and kpi inputs that other user input 
+      4) in order to navigate through setup, action and kpi parameters admin user will need to have a search options provided to him
+    * The aplication needs to have a front-end interface, that means it needs to be web-based
+    * Since we will have various kpi and action data points we need to use an external data storage and hence implement CRUD functionality between forntend and the database
+    * it is also important that the application has restricted access with login and password and basic security features
+    
 * _Scope Plain_: 
+ Based on the client needs outlined in previous section we will need define features that will be implemented in the application based on 3 types of rights - developer, admin and user rights
     * The table below defines the scope, user rights and access to various application components:
 
-        No. | Category                                | Developer  | Admin rights | User rights
-        ----|---------                                | ------| ----| -----
-        01  | Register                                |Yes    |Yes  | Yes 
-        02  | Login                                   |Yes    |Yes  | Yes 
-        03  | Set up users rights                     |Yes    | No  | No
-        04  | Set up roles                            |  Yes  | Yes  | No 
-        05  | Set up users                            |   Yes | Yes | No 
-        06  | Set up meetings                         |   Yes | Yes | No   
-        07  | Set up meeting content                  |   Yes | no  | No   
-        08  | Set up KPIs                             |   Yes | Yes | No  
-        09  | Edit Actions                            |   Yes | Yes | No  
-        09  | Edit Action status and add new actions  |   Yes | Yes | Yes  
-        10  | Design Visual Dashboard in BI platform  |   Yes | No  | No     
-        10  | Define inputs for visual dashboard      |   Yes | No  | No     
-        11  | Filter Visual Dashboard parameters      |   Yes | Yes | no  
-        12  | Copy/Add KPI inputs                     |    Yes | Yes | No   
-        13  | Edit KPI inputs at any tiime            |   Yes | Yes  | No  
-        14  | Update Actions completion status        |   Yes | Yes | No 
-        16  | Archive Meeting dashboard as pdf        | Yes   | Yes | No
+      No. | Category                                | Developer  | Admin rights | User rights
+      ----|---------                                | ------| ----| -----
+      01  | Register                                | Yes   |Yes  | Yes 
+      02  | Login                                   | Yes   |Yes  | Yes 
+      03  | Set up users rights                     | Yes   | No*  | No
+      04  | Set up roles                            |  Yes  | Yes  | No 
+      05  | Set up users                            |   Yes | Yes | No 
+      06  | Set up meetings                         |   Yes | Yes | No   
+      07  | Set up meeting content                  |   Yes | no  | No   
+      08  | Set up KPIs                             |   Yes | Yes | No  
+      09  | Edit Actions                            |   Yes | Yes | No  
+      09  | Edit Action status and add new actions  |   Yes | Yes | Yes  
+      10  | Design Visual Dashboard in BI platform  |   Yes | No  | No     
+      10  | Define inputs for visual dashboard      |   Yes | No  | No     
+      11  | Filter Visual Dashboard parameters      |   Yes | Yes | no  
+      12  | Copy/Add KPI inputs                     |   Yes | Yes | No   
+      13  | Edit KPI inputs at any tiime            |   Yes | Yes  | No  
+      14  | Update Actions completion status        |   Yes | Yes | No 
+      16  | Archive Meeting dashboard as pdf        | Yes   | Yes | No
+
   
-    * The table below defines what will be deeloped with an application scope
-        IN Scope | NOT in Scope
-        ---------|--------- 
-        User registration |
-        Cleint login |    
-        KPI Input updates |  
-        Actions updates |  
-        Actions status updates |
-        Meeting dashboard visualisation |  
-        Dashboard navigation |  
-        x | Dashboard design
-        x | Connect Power BU to the MongoDB Database
-        x | Connecting to the client Database
-        Storing data inputs on the cloud storage | 
-        CRUD Functionality for Actions |
-        CRUD Functionality for KPI inputs |
-        CRUD Functionality for Users, participants, roles and other setup parameters |
-        Database storage in MongoDB|
-  
+  * The table below defines what pages need to be developed within ms3 assignment requirement
+      Feature                      | in scope 
+    ---------                     |--------- 
+    User registration | in scope 
+    Cleint login |    in scope 
+    Admin access with wider access | in scope 
+    intuitive navigation |in scope 
+    Individual dashboard with user KPI summary |   in scope  
+    individual dashboard with user actions  |   in scope  
+    KPI Input add / edit/ copy  |   in scope 
+    Actions add/edit |  in scope 
+    Actions status updates | in scope 
+    Database storage in cloud-based non-relational database - MongoDB | in scope
+    CRUD Functionality for Actions |in scope 
+    CRUD Functionality for KPI inputs | in scope 
+    CRUD Functionality for setup parameters (user, kpi action etc.) | in scope  
+    Admin rights defined through front end | in scope 
+    Meeting dashboard - filter for each meeting |  in scope 
+    Meeting dashboard visualisation |  NOT IN SCOPE 
+    Dashboard design | NOT IN SCOPE 
+    Connect Power BI to the MongoDB Database | NOT IN SCOPE 
+    Connecting to the client Database | NOT IN SCOPE 
+    Sending email to the user prior to the meeting | NOT IN SCOPE 
 
 * _Structure Plain_:
+Once we understnd what the needs and the structure within appliaction scope is, we built 3 documents to show application flow, technology, data structure and database schema, it also cover all the features that will be built into the application:
   * Link to [Structure](static/img/structure.jpg) - the structure was built in MS PowerPoint
-  * Link to [Workflow and tools](/static/img/workflow_tools.jpg) - the fow was built in powerpoint.
+  * Link to [Workflow and tools](/static/img/workflow_tools.jpg) - the flow was built in MS PowerPoint.
   * Link to [Schema](static/img/schema.jpg) - the schema was built in PowerPoint.
+Features list 
+
 
 * _Skeleton Plain_:
+After that we developed wireframes that help us undertsand how the application should look like on PC and mobile phone:
   * [Link to responsive Wireframe file in pdf](https://drive.google.com/file/d/1fsWrmySpizFI2vYiG_p664LLvPUs-nNF/view?usp=sharing)
 ![wireframe](static/img/wireframe.jpg)
+
+
 * _Surface Plain_:
-Website colors and design team will be simple and neutral, it means - limited amount of colors. Colors focused onlly in higlights. 
+Website colors and design should be simple, neutral and functional, it means - limited amount of colors. Colors focused only in higlights. Icons should serve the functionality. ANd help the user to intuitively navigate the site. below we summarised icons, colors and 
   * **Colour Pallette** _Source_: [Materialise](https://materializecss.com/)
 
     Element | Color Materialise classes| Code
@@ -113,9 +141,14 @@ Website colors and design team will be simple and neutral, it means - limited am
     Non-contracts Icons|blue-grey lighten-4| #cfd8dc
     Contrast Icons|blue-grey darken-1|#546e7a
 
-  * FONTS
-  I will use traditional business fonts - "Roboto" and "Sans Serif", or Lato and PT Sans.
-  * ICONS
+  * **Fonts**
+  I tested 2 types of font combitation limiting the choice to 2 traditional business fonts pairs:
+    - "Roboto" and "Sans Serif", 
+    - "Lato" and "PT Sans".
+  
+  * **Icons**
+    
+    Icons form FontAwesome were chosen randomly and summarised in the table below:
     Template  | icon | FontAwesome code
     -|-|-
     register | name                       | fas fas fa-user-plus
@@ -156,109 +189,161 @@ Website colors and design team will be simple and neutral, it means - limited am
     edit_kpiinput | Owner    | fas fa-user
 
 
-### FEATURES
-### Features implemented
+### **FEATURES**
+### **Features implemented**
   no. | Feature | Page | Status 
   --  |--       |--     |--
-  0   | Template using Flask                                  | base.html                                               | done
-  1  | Register page with basic security requirements         | register.html                                           | done
-  2  | Login page  for other users                            | login.html                                              | done
-  3  | Navbar on base template + mobile navbar                | base.html                                               | done
-  4  | Input forms                                            | add_action, kpi_inputs + 6 templates connected to setup | done
-  5  | Edit input forms                                       | 9 templates - edit_kpi                                  | done
-  6  | Show buttons based on user rights                      | user_dashboard                                          | done
-  7  | Connect input forms to MongoDb                         | app.py                                                  | done
-  8  | Dropdowns based on materialise select library          | add/edit templates, app.py, js                          | done
-  9  | Calendar datepicker                                    | add/edit templates, app.py                              | done
+  1   | Template using Flask                                  | base.html                                               | done
+  2  | Register page with basic security requirements         | register.html                                           | done
+  3  | Login page  for other users                            | login.html                                              | done
+  4  | Navbar on base template + mobile navbar                | base.html                                               | done
+  5  | Input forms                                            | add_action, kpi_inputs + 6 templates connected to setup | done
+  6  | Edit input forms                                       | 9 templates - edit_kpi                                  | done
+  7  | Show buttons based on user rights                      | user_dashboard                                          | done
+  8  | Connect input forms to MongoDb                         | app.py                                                  | done
+  9  | Dropdowns based on materialise select library          | add/edit templates, app.py, js                          | done
   10 | Calendar datepicker                                    | add/edit templates, app.py                              | done
-  11 | For loops to visualise content form mongo collections  | user_dashboard, app.py                                  | done
-  12 | Automatic filtering inside for loops based on user login | user_dashboard, app.py                                | done
-  13 | Dropdown filters of actions and KpIs for "for" loops   | user_dashboard, kpiinput, app.py                        | done
-  14 | Automatic icons setup based on action status           | user_dashboard, app.py                                  | done 
-  15 | Table buttons that depend on user on KPI status        | user_dashboard, app.py                                  | done 
-  16 | Cancell buttons to return to user_dashboard            | add/edit forms                                          | done 
-  17 | CREATE new inputs as mongo document in collection      | user_dashboard, kpi_inputs, app.py                      | done  
-  18 | READ inputs in mongodb document in collection          | user_dashboard, kpi_inputs, app.py                      | done 
-  19 | UPDATE inputs in mongodb document in collection        | 9 edit forms, app.py                                    | done 
-  20 | DELETE inputs / documents in collection                | setup, app.py                                           | done 
-  21 | Spyscroll for long pages                               | setup, app.py, js, materialise                          | done 
+  11 | Calendar datepicker                                    | add/edit templates, app.py                              | done
+  12 | For loops to visualise content form mongo collections  | user_dashboard, app.py                                  | done
+  13 | Automatic filtering inside for loops based on user login | user_dashboard, app.py                                | done
+  14 | Dropdown filters of actions and KpIs for "for" loops   | user_dashboard, kpiinput, app.py                        | done
+  15 | Automatic icons setup based on action status           | user_dashboard, app.py                                  | done 
+  16 | Table buttons that depend on user on KPI status        | user_dashboard, app.py                                  | done 
+  17 | Cancell buttons to return to user_dashboard            | add/edit forms                                          | done 
+  18 | CREATE new inputs as mongo document in collection      | user_dashboard, kpi_inputs, app.py                      | done  
+  19 | READ inputs in mongodb document in collection          | user_dashboard, kpi_inputs, app.py                      | done 
+  20 | UPDATE inputs in mongodb document in collection        | 9 edit forms, app.py                                    | done 
+  21 | DELETE inputs / documents in collection                | setup, app.py                                           | done 
+  22 | Spyscroll for long pages                               | setup, app.py, js, materialise                          | done 
 
 ### **Features Not implemented:**
 1. Connecting MongoDb to power BI using ODBC connector. 
-I have found a very interesting and detailed instruction by Luis Mego published here: 
+2. Email user once actions are updated by admin
+3. Generate pdf report for each user latest KPIs status and actions that are due and not done
 
-* List of issues at final stage of the project (75% complete)
-  no. | Feature | Page | Status 19-nov | Priority/Comment
-  --|--|--|--| --|
-  1 | Automate action numbers on add_action template                    | add_action          | **done** | 1 - MUST
-  2 | Automate date for all inputs                                      | add_action          | **done** | 2 - GOOD TO HAVE
-  3 | Change KPI input form                                             | kpi_input           | **done** | 1 - MUST
-  4 | Connect meetings page to PowerBI                                  | home.html           | **done** | 3 - last, important
-  5 | Make logdate automatic                                            | add_action.html     | **done** | 3 - last
-  6 | Automate action accountable based on user                         | add_action.html     | _not crtical_ | 3 - good to have
-  7 | Split function on def user_dashboard app.py                       | app.py              | **done** | 2 - will add points
-  8 | Add completion status setup forms (add,edit,delete)               | edit_status, app.py | **done** | 1 - MUST
-  9 | Make navbar thinner                                               | base.html, css      | **done** | 3 - tested, not needed
-  10 | Add logo                                                         | base.html, css      | not done | 3 - nice to have
-  11 | Update user stories to reflect on what was coded                 | readme              | not done | 1 - MUST
-  12 | Create README table of content                                   | readme              | not done | 2 - MUST
-  13 | Create testing page and table of content in md                   | readme              | not done | 1 - MUST
-  14 | Test application - log details                                   | readme              | not done | 1 - MUST
-  15 | Standardise all forms                                            | application         | **done** | 1 - MUST
-  16 | Standardise all icons                                            | application         | **done** | 2 - UX nice to have
-  17 | Add accountable on KPI input                                     | kpi input           | **done** | 1 - UX nice to have
-  18 | Add KPI input sign based on act-tgt delta                        | kpi input           | not done | 3 - UX nice to have
-  19 | Add security condition on each page                              | all templates       | **done** | 1 - must
-  20 | Delete exisiting, add  KPI inputs for 4 KPIs for last 10 weeks   | KPI inputs, mongo   | not done | 1 - good to have
-  21 | Make meetings filter on a home page                              | home, app.py        | not done | 1 - finsih project
-  22 | Make s,m,l responsive classes on all forms                       | application         | **done** | 2 - finsih project
-  23 | change flash message                                             | application         | **done** | 3 - nice to have
-  24 | add last logdate action                                           | user_dashboard     | _not needed_ | 3 - nice to have
-  25 | add kpiinput status on a table                                   | kpi_input           | **done** | 3 - nice to have
-  26 | add filter by status on kpistatus table                          | kpi_input           | **done** | 3 - nice to have
-  27 | add kpiinput owner on a table                                    | kpi_input           | **done** | 3 - nice to have
-  28 | add copy button and template for non-admin user                  | kpi_input           | **done** | 2 - nice to have
-  29 | add modal warning about deletion                                 | setup               | not done | 1 - defensive programming
+### **TECHNOLOGIES**
+  * **Languages**
+    - _HTML_ - Hyperlinked markup language, to develop 
+    - _CSS_ - cascading style sheets to decorate html webpages, I used basic decoration with litle attention to design, focusing on functionality
+    - _Javascript_ - programming language for interactive experienc, in this project I used it only for certain front-end features.
+    - _Python_ - programming language to 
+  * **Libraries**
+    - _Flask_ - python library to use templates and integrate backend data (stored on MongoDb) with forntend application, falsk helps to reduce amount of html development and use  python with html.
+    - _Materialize_ - css library with common wed elements - used to save time on developing buttons, navbars, sidebars, and website responsiveness
+    - _FontAwesome_ - icons collection - used for UX design.
+    - _JQuery_ - simplified JavaScript library - to reduce amount of js coding.
+  * **Tools**
+    - _Mongo DB_ - non-relational cloud based database storage
+    - _Power Bi_ - Business Intelligence visualisation tool, the access was rovided by current employer Alexander Proudfoot consulting
+    - _GitPod_ - clud based edi pogramming environment
+    - _GitHub_ - cloud based development repository - this project is saved on askfrsltn profile.
+    - _CLI_ - command line interface used to 
+    - _Heroku_- it is clud based platform to build, and run web applications, in this project used to deploy the application to the web  
+    - _MS Powerpoint_- was used to build visual structure, flow, data schema, and wireframes.  
+    - _GoogleDrive_- used to store the wireframe document in pdf format.
 
 
-### TECHNOLOGIES
-  * Languages
-    - HTML
-    - CSS
-    - Javascript
-    - Python
-  * Libraries
-    - Flask
-    - Materialize
-    - FontAwesome
-    - JQuery
-  * API's
-    - Power BI for Dashboard
-    - Mongo DB connector to Power BI
-    - Databases 
-    - Mongo DB - non-relational database
-  * Tools
-#
-## [TESTING] (/testing.md)
-Testing consist of (1) UserStories testing, (2) Navigation testing, (3) Accessibility testing, (4) Responsiveness testing, (5) Browser compatibility testing (5) Code Validation, (6) Site Performance testing.
-  #### **UserStories testing** - 
-  #### **Navigation**- 
-  #### **UserStories testing** - 
-  #### **Responsiveness** - 
-  #### **Browser Compatibilty** - 
-  #### **Code Validation** - HTML, CSS, JavaScript, Python
-  #### **Site Perromance Testing** - Lighthoouse for Site Performance
-#
+## **[TESTING](/testing.md)**
+Testing consist of (1) UserStories testing, (2) Navigation testing, (3) Accessibility testing, (4) Responsiveness testing, (5) Browser compatibility testing (5) Code Validation, (6) Site Performance testing. Testing is descibed on another file [here](/testing.md)
+  #### **UserStories testing** - In this section each user story (see section "User Experience") is tested through appliaction functionality - see the result [here]()
+  #### **Navigation** -  In this section I test the navigation through the application - functionality of the buttons, links, inputs, conection to MongoDb - see the result [here]()
+  #### **Accessibility testing** -  In this section I describe how basic security was tested - I tried to access different pages/temmplates - see the result [here]()
+  #### **Responsiveness testing** -  In this section - see the result [here]()
+  #### **Browser Compatibilty** -  In this section - see the result [here]()
+  #### **Code Validation** -  In this section HTML, CSS, JavaScript, Python -see the result [here]()
+  #### **Site Perromance Testing** -  In this section I use Lighthoouse by Google Chrome to test Site Performance - see the result [here]()
+
+
 ## DEPLOYMENT
-  **Hosting on Heroku**
-  **Hosting on GitHub pages**
-      - Used Commands during Deployment
-  * Forking the GitHub Repository
-  * Running this Project Locally
-#
+Theree are 4 sections in this chapter - (1) hosting on GitHub, Forking GitHUb repo, (2) Forking the repository (3) Running the project Locally and (3)Deploying th eapplication to Heroku.
+Working with Github and using Git was needed to host and develop the code in the cloud while Heroku was used to deploy the application to the web.  
+
+### GITHUB
+### **(1) Open a new repo:**
+  - Register into own account on GitHub
+  - Press gree Button "new"
+  - On repository template select Code-institute-Org/gitpod-full-template
+  - Next to the "Owner" type "Repository Name"
+  - Select "public" option
+  - Press green button "Create Repository" = ? new repository created based on standard Code Institute template
+  - Press green button "Gitpod" - you will be prompted to cloud based EDI wher you can start editing the application code and README file.
+
+### **(2) Forking the GitHub Repository**
+To fork a repository:
+- go to github page, find repository that you want to fork, enter it
+- press "Fork" button at the top right corner of the repository
+- Now you have a copy that you can work with without impacting it
+More information can be found in gitHud Documentation [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
+### **(3) Running this Project Locally**
+thanks to Anna 
+
+### HEROKU
+### **(4) Hosting on Heroku**
+Hosting to Heroku consists of 4 impportant steps:
+  *step 1 of 4* Tell heroku which apps and dependencies are required to run an app - create requirments file abd:
+
+    pip3 freeze --local>requirements.txt   
+ *Step 2 of 4* - create Procfile for Heroku (important to have space before python and delete last line space in Procfile - it is very important for connection):
+
+    echo web: python app.py>Procfile
+  NOTE: When deployed the file it is very important that procfile contains very precise inforomation, with no spaces or last emplty line otherwise it won't connect to heroku. 
+  *Step 3 of 4* - Create new app at heroku profile, app name: ask-pft-meetinghub
+  Connect GitHub repository to your app, select repo, don't enable automatic deploy.
+ *step 4 of 4* - Deploy on Heroku
+  - Go to heroku website - open the app frim github,  
+  - Deploy and enable Automatic Deployment, select "main" branch and press deploy. 
+  - After a while - press View - check "hello world"
+  Go to settings and set up config vars:
+
+    IP: "0.0.0.0"
+    PORT: "5000"
+    SECRET_KEY: (from env.py)
+    MONGO_URI: (leave empty (will be filled in later)
+    MONGO_DBNAME: "ms3"
+
+  hide config vars
+  Check if requiremets.txt and Procfile was created in repository
+
+    CLI: git status
+  Push using commit command for each of the 2 files one by one:
+
+    git add requirements.txt     + Enter
+    git commit -m "..."          + Enter
+    git add Procfile             + Enter
+    git commit -m "..."          + Enter
+    git push                     + Enter
+Then you need to connect Mongo DB to heroku as well:
+- Install flask-pymongo and dus-python to use mongo srv connection string:
+  CLI:
+  pip3 install flask-pymongo
+  pip3 install dns-python
+- Update requirments.txt
+
+    pip3 freeze --local>requirements.txt
+- in app.py install PyMongo and OjectId form the libraries
+
+    from flask_pymongo import PyMongo
+    from bson.objectid import ObjectId
+
+define app configuration in app.py:
+
+    app.config["MONGO_DBNAME"]= os.environ.get("MONGO_DBNAME")
+    app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+
+Creaete URI key: go to MongoDb, select "databases", go to "connect", go to "connect your application", copy the key and replace 3 parameters;
+            
+    "mongodb+srv://askformongodb:password@clustername.eqlwe.mongodb.net/databasename?retryWrites=true&w=majority"
+    where:
+    1. password: XXXXXX
+    2. clustername: your_cluster
+    3. databasename: your_dtb
+
+
 ## CREDITS
   * Content
   * Media
   * Acknowledgements
-#
+
+
 ## DISCLAIMER

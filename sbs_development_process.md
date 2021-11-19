@@ -1,4 +1,5 @@
-## PREPARE FOR PROJECT
+## PREPARE FOR THE PROJECT
+After creating a repository in GitHub.
 1. Create a README file, table of content, desscibe goals and user stories in README file.
 2. Add pictures of structure plane, and schema, connect readme to the pictures with links
 3. Develop Wireframes for PC and smartphone view, upload pdf file to the sharedrivem, 
@@ -1672,9 +1673,9 @@ step 11: connect value attribtes to edit object                    | ok | ok | o
                 "kpi_lastact": request.form.get("input_act"),
                 "kpi_laststatus": request.form.get("input_status")
                 }
-        
-        # update kpi collection:
-        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
+
+                # update kpi collection:
+                mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set":latestinput})
 
 161. on userdashboard template kpi status is updated using for loop
 
@@ -2085,13 +2086,73 @@ step4: Connect by funtion in py | app.py row| 663,689  |ok | ok
 
 185. Fixed the problem with flash message from copy/edit_kpinput templatepopping up on KPI-input page - replaced flash with flash-like html message on copy/edit_kpiinput
 
-186. defensive
+## FINISH MEETNIG PAGE WITH FILTER AND DASHBOARD
 
-## OTHER PROBLEMS TO SOLVE
-still to do:
-- link mongo DB to Power Bi  - NOT DONE
-- crete defensive code by making an if statuement on each page after login (recommendation by mentor 09-nov)
-- pdf/email user dashboard summary
-- use email to login instead of user name
+186. Developed 3 simple dashboards in Power Bi for 3 meetings - MS1, MS2, MS3. (outside of the MS3 scope)
 
+187. Published 3 POwerBis dashboards on the web through workspace (outside of the MS3 scope) - for more details go to [Enterprise DNA Website](https://blog.enterprisedna.co/publish-to-power-bi-online-service/)
 
+188. Update add_meeting and edit_meeting templates - create 2 more fields on each template - dahboard link switch and link to published power by reports, update home, add_meeting and edit_meting functions on app.py
+
+189. Update admin_setup meeting section to show dashboard link availability (based on swicth on or off)
+
+190. On meetings page (home template) add dropdown - select element connected to meetings collection on mongodb. On this particular case I used a menotor support he told me I need to use a JS JQ solution:
+
+                step 1: html-  home.html
+                <!--support from Kevin - he recommended to use Jquery to fix an issue with filtering and getting an url-->
+                <select id="meeting_name">
+                    <option value=" " disabled selected> </option>
+                    {%for meeting in meetings %}
+                        <option value="{{ meeting.meeting_name }}" 
+                        data-url="{{ meeting.meeting_dashboardlink}}">{{ meeting.meeting_name }}</option>
+                    {%endfor%}
+                </select>
+                <label for="meeting_name">Select Meeitng</label>
+                
+                step 2: app.py: 
+                # define meetings variable for dropdown select element
+                meetings = mongo.db.meetings.find()
+
+                # form submission conditon - activating the filter
+                if request.method == ["POST"]:
+                        # collect the input and assign to variable
+                        meetingname = request.form.get("meeting_name")
+
+                        # use variable to get link from the meeting document
+                        link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
+                
+                # default variable for meeting name to avoid "TypeError: 'NoneType' object is not subscriptable"
+                meetingname = "MS1"
+                
+                # default variable for iframe link
+                link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
+
+                return render_template("home.html", meetings=meetings, meetingname=meetingname, link=link)
+
+                step3: script.js
+                /* function provided by Kevin - from tutor support, the problem is with filter on a home page */
+                document.getElementById("meeting_name").onchange = function() {
+                        let selectedElement = $('#meeting_name').find('option:selected');
+                        let url = selectedElement.data('url');
+                        document.getElementById('mdashboard').src = url;
+                };
+
+191. Update add_meeting and edit_meeting templates - added switch and link to the dashboard, 
+
+192. Go to admin_setup, got to meetings section press edit, on meeting edit page inside the link field add url to each dashboard published to the web
+
+193. On the home page create iframe inside card:
+
+                <!--dashboard section-->
+                <iframe id="mdashboard" width="800" height="400" src="{{ link }}" frameborder="0" 
+                allowFullScreen="true" class="card-panel">
+                </iframe>
+note: "link" is a critical variable connecting the meeting page with the dashboard developed and published in Power Bi, variable link is created by app.py "home" function. The link is taken form MongDb, because it was stored by admin. And "mdashbaord" is a variable that inserts an url into iframe to make a dahsboard for the meeting. In this way, the admin adds meeting dashboard on admin_setup using meetign add/edit button, and this link is used on a meeting page when the meeting filter (select element) is activated.
+In order to do that you need to have a password to PowerBi corporate account. I use the password provided to me by my current employer "Alexander Proudfoot" consutling company. If you are not signed in you will see the yellow button "sign in" and power by grey logo.
+
+194. In order for applicatin to work 100% I wanted to connect MongoDb with Power BI connector called ODCB.
+I found 2 options to connect:
+        1) Upgrade MongoDb plan from M0 to M10 by paying [$57 per month](https://www.mongodb.com/pricing)
+        2) Following recommendations of Luis Mego in his blog [here](https://medium.com/qimi-techblog/connecting-mongodb-hosted-in-mongo-atlas-with-powerbi-including-m0-clusters-ae02fbef0c7d#:~:text=Conclusion%3A,data%20in%20your%20mongoDB%20collections)
+
+however the issue was not resolved, I stuck on step 3 of [the process](https://medium.com/qimi-techblog/connecting-mongodb-hosted-in-mongo-atlas-with-powerbi-including-m0-clusters-ae02fbef0c7d#:~:text=Conclusion%3A,data%20in%20your%20mongoDB%20collections). TO be more precise I could not establish DNS gateaway using prompt command in windows. That prevented me from f=creating a DSN (data source name) which was needed to establish a ODBC between MongoDB and Power Bi. 
