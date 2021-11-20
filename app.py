@@ -1193,4 +1193,4 @@ def copy_kpiinput(kpiinput_id):
 # tell where and how to return an app, DO NOT FORGET TO change debug=False  putting in production.
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
-            port=os.environ.get("PORT"), debug=True)
+            port=os.environ.get("PORT"), debug=False)

@@ -116,3 +116,7 @@ Instead I just deleted let, defining variables in a simpler way without let way.
     * line 5 typo - text-shadow: 2px 2px 2px rgba(0,0,0,0.5)
     * line 13 - border:solid 0.1px; - added px unit 
 * Result: No impact on on html noticed
+#
+* Issue 4:JS Hint warned me about esversion6 on,lines 45, 46
+* Solution: deleted let
+* Result: warnings disappear

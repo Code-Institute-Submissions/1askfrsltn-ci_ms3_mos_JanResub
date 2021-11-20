@@ -1,5 +1,6 @@
 # MS3 - Management Operating System (MOS) - Meetings Hub
-
+![am_i_responsive](static/img/amiresponsive.jpg)
+#
 
 ## **Introduction**
 
