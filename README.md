@@ -10,8 +10,8 @@
   hwen started the application was built for educational purposes only.
 
 Link to the Application: [Meetings Hub](http://ask-pft-meetinghub.herokuapp.com/)
-
-
+Step-By-Step development process is [here](sbsdev.jpg):
+#
 ## **User Experience (UX)**
 ### **GOALS**
 There are 4 goals of this appliaction:
@@ -19,7 +19,7 @@ There are 4 goals of this appliaction:
 2. **For client** - the application will help a meeting chair to navigate thorugh KPIs Viusuals during the meeting, by using filters KPIs will be filtered by accountability. The performance of each participant will be visualised through Key Perrformance Indicators and those KPIs that require action effort will be conditionally highlighted. The visualisation will help to quickly identify the preformance level and address the variance with actions assigned to meeting participants.
 3. **For user with admin right** - the application will help the user with admin rihgths to administer inputs for KPIs, inputs for actions, update actions statuses. That will be done prior to the meetings defined in applications
 4. **For all the other users** - it will help to get an access to up to dat information about kpi data and actions, helping them to report about department effectiveness and performance throguh result oriented actions during the meeting. 
-
+#
 ### **USER STORIES**
 #### As a Developer
   - _USER STORY 1_: Developer can use an app to show how the software development skils can add value to consulting skills. 
@@ -38,7 +38,7 @@ There are 4 goals of this appliaction:
   - _USER STORY 10_ : add new kpi data inputs from blank form, add new kpis by copying them from existing kpis 
   - _USER STORY 11_ : search actions by completion status, search kpi inputs by various parameters (name, week, status, owner)
   - _USER STORY 12_: intuitively navigate through the pages (navbar  and buttons)
-
+#
 ### **DESIGN PROCESS**
 In UX design process I used 5 planes according to Jesse James Garret who wrote an article on 5 planes of UX design, more information can be found [here](https://mersus.io/user-experience-design-corporate-vr/) - Strategy Plain, Scope Plain, Structure Plain, Skeleton PLain, Surfce Plain:
 * _Strategy Plain_: 
@@ -189,7 +189,7 @@ Website colors and design should be simple, neutral and functional, it means - l
     edit_kpiinput | Status    | fas fa-medal
     edit_kpiinput | Owner    | fas fa-user
 
-
+#
 ### **FEATURES**
 ### **Features implemented**
   no. | Feature | Page | Status 
@@ -248,7 +248,7 @@ How the features look like:
     - _MS Powerpoint_- was used to build visual structure, flow, data schema, and wireframes.  
     - _GoogleDrive_- used to store the wireframe document in pdf format.
 
-
+#
 ## **[TESTING](/testing.md)**
 Testing consist of (1) UserStories testing, (2) Navigation testing, (3) Accessibility testing, (4) Responsiveness testing, (5) Browser compatibility testing (5) Code Validation, (6) Site Performance testing. Testing is descibed on another file [here](/testing.md)
   #### **UserStories testing** - In this section each user story (see section "User Experience") is tested through appliaction functionality - see the result [here]()
@@ -259,7 +259,7 @@ Testing consist of (1) UserStories testing, (2) Navigation testing, (3) Accessib
   #### **Code Validation** -  In this section HTML, CSS, JavaScript, Python -see the result [here]()
   #### **Site Perromance Testing** -  In this section I use Lighthoouse by Google Chrome to test Site Performance - see the result [here]()
 
-
+#
 ## DEPLOYMENT
 Theree are 4 sections in this chapter - (1) hosting on GitHub, Forking GitHUb repo, (2) Forking the repository (3) Running the project Locally and (3)Deploying th eapplication to Heroku.
 Working with Github and using Git was needed to host and develop the code in the cloud while Heroku was used to deploy the application to the web.  
@@ -344,22 +344,23 @@ NOTE: When deployed the file it is very important that procfile contains very pr
         2. clustername: your_cluster
         3. databasename: your_dtb
 
-
+#
 ## CREDITS
 ### **Content**
-  The conetnt was developed myself based on my experience and thanks to the team from [Alexandr Proudfoot consulting company](https://proudfoot.com/) - Monique, Kamal, Tim Sebastian.
+  * The conetnt was developed myself based on my experience and thanks to the team from [Alexandr Proudfoot consulting company](https://proudfoot.com/) - Monique, Kamal, Tim Sebastian.
 
 ### **Media**
-  All the media content was developed by myself in Powerpoint and stored as jpg
+  All the media content was developed by myself in Powerpoint and stored in jpg format
 
 ### **Acknowledgements**
-  - Code institute for the backedn project Example and all the great videos on Python
+  - Code institute for the backend project Example and all the great videos on Python, Flask and database management. Also for github template - I used for code development.
   - Chriss Quin for mentorship
-  - kevin, Miklosh and johan for great lessons and support during coding problem solving
-  - Alexandr Proudfoot for allowing me to work on Digital Results Hub and letting me use one of the 5 modules of their product
+  - Kevin, Miklosh and Johan for great lessons and support during coding problem solving
+  - "Alexandr Proudfoot" consulting company for giving me inspiration assigning me to Digital Results Hub workstream and letting me use one of the 5 modules as a prototype for my project
   - Stack overflow and bloggers: 
     - Punit Jajodia and his website [programiz](https://www.programiz.com/python-programming/datetime/current-datetime)
-    - 
+  - My family - for patience, motivation and energy.
 
 
 ## DISCLAIMER
+- This project is for educationall purpose only during the Code Institute course of Software Development. Module - Python Flask and Backend development.

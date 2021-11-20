@@ -279,7 +279,7 @@ No. | code | result | bugs section refno| HTML validation | CSS validation
 * Instead I just deleted let, defining variables without let. It is also acceptable.
 ## **6. Site Performance testing**
 * Lighthoouse for Site Performance
-
+![picture - lighthouse performance testing](/static/img/performance_lighthouse.jpg)
 
 
 
@@ -305,3 +305,9 @@ No. | code | result | bugs section refno| HTML validation | CSS validation
 * Issue 4:JS Hint warned me about esversion6 on,lines 45, 46
 * Solution: deleted let
 * Result: warnings disappear
+#
+* Issue 5: I did not know how to update certain fields without overwriting others, I knew the code but it did not work
+* Solution: contacted Johan the tutor - he helped me with this code, I forgot to add parenthesis  for "$set": 
+            
+        mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set": latestinput})
+* Result: fields are updated as I wanted - only those that I want to update - KPI collection
