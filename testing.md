@@ -62,37 +62,36 @@ Responsiveness was tested for mobile device mainly. The most problematic page wa
 
 ## **5. User stories testing**
 ## **8. Code validation**
-### **[HTML](https://validator.w3.org/)**
-No. | code | result | ref no to bugs section
---  |--    |--      |-- 
-1   | base |
-2   | register |
-3   | login |
-4   | setup |
-5   | home |
-6   | user_dashboard |
-7   | register |
-8   | kpi_input |
-9   | add_action |
-11   | add_completionstatus |
-12   | add_department |
-13   | add_kpi |
-14   | add_kpiinput |
-15   | add_kpistatus |
-16   | add_meeting |
-17   | add_user |
-18   | add_workstream |
-19   | copy_kpiiinput |
-20   | edit_action |
-21   | edit_actionstatus |
-22   | edit_completionstatus |
-23   | edit_department |
-24   | edit_kpi |
-25  | edit_kpiinput |
-26  | edit_kpistatus |
-27  | edit_meeting |
-28  | edit_user |
-29  | edit_workstream |
+### **[HTML](https://validator.w3.org/) and [CSS](https://jigsaw.w3.org/css-validator/)**
+No. | code | result | bugs section refno| HTML validation | CSS validation
+--  |--    |--      |-- |-- |--|
+1   | base | 2 issues | 1,2 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadmin_setup) | [css link](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fregister&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en#errors)
+2   | register | same as p1 | 1,2 |[link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fregister) | [css link](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fregister&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en#errors)
+3   | login | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Flogin)
+4   | setup | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadmin_setup)
+5   | home | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadmin_setup)
+6   | user_dashboard/admin | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fuser_dashboard%2Fadmin#l22c20)
+8   | kpi_input | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fkpi_input#l22c20)
+9   | add_action |same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_action#l22c20)
+11   | add_completionstatus | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_completionstatus#l22c20)
+12   | add_department | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_department#l22c20)
+13   | add_kpi | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_kpi#l22c20)
+14   | add_kpiinput | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_kpiinput#l22c20)
+15   | add_kpistatus | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_kpistatus#l22c20)
+16   | add_meeting | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_meeting#l22c20)
+17   | add_user | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_user#l22c20)
+18   | add_workstream | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_workstream#l22c20)
+19   | copy_kpiiinput | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fcopy_kpiinput%2F6192a7be008e8cebc2ef2e91#l22c20)
+20   | edit_action | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_action%2F618e8406d11bd6cea0db9c82#l22c20)
+21*   | edit_actionstatus | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&doc=http%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_actionstatus%2F618e87d38d0fd6bca9b0cba2)
+22   | edit_completionstatus | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_completionstatus%2F618196a459f4c915096d9a6b#l22c20)
+23   | edit_department | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_department%2F618292e3283d8d48d282384b#l22c20)
+24   | edit_kpi | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_kpi%2F618db1bfb54e6dae111c57d8#l22c20)
+25  | edit_kpiinput | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_kpiinput%2F6192a7be008e8cebc2ef2e91#l22c20)
+26  | edit_kpistatus | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_kpistatus%2F61830013e1194be16710643e#l22c20)
+27  | edit_meeting | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_meeting%2F6187b8b0c09f87e5f2443cd4#l22c20)
+28  | edit_user | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_user%2F6182d3b16e916b0fb4b8fac9#l22c20)
+29  | edit_workstream | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_workstream%2F6187b5b5ddb6ab726c8e6cf3#l22c20)
 
 
 ### **[CSS](https://jigsaw.w3.org/css-validator/)**
@@ -102,7 +101,15 @@ No. | code | result | ref no to bugs section
 * [Python]
 * Lighthoouse for Site Performance
 
-## Bugs:
-* Issue 1:
-* Solution:
-* Result:
+## **Bugs:**
+#
+* Issue 1: HTML validation, base template has 2 issues, 1 with section heading, 1 with h font. No visible impat on the page
+* Solution: Fixed font format
+* Result: HTML warning error disappear.
+#
+* Issue 2: register css validation - error on line 5, 20, 13
+* Solution: 
+    * line 5 - it was testing css, remove body color
+    * line 11 - add "text-shadow:"
+    * line 20 - removed comma
+* Result: No impact on on html noticed

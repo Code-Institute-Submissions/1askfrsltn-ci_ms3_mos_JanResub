@@ -1,13 +1,8 @@
 /* ---FONTS ---*/
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,500,600,700');
 
-/* ---TEST ---*/
-body { 
-    background-color:rgba(246,246,246,0.2);
-}
-
 .text-shadow {
-    2px 2px 2x rgba(0,0,0,0.5)
+    text-shadow: 2px 2px 2x rgba(0,0,0,0.5)
 }
 
 .flashes h4{
@@ -17,12 +12,13 @@ body {
 .btn-flat {
     border:solid 0.1mm;
     color:brown;
-};
+}
 
 .table { display: table; } 
 .table-row { display: table-row; }
 .table-cell { display: table-cell; }
 
+/* Then style the iframe to fit in the container div with full height and width the code fromhttps://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_responsive_iframe_169 */
 .container1 {
     position: relative;
     overflow: hidden;
@@ -30,7 +26,7 @@ body {
     padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
   }
   
-  /* Then style the iframe to fit in the container div with full height and width */
+  /* Then style the iframe to fit in the container div with full height and width -     the code fromhttps://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_responsive_iframe_169*/
   .responsive-iframe {
     position: absolute;
     top: 0;
