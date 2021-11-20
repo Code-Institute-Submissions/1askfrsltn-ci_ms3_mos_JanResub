@@ -25,19 +25,19 @@ There are 4 goals of this appliaction:
   - _USER STORY 1_: Developer can use an app to show how the software development skils can add value to consulting skills. 
 
 #### As an admin Site User
-  - _USER STORY 2_: The admin user registers with super admin rights, 
+  - _USER STORY 2_: The admin user registers with super admin rights
   - _USER STORY 3_: The admin user defines a system elements parameters: roles,  participants, participants rights, meetings structure, meetings inputs parameters (KPIs and Actions), define accountability for teh KPIs and Atcions, edit actions and kpiinputs, define link to meeting dashboards
   - _USER STORY 4_: The admin user prepares for the meeting prior to the meeting: edit/add KPIs inputs, update actions, 
   - _USER STORY 5_: The admin user enters new actions after each meeting based on results of the meeting
   - _USER STORY 6_ : search actions by completion status, search kpi data inputs
-  - _USER STORY 7_ : navigate through through the navigation
+  - _USER STORY 7_ : navigate through the navigation
   - _USER STORY 8_ : use mobile phone to execute the same functions as PC version
 
 #### As a regular User
   - _USER STORY 9_ : Check the status of curent actions, check if new actions are needed, update the status of existing actions
   - _USER STORY 10_ : add new kpi data inputs from blank form, add new kpis by copying them from existing kpis 
   - _USER STORY 11_ : search actions by completion status, search kpi inputs by various parameters (name, week, status, owner)
-  - _USER STORY 12_: Navigate through the pages
+  - _USER STORY 12_: intuitively navigate through the pages (navbar  and buttons)
 
 ### **DESIGN PROCESS**
 In UX design process I used 5 planes according to Jesse James Garret who wrote an article on 5 planes of UX design, more information can be found [here](https://mersus.io/user-experience-design-corporate-vr/) - Strategy Plain, Scope Plain, Structure Plain, Skeleton PLain, Surfce Plain:
@@ -225,6 +225,7 @@ How the features look like:
 2. Add button to send Email to each user once actions and kpis are updated by admin before to the meeting
 3. Generate pdf report for each user latest KPIs status and actions that are due and not done
 4. Add actions list that is related to the meeting on meeting dashboard with functionality to sort them by user
+5. Admin rights are connected to the role defined by admin user - I know how to do it, but runnint short of time.
 
 ### **TECHNOLOGIES**
   * **Languages**

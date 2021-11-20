@@ -59,6 +59,40 @@ Responsiveness was tested for mobile device mainly. The most problematic page wa
 ![pic6](static/img/responsiveness6.jpg)
 
 ## **5. User stories testing**
+User stories are shown on the pictures below:
+Pic 7: DEVELOPER STORY 1: Developer can use an app to show how the software development skils can add value to consulting skills.
+![user story 1](static/img/us1.jpg)
+#
+Pic 8: ADMIN STORY 2: The admin user registers with super admin rights - NOT IMPLEMENTED
+#
+Pic 9: ADMIN STORY 3: The admin user defines a system elements parameters: roles, participants, participants rights, meetings structure, meetings inputs parameters (KPIs and Actions), define accountability for teh KPIs and Atcions, edit actions and kpiinputs, define link to meeting dashboards
+![user story 3](static/img/us3.jpg)
+#
+Pic 10: ADMIN STORY 4: The admin user prepares for the meeting prior to the meeting: edit/add KPIs inputs, update actions
+![user story 4](static/img/us4.jpg)
+#
+Pic 11: ADMIN STORY 5: The admin user enters new actions after each meeting based on results of the meeting
+![user story 5](static/img/us5.jpg)
+#
+Pic 12: ADMIN STORY 6 : search actions by completion status, search kpi data inputs
+![user story 5](static/img/us6.jpg)
+#
+Pic 13: ADMIN STORY 7 : navigate through the navigation
+![user story 7](static/img/us7.jpg)
+#
+Pic 14: ADMIN STORY 8 : use mobile phone to execute the same functions as PC version
+see responsive testing in section 4 of testing file.
+#
+Pic 15: USER STORY 9 : Check the status of curent actions, check if new actions are needed, update the status of existing actions
+![user story 9](static/img/us9.jpg)
+#
+Pic 16: USER STORY 10 : add new kpi data inputs from blank form, add new kpis by copying them from existing kpis
+Pic 17: USER STORY 11 : search actions by completion status, search kpi inputs by various parameters (name, week, status, owner)
+![user story 10 and 11](static/img/us1011.jpg)
+#
+Pic 18: USER STORY 12: intuitively navigate through the pages (navbar and buttons)
+![user story 12](static/img/us12.jpg)
+#
 ## **6. Code validation**
 ### **[HTML](https://validator.w3.org/) and [CSS](https://jigsaw.w3.org/css-validator/)**
 No. | code | result | bugs section refno| HTML validation | CSS validation
