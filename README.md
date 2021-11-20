@@ -216,10 +216,14 @@ Website colors and design should be simple, neutral and functional, it means - l
   21 | DELETE inputs / documents in collection                | setup, app.py                                           | done 
   22 | Spyscroll for long pages                               | setup, app.py, js, materialise                          | done 
 
+How the features look like:
+![Features](static/img/features.jpg)
+
 ### **Features Not implemented:**
 1. Connecting MongoDb to power BI using ODBC connector. 
-2. Email user once actions are updated by admin
+2. Add button to send Email to each user once actions and kpis are updated by admin before to the meeting
 3. Generate pdf report for each user latest KPIs status and actions that are due and not done
+4. Add actions list that is related to the meeting on meeting dashboard with functionality to sort them by user
 
 ### **TECHNOLOGIES**
   * **Languages**
@@ -279,73 +283,72 @@ thanks to Anna
 
 ### HEROKU
 ### **(4) Hosting on Heroku**
-Hosting to Heroku consists of 4 impportant steps:
-  *step 1 of 4* Tell heroku which apps and dependencies are required to run an app - create requirments file abd:
+Hosting to Heroku you need to go thorugh following steps:
+1. Inside git - tell heroku which apps and dependencies are required to run an app - create requirments file abd:
 
-    pip3 freeze --local>requirements.txt   
- *Step 2 of 4* - create Procfile for Heroku (important to have space before python and delete last line space in Procfile - it is very important for connection):
+        pip3 freeze --local>requirements.txt   
+2. create Procfile for Heroku (important to have space before python and delete last line space in Procfile - it is very important for connection):
 
-    echo web: python app.py>Procfile
-  NOTE: When deployed the file it is very important that procfile contains very precise inforomation, with no spaces or last emplty line otherwise it won't connect to heroku. 
-  *Step 3 of 4* - Create new app at heroku profile, app name: ask-pft-meetinghub
-  Connect GitHub repository to your app, select repo, don't enable automatic deploy.
- *step 4 of 4* - Deploy on Heroku
-  - Go to heroku website - open the app frim github,  
-  - Deploy and enable Automatic Deployment, select "main" branch and press deploy. 
-  - After a while - press View - check "hello world"
-  Go to settings and set up config vars:
+        echo web: python app.py>Procfile
+NOTE: When deployed the file it is very important that procfile contains very precise inforomation, with no spaces or last emplty line otherwise it won't connect to heroku. 
+3. Create new app at heroku profile, app name: ask-pft-meetinghub,
+4. Go to heroku website - open the app frim github,  
+5. Deploy and enable Automatic Deployment, select "main" branch and press deploy. 
+6. After a while - press View - check "hello world"
+7. Go to settings and set up config vars:
 
-    IP: "0.0.0.0"
-    PORT: "5000"
-    SECRET_KEY: (from env.py)
-    MONGO_URI: see the step below
-    MONGO_DBNAME: "ms3"
+      IP: "0.0.0.0"
+      PORT: "5000"
+      SECRET_KEY: (from env.py)
+      MONGO_URI: see the step below
+      MONGO_DBNAME: "ms3"
+8. Hide config vars
+9. Check if requiremets.txt and Procfile was created in repository
 
-  hide config vars
-  Check if requiremets.txt and Procfile was created in repository
+        CLI: git status
+10. Push using commit command for each of the 2 files one by one:
 
-    CLI: git status
-  Push using commit command for each of the 2 files one by one:
+        git add requirements.txt     + Enter
+        git commit -m "..."          + Enter
+        git add Procfile             + Enter
+        git commit -m "..."          + Enter
+        git push                     + Enter
+11. Connect Mongo DB to heroku as well:
+12. In CLI: Install flask-pymongo and dus-python to use mongo srv connection string:
+        
+        CLI:
+        pip3 install flask-pymongo
+        pip3 install dns-python
 
-    git add requirements.txt     + Enter
-    git commit -m "..."          + Enter
-    git add Procfile             + Enter
-    git commit -m "..."          + Enter
-    git push                     + Enter
-Then you need to connect Mongo DB to heroku as well:
-- Install flask-pymongo and dus-python to use mongo srv connection string:
-  CLI:
-  pip3 install flask-pymongo
-  pip3 install dns-python
-- Update requirments.txt
+13. Update requirments.txt
 
-    pip3 freeze --local>requirements.txt
-- in app.py install PyMongo and OjectId form the libraries
+        pip3 freeze --local>requirements.txt
+14. in app.py install PyMongo and OjectId form the libraries
 
-    from flask_pymongo import PyMongo
-    from bson.objectid import ObjectId
+        from flask_pymongo import PyMongo
+        from bson.objectid import ObjectId
 
-define app configuration in app.py:
+15. define app configuration in app.py:
 
-    app.config["MONGO_DBNAME"]= os.environ.get("MONGO_DBNAME")
-    app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
-    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+        app.config["MONGO_DBNAME"]= os.environ.get("MONGO_DBNAME")
+        app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+        app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
-Creaete URI key: go to MongoDb, select "databases", go to "connect", go to "connect your application", copy the key and replace 3 parameters;
+16. Creaete URI key: go to MongoDb, select "databases", go to "connect", go to "connect your application", copy the key and replace 3 parameters;
             
-    "mongodb+srv://askformongodb:password@clustername.eqlwe.mongodb.net/databasename?retryWrites=true&w=majority"
-    where:
-    1. password: XXXXXX
-    2. clustername: your_cluster
-    3. databasename: your_dtb
+        "mongodb+srv://askformongodb:password@clustername.eqlwe.mongodb.net/databasename?retryWrites=true&w=majority"
+        where:
+        1. password: XXXXXX
+        2. clustername: your_cluster
+        3. databasename: your_dtb
 
 
 ## CREDITS
 ### **Content**
-  The conetnt was developed myself based on my experience
+  The conetnt was developed myself based on my experience and thanks to the team from [Alexandr Proudfoot consulting company](https://proudfoot.com/) - Monique, Kamal, Tim Sebastian.
 
 ### **Media**
-  No medie were used for the application
+  All the media content was developed by myself in Powerpoint and stored as jpg
 
 ### **Acknowledgements**
   - Code institute for the backedn project Example and all the great videos on Python

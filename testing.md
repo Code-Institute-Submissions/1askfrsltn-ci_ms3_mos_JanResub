@@ -62,8 +62,47 @@ Responsiveness was tested for mobile device mainly. The most problematic page wa
 
 ## **5. User stories testing**
 ## **8. Code validation**
-* [HTML]
-* [CSS]
-* [JavaScript]
+### **[HTML](https://validator.w3.org/)**
+No. | code | result | ref no to bugs section
+--  |--    |--      |-- 
+1   | base |
+2   | register |
+3   | login |
+4   | setup |
+5   | home |
+6   | user_dashboard |
+7   | register |
+8   | kpi_input |
+9   | add_action |
+11   | add_completionstatus |
+12   | add_department |
+13   | add_kpi |
+14   | add_kpiinput |
+15   | add_kpistatus |
+16   | add_meeting |
+17   | add_user |
+18   | add_workstream |
+19   | copy_kpiiinput |
+20   | edit_action |
+21   | edit_actionstatus |
+22   | edit_completionstatus |
+23   | edit_department |
+24   | edit_kpi |
+25  | edit_kpiinput |
+26  | edit_kpistatus |
+27  | edit_meeting |
+28  | edit_user |
+29  | edit_workstream |
+
+
+### **[CSS](https://jigsaw.w3.org/css-validator/)**
+### **[JavaScript](https://jshint.com/)**
+
+* 
 * [Python]
 * Lighthoouse for Site Performance
+
+## Bugs:
+* Issue 1:
+* Solution:
+* Result:
