@@ -35,6 +35,31 @@ No. | Temolaete/Function        | Access Level  | Non-User direct access test  |
 ## **2. Navigation**
 ## **3. Browser Compatibilty**
 ## **4. Responsiveness**
+Responsiveness was tested for mobile device mainly. The most problematic page was "home" page thatcontained meeting dashboard with iframe conneceted to PowerBi. I resolved responsiveness issue following recommendations from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_responsive_iframe_169. Below you can see the testing of all the templates in google chrom inspect using iPhone x resopnsiveness window. I have developed few pictures in powerpoint to demonstrate few problems that I resolved uing materiialise grid: 
+
+### Picture 1: Login, register, KPI input, Individual dashboard and Add action page
+![pic1](static/img/responsiveness1.jpg)
+
+
+### Picture 2: Forms Add/edit/copy kpiinput
+![pic2](static/img/responsiveness2.jpg)
+
+
+### Picture 3: Admin setup page
+![pic2](static/img/responsiveness3.jpg)
+
+
+### Picture 4: add/edit forms for user, dept, workstream, meeting, actionstatus
+![pic4](static/img/responsiveness4.jpg)
+
+### Picture 5:kpi, kpistatus, 
+![pic5](static/img/responsiveness5.jpg)
+
+### Picture 6: Meeting Dashboard with iframe
+![pic6](static/img/responsiveness6.jpg)
+
+
+
 ## **5. User stories testing**
 ## **8. Code validation**
 * [HTML]

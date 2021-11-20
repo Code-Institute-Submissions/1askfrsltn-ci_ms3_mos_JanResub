@@ -5,11 +5,11 @@
 
     <!-- Title and dashboard link-->
     <div class="row">
-        <div class="col s6">
+        <div class="col s6 m9">
             <h5 class="align-left red-text text-darken-4"> <i class="fas fa-chart-line"></i><i class="fas fa-caret-right"></i> KPI Inputs</h5>
         </div>
         <!--button cancel-->
-        <div class="col s3 right">
+        <div class="col s6 m3 right">
             <h5> <a class="waves-effect waves-red btn-flat" href="{{url_for('add_kpiinput')}}"> ADD INPUT </a></h5>
         </div>
     </div>
@@ -22,19 +22,19 @@
             <!--Filters Section-->
             <div class="row">
                 <!--Filter dropdown-->
-                <div class="col s9">
+                <div class="col s12 m9">
                     <input value="" id="search_kpiinput" name="search_kpiinput" type="text">
                     <label for="search_kpiinput">type in text and press filter</label>
                 </div>
-                <div class="col">
+                <div class="col s12 m3">
                     <div class="row">
-                        <div class="col s2">
+                        <div class="col s6 center-align m6">
                             <button type="submit" class="waves-effect waves-light blue-grey btn">
                                 <i class="fas fa-sort-amount-down prefix"> </i> 
                             </button>
                         </div>
                         <!--Reset button-->
-                        <div class="col s2 right">
+                        <div class="col s6 center-align m6">
                             <a href="{{url_for('kpi_input')}}" class="red btn text-shadow"><i class="fas fa-refresh"></i></a>
                         </div>
                     </div>

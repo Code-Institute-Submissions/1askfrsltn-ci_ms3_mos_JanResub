@@ -15,14 +15,12 @@
                 </select>
                 <label for="meeting_name">Select Meeitng</label>
             </div>
-            <!--Button to select meeting-->  
-            <div class="col s6 m3 input-field left">
-                <button type="submit" class="align-left red text-darken-4 right btn"><i class="fas fa-refresh"></i>
-                </button>
-            </div>
         </div>
         <!--dashboard section-->
-            <iframe id="mdashboard" width="800" height="400" src="{{ link }}" frameborder="0" allowFullScreen="true" class="card-panel">
+        <!--responsiveness issue with iframe was solved through following instrcuctions from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_responsive_iframe_169-->
+        <div class="container1 s9 m9">
+            <iframe id="mdashboard" width="100%" height="100%" src="{{ link }}" frameborder="0" allowFullScreen="true" class="card-panel responsive-iframe">
             </iframe>
+        </div>
     </form> 
 {% endblock %}

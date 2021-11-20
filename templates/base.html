@@ -18,7 +18,10 @@
     </head>
     <header>
         <!-- navigation for PC mode-->
-        <nav class="navbar-fixed blue-grey darken-4  text-shadow">
+        <div class="navbar-fixed ">
+
+        
+        <nav class="blue-grey darken-4  text-shadow">
             <div class="nav-wrapper">
                 <a href="{{url_for('logout')}}" class="brand-logo">M-Hub </a>
                 <a href="{{url_for('logout')}}" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
@@ -42,6 +45,7 @@
                 </ul>
             </div>
         </nav>
+        </div>
         <!--navigation mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
             <li><h4 class="center-align blue-grey-text text-darken-2">Meetings Hub</h4></li>

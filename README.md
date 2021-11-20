@@ -298,7 +298,7 @@ Hosting to Heroku consists of 4 impportant steps:
     IP: "0.0.0.0"
     PORT: "5000"
     SECRET_KEY: (from env.py)
-    MONGO_URI: (leave empty (will be filled in later)
+    MONGO_URI: see the step below
     MONGO_DBNAME: "ms3"
 
   hide config vars
@@ -341,9 +341,20 @@ Creaete URI key: go to MongoDb, select "databases", go to "connect", go to "conn
 
 
 ## CREDITS
-  * Content
-  * Media
-  * Acknowledgements
+### **Content**
+  The conetnt was developed myself based on my experience
+
+### **Media**
+  No medie were used for the application
+
+### **Acknowledgements**
+  - Code institute for the backedn project Example and all the great videos on Python
+  - Chriss Quin for mentorship
+  - kevin, Miklosh and johan for great lessons and support during coding problem solving
+  - Alexandr Proudfoot for allowing me to work on Digital Results Hub and letting me use one of the 5 modules of their product
+  - Stack overflow and bloggers: 
+    - Punit Jajodia and his website [programiz](https://www.programiz.com/python-programming/datetime/current-datetime)
+    - 
 
 
 ## DISCLAIMER

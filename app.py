@@ -230,7 +230,7 @@ def setup():
         # collect all the kpis
         kpi = mongo.db.kpi.find()
 
-        # collect all the kpis
+        # collect all the kpistatuss
         kpistatuss = mongo.db.kpistatuss.find()
         
         # render setup.html using variables
@@ -344,7 +344,7 @@ def add_kpiinput():
             
             # update kpi collection for specific fields following MongoDb documentation -https://docs.mongodb.com/manual/reference/operator/update/set/. Problem: the code {$set:latestinput} did not work Johann from student support helped me - i had to correct the code and add "" - {"$set":latestinput}. 
             mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},
-            {"$set": latestinput})
+                {"$set": latestinput})
 
             # show the message that the operation was done successfully
             flash("KPI Input was successfully added")
@@ -353,7 +353,7 @@ def add_kpiinput():
             return redirect(url_for('kpi_input')) 
         
         # render add_kpi input page
-        return render_template("add_kpiinput.html", 
+        return render_template("add_kpiinput.html",
             kpi = kpi,
             kpistatuss = kpistatuss,
             owners = owners,
@@ -720,7 +720,7 @@ def edit_meeting(meeting_id):
 def edit_kpi(kpi_id):
     
     # prevent from direct access by other users
-    if "user" in session and session["user"]=="admin":
+    if "user" in session and session["user"] == "admin":
         
         # create kpi variable to prefill kpi input values in the form
         kpi = mongo.db.kpi.find_one({"_id": ObjectId(kpi_id)})

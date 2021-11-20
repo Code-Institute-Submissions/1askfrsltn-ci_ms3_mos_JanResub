@@ -31,10 +31,10 @@
                 </div>
                 <!-- KPI owner input -->
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12">
                         <i class="fas fa-user prefix blue-grey-text text-darken-1"></i>
                         <select id="kpi_owner" name="kpi_owner" class="validate" required>
-                            <option value="" disabled selected>Select owner</option>
+                            <option value="" disabled selected></option>
                             {%for owner in owners %}
                                 <option value="{{owner.user_name}}">{{owner.user_name }}</option>
                             {%endfor%}
