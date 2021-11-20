@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,500,600,700');
 
 .text-shadow {
-    text-shadow: 2px 2px 2x rgba(0,0,0,0.5)
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.5)
 }
 
 .flashes h4{
@@ -10,7 +10,7 @@
 }
 
 .btn-flat {
-    border:solid 0.1mm;
+    border:solid 0.1px;
     color:brown;
 }
 

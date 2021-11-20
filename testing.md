@@ -70,7 +70,7 @@ No. | code | result | bugs section refno| HTML validation | CSS validation
 3   | login | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Flogin) | [css link]()
 4   | setup | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadmin_setup) | [css link]()
 5   | home | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadmin_setup)| [css link]()
-6   | user_dashboard/admin | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fuser_dashboard%2Fadmin#l22c20) | [css link]()
+6   | user_dashboard/admin | same as p1 | 1, 3| [link](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fuser_dashboard%2Fadmin&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) | [css link]()
 8   | kpi_input | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fkpi_input#l22c20) | [css link]()
 9   | add_action |same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_action#l22c20) | [css link]()
 11   | add_completionstatus | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadd_completionstatus#l22c20) | [css link]()
@@ -105,9 +105,15 @@ No. | code | result | bugs section refno| HTML validation | CSS validation
 * Solution: Fixed font format
 * Result: HTML warning error disappear.
 #
-* Issue 2: register css validation - error on line 5, 20, 13
+* Issue 2: register css validation - error on line 5, 11, 20
 * Solution: 
     * line 5 - it was testing css, remove body color
     * line 11 - add "text-shadow:"
     * line 20 - removed comma
+* Result: No impact on on html noticed
+#
+* Issue 3: css validation user_dashboard  - error on line 5, 13, typose in the code
+* Solution: 
+    * line 5 typo - text-shadow: 2px 2px 2px rgba(0,0,0,0.5)
+    * line 13 - replaced mm by px onside 
 * Result: No impact on on html noticed
