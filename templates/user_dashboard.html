@@ -116,6 +116,7 @@
             <thead>
                 <tr class="grey lighten-2">
                     <th>KPI</th>
+                    <th>Owner</th>
                     <th>UoM</th>
                     <th>Last Input</th>
                     <th>BSL</th>
@@ -130,6 +131,7 @@
                 {% for kpi in kpis %}
                 <tr>
                     <td>{{kpi.kpi_name}}</td>
+                    <td>{{kpi.kpi_owner}}</td>
                     <td>{{kpi.kpi_uom}}</td>
                     <td>{{kpi.kpi_lastlogdate}}</td>
                     <td>{{kpi.kpi_lastbsl}}</td>
