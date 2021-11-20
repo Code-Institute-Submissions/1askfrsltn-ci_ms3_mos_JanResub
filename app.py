@@ -28,15 +28,15 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-
-
 # create route decorator for login page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    
     #  checks if the data is posted, ans assign a user_name to a variable
     if request.method == "POST":
         existing_user = mongo.db.users.find_one(
             {"user_name": request.form.get("user_name").lower()})
+        
         # checks if user_name exists 
         if existing_user:
             if check_password_hash(
@@ -44,12 +44,13 @@ def login():
                     ("user_password")):
                 session["user"] = request.form.get("user_name").lower()
                 flash("Welcome, {}".format(request.form.get("user_name")))
-                return redirect(url_for('user_dashboard', 
-                    username=session["user"]))
+                return redirect(url_for('user_dashboard', username = session["user"]))
+            
             # invalid password message
             else:
                 flash("Incorrect login details, please try again")
                 return redirect(url_for('login'))
+        
         # email doesn't exist
         else:
             flash("Incorrect login details, please try again")
@@ -58,14 +59,15 @@ def login():
 
 
 # create route decorator for register page
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/register", methods = ["GET", "POST"])
 def register():
     
     # registration functionality
     if request.method == "POST":
         
         # checks database if the user_email already registered
-        existing_email = mongo.db.users.find_one({"user_email": request.form.get("user_email").lower()})
+        existing_email = mongo.db.users.find_one({"user_email":
+            request.form.get("user_email").lower()})
         existing_user = mongo.db.users.find_one({"user_name": request.form.
             get("user_name").lower()})
         
@@ -93,12 +95,12 @@ def register():
         # create session for newly registered user
         session["user"] = request.form.get("user_name").lower()
         flash("Registration successfull!")
-        return redirect(url_for('user_dashboard', username=session["user"]))
+        return redirect(url_for('user_dashboard', username = session["user"]))
     return render_template("register.html")
 
 
 # create route decorator for home page
-@app.route("/home", methods=["GET", "POST"])
+@app.route("/home", methods = ["GET", "POST"])
 def home():
     
     # prevent direct access to admin pages from regular user profilles:
@@ -113,17 +115,25 @@ def home():
             meetingname = request.form.get("meeting_name")
 
             # use variable to get link from the meeting document
-            link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
+            link = mongo.db.meetings.find_one({
+                "meeting_name": meetingname
+                })["meeting_dashboardlink"]
         
-        # default variable for meeting name to avoid "TypeError: 'NoneType' object is not subscriptable"
+        # default variable for meeting name to avoid "TypeError:
+        # 'NoneType' object is not subscriptable"
         meetingname = "MS1"
         
         # default variable for iframe link
-        link = mongo.db.meetings.find_one({"meeting_name": meetingname})["meeting_dashboardlink"]
+        link = mongo.db.meetings.find_one({
+            "meeting_name": meetingname})["meeting_dashboardlink"]
 
-        return render_template("home.html", meetings=meetings, meetingname=meetingname, link=link)
+        return render_template("home.html", 
+            meetings=meetings, 
+            meetingname = meetingname, 
+            link=link
+            )
 
-    # defensive programming   
+    # defensive programming - sending the user to log himself out
     else:
         flash("Please login as Admin to access the page")
         return redirect(url_for('logout'))
@@ -132,41 +142,42 @@ def home():
 # create route decorator for user dashboard page
 @app.route("/user_dashboard/<username>", methods=["POST", "GET"])
 def user_dashboard(username):
-    
+
     # if user in session defensive programming:
     if "user" in session:
-        
+
         # create username variable for user_dashboard template entrance
         username = mongo.db.users.find_one(
             {"user_name": session["user"]})["user_name"]
-        
-        # create completionstatus variable for the loop 
-        # on user_dashboard selected component
+        '''
+        # create completionstatus variable for the loop on user_dashboard selected component
+        '''
         completionstatus = mongo.db.completionstatus.find()
         
         # define variable for automatic filter
         user = session["user"]
         
         # define variable for filtering selection
-        action_status=request.form.get('action_status')
-
+        action_status = request.form.get('action_status')
+        
         # variable for action status selection after it has been selected by filter
         actionstatusselection = action_status
-        
-        # define variables for kpis and actions loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter, this nested conditions should also be used for filter section of actions
+        '''
+        define variables for kpis and actions loop -it should be filtered to user as kpi_owner, and if it is admin it should not filter, this nested conditions should also be used for filter section of actions
+        '''
         if user == "admin":
             
             # variable kpis for KPIs section when user is logged in as admin
             kpis = mongo.db.kpi.find()
             
             # variable kpis for KPIs section when user is logged in as admin
-            actions = mongo.db.actions.find() 
+            actions = mongo.db.actions.find()
             
             # action status filtering condition - activated after the action status is selected
             if request.method == "POST":
                 actions = list(mongo.db.actions.find({"action_status": action_status}))
         
-        # this part of the function is activated when the user logged in as non-admin
+        # user logged in as non-admin
         else:
             
             # create kpis for KPI summary section if the user is non-admin
@@ -183,7 +194,7 @@ def user_dashboard(username):
 
         # pass all the variables into the loop
         if session["user"]: 
-            return render_template("user_dashboard.html", 
+            return render_template("user_dashboard.html",
                 username=username,
                 actions=actions,
                 completionstatus=completionstatus,
@@ -192,6 +203,8 @@ def user_dashboard(username):
                 action_status=action_status,
                 actionstatusselection=actionstatusselection)
         return redirect(url_for('login'), username=user)
+    
+    # defensive programming getting back to logout
     else:
         flash("Please, login to access the page")
         return redirect(url_for('logout'))
@@ -199,7 +212,7 @@ def user_dashboard(username):
 
 @app.route("/logout")
 def logout():
-    # remove user from session cookies
+    # remove session cookies
     session.clear()
     flash("You have logged out")
     return redirect("login")
@@ -241,6 +254,7 @@ def setup():
             meetings=meetings,
             kpi=kpi,
             kpistatuss=kpistatuss)
+    
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
@@ -302,10 +316,14 @@ def add_kpiinput():
         # variable for kpistatuss dropdown
         kpistatuss = mongo.db.kpistatuss.find()
 
-        # variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
+        '''
+        variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
+        '''
         today = date.today().strftime("%d-%m-%Y")
 
-        # variable for weeknumber, python documentation source: https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime 
+        '''
+        variable for weeknumber, python documentation source: https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime 
+        '''
         weeknumber = date.today().strftime("%W")
 
         # kpi variable for select element on kpi_name
@@ -342,7 +360,9 @@ def add_kpiinput():
                 "kpi_laststatus": request.form.get("input_status")
             }
             
-            # update kpi collection for specific fields following MongoDb documentation -https://docs.mongodb.com/manual/reference/operator/update/set/. Problem: the code {$set:latestinput} did not work Johann from student support helped me - i had to correct the code and add "" - {"$set":latestinput}. 
+            '''
+            update kpi collection for specific fields following MongoDb documentation -https://docs.mongodb.com/manual/reference/operator/update/set/. Problem: the code {$set:latestinput} did not work Johann from student support helped me - i had to correct the code and add "" - {"$set":latestinput}. 
+            '''
             mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},
                 {"$set": latestinput})
 
@@ -385,8 +405,10 @@ def add_kpi():
             }
             # insert new document into mongodb collection kpi
             mongo.db.kpi.insert(kpi)
+            
             # print completion on th escreen
             flash("KPI was successfully added!")
+            
             # redirect to setup
             return redirect(url_for('setup'))
         return render_template("add_kpi.html", owners=owners)
@@ -503,6 +525,7 @@ def add_kpistatus():
             flash("New KPI Status was successfully added")
             return redirect(url_for('setup'))
         return render_template("add_kpistatus.html")
+    
     # defensive programming message
     else:
         flash("Please, login as Admin to access the page")
@@ -540,10 +563,16 @@ def add_completionstatus():
 @app.route("/add_action", methods=["POST","GET"])
 def add_action():
     if "user" in session:
-        # variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
+        
+        '''
+        variable for logdate=today, help on https://www.programiz.com/python-programming/datetime/current-datetime
+        '''
         today=date.today().strftime("%d-%m-%Y")  
         
+        # calculating the action number
         action_number = str(mongo.db.actions.find().count()+1)
+        
+        # activating the form
         if request.method=="POST":
             # added varialble for action_number on add_action form
             action_number = str(mongo.db.actions.find().count()+1)  
@@ -569,7 +598,7 @@ def add_action():
             flash("New action was successfully added")
             return redirect(url_for('user_dashboard', username=session['user']))
         
-        # variables for selection dropdown lists on add_action template
+        # variables for selection dropdown lists on add_action template, sorted
         users = mongo.db.users.find().sort("user_name", 1)
         meetings = mongo.db.meetings.find().sort("meeting_name", 1)
         depts = mongo.db.depts.find().sort("dept_name", 1)
@@ -610,6 +639,7 @@ def edit_user(user_id):
                     "user_password": generate_password_hash(request.form.
                         get("user_password")),
                 }
+            
             # insert new user into Mongo Db database
             mongo.db.users.update({"_id": ObjectId(user_id)}, edituser)
             flash("User update successfull!")
@@ -693,7 +723,8 @@ def edit_meeting(meeting_id):
 
         # update changed meeting data into mongodb
         if request.method == "POST":
-            # check if link  is defined
+            
+            # check if link  is defined by switch
             link_defined = "link defined" if request.form.get("meeting_linkdefined") else "not defined"
 
             editmeeting = {
@@ -738,6 +769,7 @@ def edit_kpi(kpi_id):
             # insert new kpi into Mongo Db database
             mongo.db.kpi.update({"_id": ObjectId(kpi_id)}, editkpi)
             
+            # informing the user that it was done
             flash("KPI update successfull!")
             return redirect(url_for('setup'))
         
@@ -801,6 +833,8 @@ def edit_completionstatus(completionstatus_id):
         
         # insert new completionstatus into Mongo Db database
             mongo.db.completionstatus.update({"_id": ObjectId(completionstatus_id)},editcompletionstatus)
+            
+            # operation successfull mesage
             flash("Action Completion Status update successfull!")
             return redirect(url_for('setup'))
         return render_template("edit_completionstatus.html", completionstatus=completionstatus)
@@ -884,6 +918,7 @@ def edit_actionstatus(action_id):
     
     # prevent non-authorised direct access to the page with defensive programming
     if "user" in session:
+        
         # find the right action for status update
         action = mongo.db.actions.find_one({"_id": ObjectId(action_id)})
         
@@ -896,8 +931,9 @@ def edit_actionstatus(action_id):
             editactionstatus = {
                     "action_status": request.form.get("action_status")
                 }
-            
-            # update an action with actionstatus in collection - address only specific field that was changed
+            '''
+            update an action with actionstatus in collection - address only specific field that was changed
+            '''
             mongo.db.actions.update({"_id": ObjectId(action_id)},{"$set":editactionstatus})
             
             # inform about successfull completion
@@ -906,6 +942,7 @@ def edit_actionstatus(action_id):
             return redirect(url_for('user_dashboard', username=session["user"]))
         return render_template("edit_actionstatus.html",  action=action,  
             completionstatus=completionstatus)
+    
     # defensive programming message
     else:
         flash("Please, login to access the page")
@@ -939,7 +976,9 @@ def edit_action(action_id):
                     "action_status": request.form.get("action_status")
                 }
             
-            # update an action in collection - address only specific fields that was changed
+            '''
+            update an action in collection - address only specific fields that was changed
+            '''
             mongo.db.actions.update({"_id": ObjectId(action_id)},{"$set":editaction})
             
             # inform about successfull completion
@@ -1028,6 +1067,7 @@ def delete_kpiinput(kpiinput_id):
 # kpi inputs page - add input page
 @app.route("/kpi_input", methods=["POST","GET"])
 def kpi_input():
+    
     # prevent direct access from non-user
     if "user" in session:
         
@@ -1049,7 +1089,9 @@ def kpi_input():
                 # search variable if the form is submitted
                 search_kpiinput=str(request.form.get("search_kpiinput"))
                 
-                # using search variable to generate kpiintputs for the table rendering
+                '''
+                using search variable to generate kpiintputs for the table rendering
+                '''
                 kpiintputs=list(mongo.db.kpiinputs.find({"$text":{"$search":search_kpiinput}}))
         
         else:
@@ -1060,17 +1102,21 @@ def kpi_input():
             # condition for non-admin when serhc button activated 
             if request.method=="POST":
                 
-                # variable for 4 fields index text search - input_kpiname, input_kpiowner, input_kpistatus, input_weeknumber - mongodb: input_kpiname_text_input_kpiowner_text_input_weeknumber_text_input_status_text
+                '''
+                variable for 4 fields index text search - input_kpiname, input_kpiowner, input_kpistatus, input_weeknumber - mongodb: input_kpiname_text_input_kpiowner_text_input_weeknumber_text_input_status_text
+                '''
                 search_kpiinput=request.form.get("search_kpiinput")
                 
                 # variable for search for 2 criterea user AND 4 fields text
                 kpiintputs=list(mongo.db.kpiinputs.find({"input_kpiowner":user,
                     "$text":{"$search":search_kpiinput}}))
         
+        # render the page
         return render_template("kpi_input.html", 
             kpiintputs=kpiintputs, 
             user=user, 
             kpis=kpis)
+
     # defensive programming message
     else:
         flash("Please, login to access the page")
@@ -1080,6 +1126,7 @@ def kpi_input():
 # create copy kpiinput  function
 @app.route("/copy_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
 def copy_kpiinput(kpiinput_id):
+    
     # prevent form direct access from non-user
     if "user" in session:
         # create kpiinput variable to prefill kpiinput input values in the form
@@ -1128,6 +1175,7 @@ def copy_kpiinput(kpiinput_id):
             
             flash("New KPI copied from previous successfully!")
             
+            # render page
             return redirect(url_for('kpi_input'))
         return render_template("copy_kpiinput.html",  
             input=input, 
@@ -1135,6 +1183,7 @@ def copy_kpiinput(kpiinput_id):
             owners=owners, 
             kpis=kpis,
             kpistatuss=kpistatuss)
+    
     # defensive programming message
     else:
         flash("Please, login to access the page")
