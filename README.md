@@ -6,11 +6,12 @@
 
   A "M-Hub" - Meeting Hub project is a web application to digitalise an effective performance management via structured meetings focused on Key Performance Indicators (KPIs) and corrective actions. The app is built based on one of the modules of "Digital Results Hub"(DRH) - a solution developed for a real consulting company. This module helps to digitise  Management Operatiing System (MOS) elements of the consulting methodology. 
   "Meeitngs Hub" is a part of more extensive solution that was developed in 2021 by a global consulting company. Initial solution consists of 4 modules and "Meetings Hub" is one of 4 modules.
-  "Meeitngs Hub" consists of meetings, KPIs adn actions reviewed during the meetings. Meeting Hub solution is a digital product that is normally installed at the client's site. It helps the client to improve meetings quality and manage productivity through standard process of looking at performance trends and defiining actions to address the variance between plananed and actual performance. 
-  hwen started the application was built for educational purposes only.
+  "Meeitngs Hub" consists of meetings, KPIs and actions reviewed during the meetings. Meeting Hub solution is a digital product that is normally installed at the client's site. It helps the client to improve meetings quality and manage productivity through standard process of looking at performance trends and defiining the actions to address the variance between plananed and actual performance. 
+  when started the application was built for educational purposes only.
 
-Link to the Application: [Meetings Hub](http://ask-pft-meetinghub.herokuapp.com/)
-Step-By-Step development process is [here](sbsdev.jpg):
+* Link to the Application: [Meetings Hub](http://ask-pft-meetinghub.herokuapp.com/)
+* Step-By-Step development process (194 steps) is here:[DEVELOPMENT CODE](sbsdev.md):
+* testing process description is here: [TESTING](/testing.md):
 #
 ## **User Experience (UX)**
 ### **GOALS**
@@ -114,7 +115,6 @@ Once we understnd what the needs and the structure within appliaction scope is, 
   * Link to [Workflow and tools](/static/img/workflow_tools.jpg) - the flow was built in MS PowerPoint.
   * Link to [Schema](static/img/schema.jpg) - the schema was built in PowerPoint.
 Features list 
-
 
 * _Skeleton Plain_:
 After that we developed wireframes that help us undertsand how the application should look like on PC and mobile phone:
@@ -222,17 +222,17 @@ How the features look like:
 
 ### **Features Not implemented:**
 1. Connecting MongoDb to power BI using ODBC connector. 
-2. Add button to send Email to each user once actions and kpis are updated by admin before to the meeting
+2. Add button to send Email to each user once actions and kpis are updated by admin before the meeting
 3. Generate pdf report for each user latest KPIs status and actions that are due and not done
 4. Add actions list that is related to the meeting on meeting dashboard with functionality to sort them by user
-5. Admin rights are connected to the role defined by admin user - I know how to do it, but runnint short of time.
+5. Admin rights are connected to the role defined by admin user - I know how to do it, but running short of time.
 
 ### **TECHNOLOGIES**
   * **Languages**
-    - _HTML_ - Hyperlinked markup language, to develop 
+    - _HTML_ - Hyperlinked markup language, to develop the fornt end pages.
     - _CSS_ - cascading style sheets to decorate html webpages, I used basic decoration with litle attention to design, focusing on functionality
     - _Javascript_ - programming language for interactive experienc, in this project I used it only for certain front-end features.
-    - _Python_ - programming language to 
+    - _Python_ - programming language to Create, Read, Update and Delete data on the Mongo DB 
   * **Libraries**
     - _Flask_ - python library to use templates and integrate backend data (stored on MongoDb) with forntend application, falsk helps to reduce amount of html development and use  python with html.
     - _Materialize_ - css library with common wed elements - used to save time on developing buttons, navbars, sidebars, and website responsiveness
@@ -250,21 +250,22 @@ How the features look like:
 
 #
 ## **[TESTING](/testing.md)**
-Testing consist of (1) UserStories testing, (2) Navigation testing, (3) Accessibility testing, (4) Responsiveness testing, (5) Browser compatibility testing (5) Code Validation, (6) Site Performance testing. Testing is descibed on another file [here](/testing.md)
-  #### **UserStories testing** - In this section each user story (see section "User Experience") is tested through appliaction functionality - see the result [here]()
-  #### **Navigation** -  In this section I test the navigation through the application - functionality of the buttons, links, inputs, conection to MongoDb - see the result [here]()
-  #### **Accessibility testing** -  In this section I describe how basic security was tested - I tried to access different pages/temmplates - see the result [here]()
-  #### **Responsiveness testing** -  In this section - see the result [here]()
-  #### **Browser Compatibilty** -  In this section - see the result [here]()
-  #### **Code Validation** -  In this section HTML, CSS, JavaScript, Python -see the result [here]()
-  #### **Site Perromance Testing** -  In this section I use Lighthoouse by Google Chrome to test Site Performance - see the result [here]()
+Testing consists of 6 sections - (1) UserStories testing, (2) Navigation testing, (3) Accessibility testing, (4) Responsiveness testing, (5) Browser compatibility testing (5) Code Validation, (6) Site Performance testing. Testing is descibed on another file [here](/testing.md)
+* #### **UserStories testing** - In this section each user story (see section "User Experience") is tested through appliaction functionality - see the result [here](/testing.md)
+* #### **Navigation** -  In this section I tested the navigation through the application - functionality of the buttons, links, inputs, conection to MongoDb - see the result [here](/testing.md)
+* #### **Accessibility testing** -  In this section I describe how basic security was tested - I tried to access different pages/temmplates - see the result [here](/testing.md)
+* #### **Responsiveness testing** -  In this section I tested whether each individual component on each page works for Admin and User - see the result [here](/testing.md)
+* #### **Browser Compatibilty** -  In this section I tested how an app functions in Google, FireFox and Safari - see the result [here](/testing.md)
+* #### **Code Validation** -  In this section I ran validation code for HTML (W3 validator), CSS (Jigsaw W3 validator), JavaScript (JSHint) - see the result [here](/testing.md)
+* #### **Site Perromance Testing** -  In this section I use Lighthoouse by Google Chrome to test Site Performance - see the result [here](/testing.md)
 
 #
 ## DEPLOYMENT
-Theree are 4 sections in this chapter - (1) hosting on GitHub, Forking GitHUb repo, (2) Forking the repository (3) Running the project Locally and (3)Deploying th eapplication to Heroku.
-Working with Github and using Git was needed to host and develop the code in the cloud while Heroku was used to deploy the application to the web.  
+Theree are 4 sections in deployment chapter - (1) hosting on GitHub, Forking GitHUb repo, (2) Forking the repository (3) Running the project Locally and (4) Deploying the application to Heroku.
 
-### GITHUB
+Working with Github and using Git was needed to host and develop the code in the cloud while Heroku was used to deploy the application to the web. 
+
+### **GITHUB**
 ### **(1) Open a new repo:**
   - Register into own account on GitHub
   - Press gree Button "new"
@@ -280,13 +281,14 @@ To fork a repository:
 - press "Fork" button at the top right corner of the repository
 - Now you have a copy that you can work with without impacting it
 More information can be found in gitHud Documentation [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
-### **(3) Running this Project Locally**
-thanks to Anna 
 
-### HEROKU
+### **(3) Running this Project Locally** 
+I did not run the project locally, however Anna Greaves explains in detail how to run the project localle with detailed instructions. next Project I will do in VS code. Detailed instruction can be found here: [Running the project Locally](https://github.com/AJGreaves/familyhub/blob/master/README.md#how-to-run-this-project-locally)
+
+### **HEROKU**
 ### **(4) Hosting on Heroku**
-Hosting to Heroku you need to go thorugh following steps:
-1. Inside git - tell heroku which apps and dependencies are required to run an app - create requirments file abd:
+In order to deply the app to Heroku you need to go thorugh following steps:
+1. Gitpod - tell heroku which apps and dependencies are required to run an app - create requirments.txt file:
 
         pip3 freeze --local>requirements.txt   
 2. create Procfile for Heroku (important to have space before python and delete last line space in Procfile - it is very important for connection):
@@ -343,19 +345,21 @@ NOTE: When deployed the file it is very important that procfile contains very pr
         1. password: XXXXXX
         2. clustername: your_cluster
         3. databasename: your_dtb
+You can find more details and sequence of steps on [step by step developemnt process](/sbsdev.md)
 
 #
 ## CREDITS
 ### **Content**
-  * The conetnt was developed myself based on my experience and thanks to the team from [Alexandr Proudfoot consulting company](https://proudfoot.com/) - Monique, Kamal, Tim Sebastian.
+  * The conetnt for the application was developed myself based on 15 years of operaational consulting experience and thanks to the team from [Alexandr Proudfoot consulting company](https://proudfoot.com/) - Monique, Kamal, Tim Sebastian who were great partners in brainstorming the wireframes.
 
 ### **Media**
   All the media content was developed by myself in Powerpoint and stored in jpg format
 
 ### **Acknowledgements**
   - Code institute for the backend project Example and all the great videos on Python, Flask and database management. Also for github template - I used for code development.
-  - Chriss Quin for mentorship
+  - Chriss Quin for mentorship, good tips and critical advices
   - Kevin, Miklosh and Johan for great lessons and support during coding problem solving
+  - Special thanks to Anna Greaves - she is a constant source of motivation for me. She is a benchmark of development and perfection. I really get inspired by what she does and how deep she goes when it comes to learning new things.
   - "Alexandr Proudfoot" consulting company for giving me inspiration assigning me to Digital Results Hub workstream and letting me use one of the 5 modules as a prototype for my project
   - Stack overflow and bloggers: 
     - Punit Jajodia and his website [programiz](https://www.programiz.com/python-programming/datetime/current-datetime)
@@ -363,4 +367,4 @@ NOTE: When deployed the file it is very important that procfile contains very pr
 
 
 ## DISCLAIMER
-- This project is for educationall purpose only during the Code Institute course of Software Development. Module - Python Flask and Backend development.
+- This project is for educationall purpose only. It is a part of the Code Institute course of Software Development. Module - Python Flask and Backend development.
