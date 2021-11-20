@@ -32,151 +32,156 @@ No. | Temolaete/Function        | Access Level  | Non-User direct access test  |
 23  | edit_completionstatus     | Admin    | pass, id from firefox | pass, id from firefox
 24  | edit_kpiinput             | Admin    | pass, id from firefox | pass, id from firefox
 25  | edit_action               | Admin    | pass, id from firefox | pass, id from firefox
-## **2. Navigation**
-All the buttons and links were tested in 3 different browsers on PC Macbook Pro with Windows installed on it.
+#
+## **2.Navigation in different browsers**
+All the buttons and links for admina nd user were tested at least once in 3 different browsers on PC Macbook Pro with Windows installed on it. Major focus was on CRUD functionality for each of 10 collections.
+
+The teable below shows the test for application 137 navigation features:
 No | admin/user | page          | button / link             | Google    | FireFox   | Safari
 --|--           |--             |--                         |--         |--         |--
-1 | no          |login          |    register  link         |pass       |   pass        |
-2 | no          |login          |    register  navbar link  |pass       |   pass        |
-3 | no          |login          |    login button           |pass       |   pass        |
-4 | no          |login          |    login  link            |pass       |   pass        |
-5 | no          |register       |    login  navbar link     |pass       |   pass        |
-6 | no          |register       |    login  button admin    |pass       |   pass        |
-7 | no          |register       |    login  user admin      |pass       |   pass        |
-8 | admin       |user_dashboard |    navbar meetings link   |pass       |   pass        |
-9 | admin       |user_dashboard |    navbar admin setup link|pass       |   pass        |
-10 | admin       |user_dashboard |    navbar action dashboard link|  pass|  pass         |
-11 | admin       |user_dashboard |    navbar kpi inputs link |  pass     |  pass         |
-12 | admin       |user_dashboard |    navbar kpi inputs link |  pass     |  pass         |
-13 | admin       |user_dashboard |    add action button      |  pass     |  pass         |
-14 | admin       |user_dashboard |    edit action button     |  pass     |  pass         |
-15 | admin       |user_dashboard |   filter select and button|  pass     |  pass         |
-16 | admin       |user_dashboard |    filter refresh button  |  pass     |  pass         |
-17 | admin       |user_dashboard |    action edit button     |  pass     |  pass         |
-18 | admin       |user_dashboard |    action edit button     |  pass     |  pass         |
-19 | admin       |user_dashboard |    kpi input button       |  pass     |  pass         |
-20 | admin       |user_dashboard |    new action for red KPI |  pass     |  pass         |
-21 | admin       |kpi_input      |    add input button       |  pass     |  pass         |
-22 | admin       |kpi_input      |    search field KPIname   |  pass     |  pass         |
-23 | admin       |kpi_input      |   search field week number|  pass     |  pass         |
-24 | admin       |kpi_input      |    search field KPi owner |  pass     |  pass         |
-25 | admin       |kpi_input      |    search field status    |  pass     |  pass         |
-26 | admin       |kpi_input      |search field refresh button|  pass     |  pass         |
-27 | admin       |kpi_input      |  clone button             |  pass     |  pass         |
-28 | admin       |kpi_input      |  edit button              |  pass     |  pass         |
-29 | admin       |admin_setup    |  spy scroll (PC)          |  pass     |  pass         |
-30 | admin       |admin_setup    |  add user button          |  pass     |  pass         |
-31 | admin       |admin_setup    |  edit user button         |  pass     |  pass         |
-32 | admin       |admin_setup    |  delete user button       |  pass     |  pass         |
-33 | admin       |admin_setup    |  add department button    |  pass     |  pass         |
-34 | admin       |admin_setup    |  edit department button   |  pass     |  pass         |
-35 | admin       |admin_setup    |  delete department button |  pass     |  pass         |
-36 | admin       |admin_setup    |  add workstream button    |  pass     |  pass         |
-37 | admin       |admin_setup    |  edit workstream button   |  pass     |  pass         |
-38 | admin       |admin_setup    |  delete workstream button |  pass     |  pass         |
-39 | admin       |admin_setup    |  add meeting button       |  pass     |  pass         |
-40 | admin       |admin_setup    |  edit meeting button      |  pass     |  pass         |
-41 | admin       |admin_setup    |  delete meeting button    |  pass     |  pass         |
-44 | admin       |admin_setup    |  add kpi button           |  pass     |  pass         |
-45 | admin       |admin_setup    |  edit kpi button          |  pass     |  pass         |
-46 | admin       |admin_setup    |  delete kpi button        |  pass     |  pass         |
-47 | admin       |admin_setup    |  add kpi status button        |  pass     |  pass         |
-48 | admin       |admin_setup    |  edit kpi status button       |  pass     |  pass         |
-49 | admin       |admin_setup    |  delete kpi status button     |  pass     |  pass         |
-50 | admin       |admin_setup    |  add action status button     |  pass     |  pass         |
-51 | admin       |admin_setup    |  edit action status button    |  pass     |  pass         |
-52 | admin       |admin_setup    |  delete action status button  |  pass     |  pass         |
-53 | admin       |meetings       |  filter MS1 to activate PBI link|  pass     |   pass        |
-54 | admin       |meetings       |  filter MS2 to activate PBI link|  pass     |   pass        |
-55 | admin       |meetings       |  filter MS3 to activate PBI link|  pass     |   pass        |
-56 | admin       |logout         |  navbar link                    |  pass     |   pass        |
-57 | admin       |add_input      |  submit button            |  pass     |   pass        |
-58 | admin       |add_input      |  cancel button            |  pass     |   pass        |
-59 | admin       |add_input      |  automatic logdate and weeknumber|  pass     |   pass        |
-60 | admin       |add_input      |  select elements (name, owner, status)|  pass     |   pass        |
-61 | admin       |add_input      |  datepicker (logdate)     |  pass     |  pass         |
-62 | admin       |edit_input     |  submit button            |  pass     |  pass         |
-63 | admin       |edit_input     |  cancel button            |  pass     |  pass         |
-64 | admin       |edit_input     |  delete button            |  pass     |  pass         |
-65 | admin       |edit_input     |  automatic logdate and weeknumber|  pass     |   pass        |
-66 | admin       |edit_input     |  select elements (name, owner, status)|  pass     |  pass         |
-67 | admin       |edit_input     |  datepicker (logdate)     |  pass     |  pass         |
-68 | admin       |copy_input     |  input fields pre-filled  |  pass     |  pass         |
-69 | admin       |copy_input     |  select elements (name, owner, status)|  pass     |   pass        |
-70 | admin       |copy_input     |  datepicker               |  pass     |  pass         |
-71 | admin       |copy_input     |  submit button            |  pass     |  pass         |
-72 | admin       |copy_input     |  cancel button            |  pass     |  pass         |
-73 | admin       |add_user       |  cancel button            |  pass     |  pass         |
-74 | admin       |add_user       |  submit button            |  pass     |  pass         |
-75 | admin       |edit_user       | input fields pre-filled  |  pass     |  pass        |
-76 | admin       |edit_user       | cancel button            |  pass     |  pass        |
-77 | admin       |edit_user       | submit button            |  pass     |  pass        |
-78 | admin       |add_dept               |  cancel button    |  pass     |  pass         |
-79 | admin       |add_dept               |  submit button    |  pass     |  pass         |
-80 | admin       |edit_dept              | input fields pre-filled|  pass     |   pass       |
-81 | admin       |edit_dept              | cancel button            |  pass     | pass         |
-82 | admin       |edit_dept              | submit button            |  pass     | pass         |
-83 | admin       |add_workstream         |  cancel button            |  pass     |   pass        |
-84 | admin       |add_workstream         |  submit button            |  pass     |   pass        |
-85 | admin       |edit_workstream        | input fields pre-filled  |  pass     |    pass      |
-86 | admin       |edit_workstream        | cancel button            |  pass     |    pass      |
-87 | admin       |edit_workstream        | submit button            |  pass     |    pass      |
-88 | admin       |add_meeting            |  cancel button           |  pass     |    pass      |
-89 | admin       |add_meeting            |  submit button           |  pass     |    pass      |
-90 | admin       |edit_meeting           | input fields pre-filled  |  pass     |    pass      |
-91 | admin       |edit_meeting           | switch                   |  pass     |    pass      |
-92 | admin       |edit_meeting           | cancel button            |  pass     |    pass      |
-93 | admin       |edit_meeting           | submit button            |  pass     |   pass       |
-94 | admin       |add_kpi                |  cancel button            |  pass     |  pass         |
-95 | admin       |add_kpi                |  submit button            |  pass     |  pass         |
-96 | admin       |add_kpi                |  dropdown (owner)         |  pass     |   pass        |
-97 | admin       |edit_kpi               | input fields pre-filled   |  pass     |  pass        |
-98 | admin       |edit_kpi               | cancel button             |  pass     |  pass        |
-99 | admin       |edit_kpi                |  dropdown (owner)        |  pass     |   pass        |
-100 | admin       |edit_kpi               | submit button             |  pass     |  pass        |
-101 | admin       |add_kpistatus         |  cancel button            |  pass     |   pass        |
-102 | admin       |add_kpistatus         |  submit button            |  pass     |   pass        |
-103 | admin       |edit_kpistatus        | input fields pre-filled  |  pass     |    pass      |
-104 | admin       |edit_kpistatus        | cancel button            |  pass     |    pass      |
-105 | admin       |edit_kpistatus        | submit button            |  pass     |    pass      |
-106 | admin       |add_completionstatus  |  cancel button            |  pass     |   pass        |
-107 | admin       |add_completionstatus  |  submit button            |  pass     |   pass        |
-108 | admin       |edit_completionstatus | input fields pre-filled  |  pass     |    pass      |
-109 | admin       |edit_completionstatus | cancel button            |  pass     |    pass      |
-110 | admin       |edit_completionstatus | submit button            |  pass     |   pass       |
-111 | user        |user_dashboard |    navbar action dashboard link|  pass|    pass       |
-112 | user        |user_dashboard |    navbar kpi inputs link |  pass     |    pass       |
-113 | user        |logout         |    navbar link            |  pass     |    pass       |
-114 | user        |user_dashboard |    add action button      |  pass     |    pass       |
-115 | user        |user_dashboard |   filter select + button  |  pass     |    pass       |
-116 | user        |user_dashboard |    filter refresh button  |  pass     |    pass       |
-117 | user        |user_dashboard |    change status button   |  pass     |    pass       |
-118 | user        |user_dashboard |    kpi input button       |  pass     |    pass       |
-119 | user        |user_dashboard |    new action for red KPI |  pass     |    pass       |
-120 | user        |kpi_input      |    add input button       |  pass     |    pass       |
-121 | user        |kpi_input      |   search field week number|  pass     |    pass       |
-122 | user        |kpi_input      |    search KPI status      |  pass     |    pass       |
-123 | user        |kpi_input      |search field refresh button|  pass     |    pass       |
-124 | user        |kpi_input      |  clone button             |  pass     |    pass       |
-125 | user        |add_input      |  cancel button            |  pass     |    pass       |
-126 | user        |add_input      |  submit button            |  pass     |    pass       |
-127 | user        |add_input      |  automatic logdate and weeknumber|  pass     |  pass         |
-128 | user        |add_input      |  select elements (name, owner, status)|  pass     |  pass         |
-129 | user        |add_input      |  datepicker (logdate)     |  pass     |  pass         |
-130 | user        |copy_input     |  input fields pre-filled  |  pass     |  pass         |
-131 | user        |copy_input     |  select elements (name, owner, status)|  pass     |    pass       |
-132 | user        |copy_input     |  datepicker               |  pass     |  pass         |
-133 | user        |copy_input     |  submit button            |  pass     |  pass         |
-134 | user        |copy_input     |  cancel button            |  pass     |  pass         |
-134 | user        |login          |  error if login with wrong paswword   |  pass     |  pass         |
-134 | user        |register       |  error if name with wrong email |  pass     |     pass      |
-134 | user        |register       |  error if wrong anme with right email |  pass     |      pass     |
+1 | no          |login          |    register  link         |pass       |   pass        |pass
+2 | no          |login          |    register  navbar link  |pass       |   pass        |pass
+3 | no          |login          |    login button           |pass       |   pass        |pass
+4 | no          |login          |    login  link            |pass       |   pass        |pass
+5 | no          |register       |    login  navbar link     |pass       |   pass        |pass
+6 | no          |register       |    login  button admin    |pass       |   pass        |pass
+7 | no          |register       |    login  user admin      |pass       |   pass        |pass
+8 | admin       |user_dashboard |    navbar meetings link   |pass       |   pass        |pass
+9 | admin       |user_dashboard |    navbar admin setup link|pass       |   pass        |pass
+10 | admin       |user_dashboard |    navbar action dashboard link|  pass|  pass         |pass
+11 | admin       |user_dashboard |    navbar kpi inputs link |  pass     |  pass         |pass
+12 | admin       |user_dashboard |    navbar kpi inputs link |  pass     |  pass         |pass
+13 | admin       |user_dashboard |    add action button      |  pass     |  pass         |pass
+14 | admin       |user_dashboard |    edit action button     |  pass     |  pass         |pass
+15 | admin       |user_dashboard |   filter select and button|  pass     |  pass         |pass
+16 | admin       |user_dashboard |    filter refresh button  |  pass     |  pass         |pass
+17 | admin       |user_dashboard |    action edit button     |  pass     |  pass         |pass
+18 | admin       |user_dashboard |    action edit button     |  pass     |  pass         |pass
+19 | admin       |user_dashboard |    kpi input button       |  pass     |  pass         |pass
+20 | admin       |user_dashboard |    new action for red KPI |  pass     |  pass         |pass
+21 | admin       |kpi_input      |    add input button       |  pass     |  pass         |pass
+22 | admin       |kpi_input      |    search field KPIname   |  pass     |  pass         |pass
+23 | admin       |kpi_input      |   search field week number|  pass     |  pass         |pass
+24 | admin       |kpi_input      |    search field KPi owner |  pass     |  pass         |pass
+25 | admin       |kpi_input      |    search field status    |  pass     |  pass         |pass
+26 | admin       |kpi_input      |search field refresh button|  pass     |  pass         |pass
+27 | admin       |kpi_input      |  clone button             |  pass     |  pass         |pass
+28 | admin       |kpi_input      |  edit button              |  pass     |  pass         |pass
+29 | admin       |admin_setup    |  spy scroll (PC)          |  pass     |  pass         |pass
+30 | admin       |admin_setup    |  add user button          |  pass     |  pass         |pass
+31 | admin       |admin_setup    |  edit user button         |  pass     |  pass         |pass
+32 | admin       |admin_setup    |  delete user button       |  pass     |  pass         |pass
+33 | admin       |admin_setup    |  add department button    |  pass     |  pass         |pass
+34 | admin       |admin_setup    |  edit department button   |  pass     |  pass         |pass
+35 | admin       |admin_setup    |  delete department button |  pass     |  pass         |pass
+36 | admin       |admin_setup    |  add workstream button    |  pass     |  pass         |pass
+37 | admin       |admin_setup    |  edit workstream button   |  pass     |  pass         |pass
+38 | admin       |admin_setup    |  delete workstream button |  pass     |  pass         |pass
+39 | admin       |admin_setup    |  add meeting button       |  pass     |  pass         |pass
+40 | admin       |admin_setup    |  edit meeting button      |  pass     |  pass         |pass
+41 | admin       |admin_setup    |  delete meeting button    |  pass     |  pass         |pass
+44 | admin       |admin_setup    |  add kpi button           |  pass     |  pass         |pass
+45 | admin       |admin_setup    |  edit kpi button          |  pass     |  pass         |pass
+46 | admin       |admin_setup    |  delete kpi button        |  pass     |  pass         |pass
+47 | admin       |admin_setup    |  add kpi status button    |  pass     |  pass         |pass
+48 | admin       |admin_setup    |  edit kpi status button   |  pass     |  pass         |pass
+49 | admin       |admin_setup    |  delete kpi status button |  pass     |  pass         |pass
+50 | admin       |admin_setup    |  add action status button |  pass     |  pass         |pass
+51 | admin       |admin_setup    |  edit action status button|  pass     |  pass         |pass
+52 | admin       |admin_setup    |  delete action status button  |  pass |  pass         |pass
+53 | admin       |meetings       |  filter MS1 to activate PBI link|  pass|   pass       |pass
+54 | admin       |meetings       |  filter MS2 to activate PBI link|  pass|   pass       |pass
+55 | admin       |meetings       |  filter MS3 to activate PBI link|  pass|   pass       |pass
+56 | admin       |logout         |  navbar link                    |  pass     |   pass  |pass
+57 | admin       |add_input      |  submit button            |  pass     |   pass        |pass
+58 | admin       |add_input      |  cancel button            |  pass     |   pass        |pass
+59 | admin       |add_input      |  automatic logdate and weeknumber|  pass     |   pass |pass
+60 | admin       |add_input      |  select elements (name, owner, status)|  pass|   pass |pass
+61 | admin       |add_input      |  datepicker (logdate)     |  pass     |  pass         |pass
+62 | admin       |edit_input     |  submit button            |  pass     |  pass         |pass
+63 | admin       |edit_input     |  cancel button            |  pass     |  pass         |pass
+64 | admin       |edit_input     |  delete button            |  pass     |  pass         |pass
+65 | admin       |edit_input     |  automatic logdate and weeknumber|  pass     |   pass |pass
+66 | admin       |edit_input     |  select elements (name, owner, status)|  pass|  pass  |pass
+67 | admin       |edit_input     |  datepicker (logdate)     |  pass     |  pass         |pass
+68 | admin       |copy_input     |  input fields pre-filled  |  pass     |  pass         |pass
+69 | admin       |copy_input     |  select elements (name, owner, status)|  pass|   pass |pass
+70 | admin       |copy_input     |  datepicker               |  pass     |  pass         |pass
+71 | admin       |copy_input     |  submit button            |  pass     |  pass         |pass
+72 | admin       |copy_input     |  cancel button            |  pass     |  pass         |pass
+73 | admin       |add_user       |  cancel button            |  pass     |  pass         |pass
+74 | admin       |add_user       |  submit button            |  pass     |  pass         |pass
+75 | admin       |edit_user       | input fields pre-filled  |  pass     |  pass         |pass
+76 | admin       |edit_user       | cancel button            |  pass     |  pass         |pass
+77 | admin       |edit_user       | submit button            |  pass     |  pass         |pass
+78 | admin       |add_dept               |  cancel button    |  pass     |  pass         |pass
+79 | admin       |add_dept               |  submit button    |  pass     |  pass         |pass
+80 | admin       |edit_dept              | input fields pre-filled|  pass     |   pass   |pass
+81 | admin       |edit_dept              | cancel button            |  pass     | pass   |pass
+82 | admin       |edit_dept              | submit button            |  pass     | pass   |pass
+83 | admin       |add_workstream         |  cancel button            |  pass     |   pass|pass
+84 | admin       |add_workstream         |  submit button            |  pass     |   pass|pass
+85 | admin       |edit_workstream        | input fields pre-filled  |  pass     |    pass|pass
+86 | admin       |edit_workstream        | cancel button            |  pass     |    pass|pass
+87 | admin       |edit_workstream        | submit button            |  pass     |    pass|pass
+88 | admin       |add_meeting            |  cancel button           |  pass     |    pass      |pass
+89 | admin       |add_meeting            |  submit button           |  pass     |    pass      |pass
+90 | admin       |edit_meeting           | input fields pre-filled  |  pass     |    pass      |pass
+91 | admin       |edit_meeting           | switch                   |  pass     |    pass      |pass
+92 | admin       |edit_meeting           | cancel button            |  pass     |    pass      |pass
+93 | admin       |edit_meeting           | submit button            |  pass     |   pass       |pass
+94 | admin       |add_kpi                |  cancel button            |  pass     |  pass         |pass
+95 | admin       |add_kpi                |  submit button            |  pass     |  pass         |pass
+96 | admin       |add_kpi                |  dropdown (owner)         |  pass     |   pass        |pass
+97 | admin       |edit_kpi               | input fields pre-filled   |  pass     |  pass        |pass
+98 | admin       |edit_kpi               | cancel button             |  pass     |  pass        |pass
+99 | admin       |edit_kpi                |  dropdown (owner)        |  pass     |   pass        |pass
+100 | admin       |edit_kpi               | submit button             |  pass     |  pass        |pass
+101 | admin       |add_kpistatus         |  cancel button            |  pass     |   pass        |pass
+102 | admin       |add_kpistatus         |  submit button            |  pass     |   pass        |pass
+103 | admin       |edit_kpistatus        | input fields pre-filled  |  pass     |    pass      |pass
+104 | admin       |edit_kpistatus        | cancel button            |  pass     |    pass      |pass
+105 | admin       |edit_kpistatus        | submit button            |  pass     |    pass      |pass
+106 | admin       |add_completionstatus  |  cancel button            |  pass     |   pass        |pass
+107 | admin       |add_completionstatus  |  submit button            |  pass     |   pass        |pass
+108 | admin       |edit_completionstatus | input fields pre-filled  |  pass     |    pass      |pass
+109 | admin       |edit_completionstatus | cancel button            |  pass     |    pass      |pass
+110 | admin       |edit_completionstatus | submit button            |  pass     |   pass       |pass
+111 | user        |user_dashboard |    navbar action dashboard link|  pass|    pass       |pass
+112 | user        |user_dashboard |    navbar kpi inputs link |  pass     |    pass       |pass
+113 | user        |logout         |    navbar link            |  pass     |    pass       |pass
+114 | user        |user_dashboard |    add action button      |  pass     |    pass       |pass
+115 | user        |user_dashboard |   filter select + button  |  pass     |    pass       |pass
+116 | user        |user_dashboard |    filter refresh button  |  pass     |    pass       |pass
+117 | user        |user_dashboard |    change status button   |  pass     |    pass       |pass
+118 | user        |user_dashboard |    kpi input button       |  pass     |    pass       |pass
+119 | user        |user_dashboard |    new action for red KPI |  pass     |    pass       |pass
+120 | user        |kpi_input      |    add input button       |  pass     |    pass       |pass
+121 | user        |kpi_input      |   search field week number|  pass     |    pass       |pass
+122 | user        |kpi_input      |    search KPI status      |  pass     |    pass       |pass
+123 | user        |kpi_input      |search field refresh button|  pass     |    pass       |pass
+124 | user        |kpi_input      |  clone button             |  pass     |    pass       |pass
+125 | user        |add_input      |  cancel button            |  pass     |    pass       |pass
+126 | user        |add_input      |  submit button            |  pass     |    pass       |pass
+127 | user        |add_input      |  automatic logdate and weeknumber|  pass     |  pass  |pass
+128 | user        |add_input      |  select elements (name, owner, status)|  pass|  pass  |pass
+129 | user        |add_input      |  datepicker (logdate)     |  pass     |  pass         |pass
+130 | user        |copy_input     |  input fields pre-filled  |  pass     |  pass         |pass
+131 | user        |copy_input     |  select elements (name, owner, status)|  pass | pass  |pass
+132 | user        |copy_input     |  datepicker               |  pass     |  pass         |pass
+133 | user        |copy_input     |  submit button            |  pass     |  pass         |pass
+134 | user        |copy_input     |  cancel button            |  pass     |  pass         |pass
+135 | user        |login          |  error if login with wrong paswword   |  pass|  pass  |pass
+136 | user        |register       |  error if name with wrong email |  pass     |     pass|pass
+137 | user        |register       |  error if wrong anme with right email |  pass|   pass |pass
 
-
-
-
+While testing I noticed that KPI Summary on a Action Dashboard page does not have owner. Absence of this feature impacted intuitive navigation, so I added one ore column for the table showing each KPI owner on KPI Summary. It is important that if regular user logs in this table is filtered automatically to list only those KPIs that are assigned to this particular user. It was tested as well both for actioons and for KPI inputs.
+During navigation testing I also tested if KPI summary is updated with latest KPI data input. It was also confirmed. Iteresting to note that users needs to be set up from the very befinning, if admin reassign the KPI owner on the KPI set up form, KPI summary table indicate empty fields and prompts the user to update the input by showing a button "INPUT" in KPI summary table for each empty KPI with status "undifined". 
+This functionality was also tested. 
 
 ## **3. Browser Compatibilty**
+3 browser result was absolutely identical
+![browser compatibilit picture](static/img/3browsers.jpg)
 ## **4. Responsiveness**
 Responsiveness was tested for mobile device mainly. The most problematic page was "home" page thatcontained meeting dashboard with iframe conneceted to PowerBi. I resolved responsiveness issue following recommendations from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_responsive_iframe_169. Below you can see the testing of all the templates in google chrom inspect using iPhone x resopnsiveness window. I have developed few pictures in powerpoint to demonstrate few problems that I resolved uing materiialise grid: 
 
