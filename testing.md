@@ -277,6 +277,11 @@ No. | code | result | bugs section refno| HTML validation | CSS validation
 ![JSHint result](static/img/js_validation.jpg)
 * to fix that I had to go to gitpod settings and add json setting to enable esversion6 as recommended by r3media on youtube: https://www.youtube.com/watch?v=QDzeU1FUZRk&ab_channel=R3HABMEDIA. 
 * Instead I just deleted let, defining variables without let. It is also acceptable.
+
+### **[Python](http://pep8online.com/checkresult)** - updated in January 2022
+![Python pep8 test result](static/img/pep8_ok.jpg)
+
+
 ## **6. Site Performance testing**
 * Lighthoouse for Site Performance
 ![picture - lighthouse performance testing](/static/img/performance_lighthouse.jpg)
