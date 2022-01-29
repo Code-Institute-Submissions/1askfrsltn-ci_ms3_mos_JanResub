@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="Meeting hub login page. PFT digital solution for effective meetings">
+        <meta name="Meeting Hub" content="Meeting hub is a web based application that demonstrate how the dashboards can be built into web based applaiction to run effective meetings.">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">    
         <!-- Fontawesome CSS -->
@@ -38,7 +38,7 @@
                         <li><a href="{{url_for('user_dashboard', username=session['user'])}}">ACTION DASHBOARD</a></li>
                         <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
                         <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
-                        <!--nav links visible to anybody-->
+                        <!--nav links visible-->
                         {% else %}
                             <li><a href="{{url_for('login')}}">LOGIN</a></li>
                             <li><a href="{{url_for('register')}}">REGISTER</a></li>

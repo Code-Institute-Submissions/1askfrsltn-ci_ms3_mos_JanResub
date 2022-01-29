@@ -1,5 +1,6 @@
-# import libraries and functions from packages
+"""import app packages"""
 import os
+from datetime import date
 from flask import (
     Flask,
     flash,
@@ -12,8 +13,6 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-# import datetie method: from datetime import datetime
-from datetime import date
 
 # connect env.py if it was created
 if os.path.exists("env.py"):
@@ -38,6 +37,7 @@ mongo = PyMongo(app)
 # create route decorator for login page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """login view"""
 
     #  checks if the data is posted, ans assign a user_name to a variable
     if request.method == "POST":
@@ -72,6 +72,7 @@ def login():
 # create route decorator for register page
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """register view"""
 
     # registration functionality
     if request.method == "POST":
@@ -95,7 +96,7 @@ def register():
             return redirect(url_for("register"))
 
         # if no user we create new user
-        register = {
+        register_dict = {
             "user_name": request.form.get("user_name").lower(),
             "user_email": request.form.get("user_email").lower(),
             "user_password": generate_password_hash(
@@ -103,7 +104,7 @@ def register():
             }
 
         # insert new user into Mongo Db database
-        mongo.db.users.insert_one(register)
+        mongo.db.users.insert_one(register_dict)
 
         # create session for newly registered user
         session["user"] = request.form.get("user_name").lower()
@@ -117,6 +118,7 @@ def register():
 # create route decorator for home page
 @app.route("/home", methods=["GET", "POST"])
 def home():
+    """home view"""
 
     # prevent direct access to admin pages from regular user profilles:
     if "user" in session and session["user"] == "admin":
@@ -158,6 +160,7 @@ def home():
 # create route decorator for user dashboard page
 @app.route("/user_dashboard/<username>", methods=["POST", "GET"])
 def user_dashboard(username):
+    """ user dashboard view """
 
     # if user in session defensive programming:
     if "user" in session:
@@ -165,10 +168,9 @@ def user_dashboard(username):
         # create username variable for user_dashboard template entrance
         username = mongo.db.users.find_one(
             {"user_name": session["user"]})["user_name"]
-        '''
         # create completionstatus variable for the loop on
         # user_dashboard selected component
-        '''
+
         completionstatus = mongo.db.completionstatus.find()
 
         # define variable for automatic filter
@@ -181,13 +183,11 @@ def user_dashboard(username):
         # been selected by filter
         actionstatusselection = action_status
 
-        '''
-        define variables for kpis and actions loop -
-        it should be filtered to user as kpi_owner,
-        and if it is admin it should not filter,
-        this nested conditions should also be used
-        for filter section of actions
-        '''
+        # define variables for kpis and actions loop -
+        # it should be filtered to user as kpi_owner,
+        # and if it is admin it should not filter,
+        # this nested conditions should also be used
+        # for filter section of actions
         if user == "admin":
 
             # variable kpis for KPIs section when user is logged in as admin
@@ -249,6 +249,8 @@ def user_dashboard(username):
 
 @app.route("/logout")
 def logout():
+    """logout function"""
+
     # remove session cookies
     session.clear()
     flash("You have logged out")
@@ -258,6 +260,7 @@ def logout():
 # setup router and function
 @app.route("/admin_setup")
 def setup():
+    """setup view"""
 
     # prevent direct access
     if "user" in session and session["user"] == "admin":
@@ -304,6 +307,7 @@ def setup():
 # add user route decorator and add_user function
 @app.route("/add_user", methods=["POST", "GET"])
 def add_user():
+    """add new user view"""
 
     # defensive programming
     if "user" in session and session["user"] == "admin":
@@ -331,7 +335,7 @@ def add_user():
                 return redirect(url_for("add_user"))
 
             # if no user we create new user
-            add_user = {
+            add_newuser = {
                 "user_name": request.form.get("user_name").lower(),
                 "user_email": request.form.get("user_email").lower(),
                 "user_password": generate_password_hash(
@@ -340,7 +344,7 @@ def add_user():
             }
 
             # insert new user into Mongo Db database
-            mongo.db.users.insert_one(add_user)
+            mongo.db.users.insert_one(add_newuser)
             flash("New User added")
             return redirect(url_for('setup'))
 
@@ -356,22 +360,20 @@ def add_user():
 # function to add kpiinput
 @app.route("/add_kpiinput", methods=["GET", "POST"])
 def add_kpiinput():
+    """add kpi input view"""
+
     if "user" in session:
         # variable for kpistatuss dropdown
         kpistatuss = mongo.db.kpistatuss.find()
 
-        '''
-        variable for logdate=today, help on
-        https://www.programiz.com/python-programming/
-        datetime/current-datetime
-        '''
+        # variable for logdate=today, help on
+        # https://www.programiz.com/python-programming/
+        # datetime/current-datetime
         today = date.today().strftime("%d-%m-%Y")
 
-        '''
-        variable for weeknumber, python documentation source:
-         https://docs.python.org/3/library/datetime.html?
-         highlight=datetime#datetime.datetime
-        '''
+        # variable for weeknumber, python documentation source:
+        # https://docs.python.org/3/library/datetime.html?
+        # highlight=datetime#datetime.datetime
         weeknumber = date.today().strftime("%W")
 
         # kpi variable for select element on kpi_name
@@ -409,13 +411,11 @@ def add_kpiinput():
                 "kpi_laststatus": request.form.get("input_status")
             }
 
-            '''
-            update kpi collection for specific fields following MongoDb
-            documentation -https://docs.mongodb.com/manual/reference/
-            operator/update/set/. Problem: the code {$set:latestinput}
-            did not work Johann from student support helped me - i had to
-            correct the code and add "" - {"$set":latestinput}
-            '''
+            # update kpi collection for specific fields following MongoDb
+            # documentation -https://docs.mongodb.com/manual/reference/
+            # operator/update/set/. Problem: the code {$set:latestinput}
+            # did not work Johann from student support helped me - i had to
+            # correct the code and add "" - {"$set":latestinput)
             mongo.db.kpi.update({
                 "kpi_name": request.form.get(
                     "input_kpiname"
@@ -447,6 +447,8 @@ def add_kpiinput():
 # setp admin kpi inputs page
 @app.route("/add_kpi", methods=["POST", "GET"])
 def add_kpi():
+    """add new user view"""
+
     if "user" in session and session["user"] == "admin":
         # add select dropdown list
         owners = mongo.db.users.find()
@@ -480,6 +482,7 @@ def add_kpi():
 # create setup function for adding department
 @app.route("/add_department", methods=["POST", "GET"])
 def add_department():
+    """add_department view"""
 
     # defensive programming
     if "user" in session and session["user"] == "admin":
@@ -508,6 +511,8 @@ def add_department():
 # create setup function for adding worksream
 @app.route("/add_workstream", methods=["POST", "GET"])
 def add_workstream():
+    """add_workstream view"""
+
     if "user" in session and session["user"] == "admin":
         if request.method == "POST":
 
@@ -536,6 +541,8 @@ def add_workstream():
 # create setup function to add new meeting
 @app.route("/add_meeting", methods=["POST", "GET"])
 def add_meeting():
+    """add_meeting view"""
+
     if "user" in session and session["user"] == "admin":
         if request.method == "POST":
 
@@ -571,6 +578,7 @@ def add_meeting():
 # create setup function to add new kpi status
 @app.route("/add_kpistatus", methods=["POST", "GET"])
 def add_kpistatus():
+    """add_kpistatus view"""
 
     # prevent direct access to th etemplate
     if "user" in session and session["user"] == "admin":
@@ -599,6 +607,7 @@ def add_kpistatus():
 # create setup function to add new action completion status
 @app.route("/add_completionstatus", methods=["POST", "GET"])
 def add_completionstatus():
+    """add_completionstatus view"""
 
     # defensive programming
     if "user" in session and session["user"] == "admin":
@@ -627,13 +636,13 @@ def add_completionstatus():
 # function to add actions
 @app.route("/add_action", methods=["POST", "GET"])
 def add_action():
+    """add_action view"""
+
     if "user" in session:
 
-        '''
-        variable for logdate = today, help on
-        https://www.programiz.com/python-programming/datetime/
-        current-datetime
-        '''
+        # variable for logdate = today, help on
+        # https://www.programiz.com/python-programming/datetime/
+        # current-datetime
         today = date.today().strftime("%d-%m-%Y")
 
         # calculating the action number
@@ -704,6 +713,7 @@ def add_action():
 # create edit_user function
 @app.route("/edit_user/<user_id>", methods=["POST", "GET"])
 def edit_user(user_id):
+    """add_user view"""
 
     # defensive programming - access to admin only
     if "user" in session and session["user"] == "admin":
@@ -736,6 +746,7 @@ def edit_user(user_id):
 # create edit_department function
 @app.route("/edit_department/<dept_id>", methods=["POST", "GET"])
 def edit_department(dept_id):
+    """edit_meeting view"""
 
     # defensive programming to prevent from direct access
     if "user" in session and session["user"] == "admin":
@@ -768,6 +779,7 @@ def edit_department(dept_id):
 # create edit_workstream function
 @app.route("/edit_workstream/<workstream_id>", methods=["POST", "GET"])
 def edit_workstream(workstream_id):
+    """edit_meeting view"""
 
     # prevent direct non-admin access to template
     if "user" in session and session["user"] == "admin":
@@ -807,6 +819,7 @@ def edit_workstream(workstream_id):
 # create edit_meeting function
 @app.route("/edit_meeting/<meeting_id>", methods=["POST", "GET"])
 def edit_meeting(meeting_id):
+    """edit_meeting view"""
 
     # prevent direct non-admin access to thetemplate
     if "user" in session and session["user"] == "admin":
@@ -853,6 +866,7 @@ def edit_meeting(meeting_id):
 # create edit_kpi function
 @app.route("/edit_kpi/<kpi_id>", methods=["POST", "GET"])
 def edit_kpi(kpi_id):
+    """edit_kpi view"""
 
     # prevent from direct access by other users
     if "user" in session and session["user"] == "admin":
@@ -890,6 +904,7 @@ def edit_kpi(kpi_id):
 # create edit_kpistatus function
 @app.route("/edit_kpistatus/<kpistatus_id>", methods=["POST", "GET"])
 def edit_kpistatus(kpistatus_id):
+    """edit_kpistatus view"""
 
     # prevent from direct access
     if "user" in session and session["user"] == "admin":
@@ -930,6 +945,7 @@ def edit_kpistatus(kpistatus_id):
     methods=["POST", "GET"]
     )
 def edit_completionstatus(completionstatus_id):
+    """edit_completionstatus fro action view"""
 
     # prevent direct access
     if "user" in session and session["user"] == "admin":
@@ -970,12 +986,13 @@ def edit_completionstatus(completionstatus_id):
 # create edit_kpi input function
 @app.route("/edit_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
 def edit_kpiinput(kpiinput_id):
+    """edit_kpiinput view"""
 
     # prevent form direct access by other users
     if "user" in session and session["user"] == "admin":
 
         # create kpiinput variable to prefill kpiinput input values in the form
-        input = mongo.db.kpiinputs.find_one(
+        inp = mongo.db.kpiinputs.find_one(
             {"_id": ObjectId(kpiinput_id)}
             )
 
@@ -1031,7 +1048,7 @@ def edit_kpiinput(kpiinput_id):
             return redirect(url_for('kpi_input'))
         return render_template(
             "edit_kpiinput.html",
-            input=input,
+            input=inp,
             user=user,
             owners=owners,
             kpis=kpis,
@@ -1047,6 +1064,7 @@ def edit_kpiinput(kpiinput_id):
 # create edit_actionstatus input function
 @app.route("/edit_actionstatus/<action_id>", methods=["POST", "GET"])
 def edit_actionstatus(action_id):
+    """edit_actionstatus view"""
 
     # prevent non-authorised direct access to the
     # page with defensive programming
@@ -1065,10 +1083,8 @@ def edit_actionstatus(action_id):
             editactionstatus = {
                     "action_status": request.form.get("action_status")
                 }
-            '''
-            update an action with actionstatus in collection
-            -address only specific field that was changed
-            '''
+            # update an action with actionstatus in collection
+            # -address only specific field that was changed
             mongo.db.actions.update(
                 {"_id": ObjectId(action_id)},
                 {"$set": editactionstatus}
@@ -1097,6 +1113,7 @@ def edit_actionstatus(action_id):
 # create edit_action function
 @app.route("/edit_action/<action_id>", methods=["POST", "GET"])
 def edit_action(action_id):
+    """edit_action view"""
 
     # prevent from direct access by non-admin
     if "user" in session and session["user"] == "admin":
@@ -1127,10 +1144,8 @@ def edit_action(action_id):
                     "action_status": request.form.get("action_status")
                 }
 
-            '''
-            update an action in collection - address only
-            specific fields that was changed
-            '''
+            # update an action in collection - address only
+            # specific fields that was changed
             mongo.db.actions.update(
                 {"_id": ObjectId(action_id)},
                 {"$set": editaction}
@@ -1158,6 +1173,8 @@ def edit_action(action_id):
 # user delete function for setup template
 @app.route("/delete_user/<user_id>")
 def delete_user(user_id):
+    """delete_user functionality"""
+
     mongo.db.users.remove({"_id": ObjectId(user_id)})
     flash("User was deleted")
     return redirect(url_for('setup'))
@@ -1166,6 +1183,8 @@ def delete_user(user_id):
 # department delete function for setup template
 @app.route("/delete_department/<dept_id>")
 def delete_department(dept_id):
+    """delete_department functionality"""
+
     mongo.db.depts.remove({"_id": ObjectId(dept_id)})
     flash("Department was deleted")
     return redirect(url_for('setup'))
@@ -1174,6 +1193,8 @@ def delete_department(dept_id):
 # workstream delete function for setup template
 @app.route("/delete_workstream/<workstream_id>")
 def delete_workstream(workstream_id):
+    """delete_workstream functionality"""
+
     mongo.db.workstreams.remove({"_id": ObjectId(workstream_id)})
     flash("Workstream was deleted")
     return redirect(url_for('setup'))
@@ -1182,6 +1203,8 @@ def delete_workstream(workstream_id):
 # meeting delete function for setup template
 @app.route("/delete_meeting/<meeting_id>")
 def delete_meeting(meeting_id):
+    """delete_meeting functionality"""
+
     mongo.db.meetings.remove({"_id": ObjectId(meeting_id)})
     flash("Meeting was deleted")
     return redirect(url_for('setup'))
@@ -1190,6 +1213,8 @@ def delete_meeting(meeting_id):
 # KPI delete function for setup template
 @app.route("/delete_kpi/<kpi_id>")
 def delete_kpi(kpi_id):
+    """delete_kpi functionality"""
+
     mongo.db.kpi.remove({"_id": ObjectId(kpi_id)})
     flash("The KPI was deleted")
     return redirect(url_for('setup'))
@@ -1198,6 +1223,8 @@ def delete_kpi(kpi_id):
 # KPI status delete function for setup template
 @app.route("/delete_kpistatus/<kpistatus_id>")
 def delete_kpistatus(kpistatus_id):
+    """delete_kpistatus functionality"""
+
     mongo.db.kpistatuss.remove({"_id": ObjectId(kpistatus_id)})
     flash("The KPI Status was deleted")
     return redirect(url_for('setup'))
@@ -1206,6 +1233,8 @@ def delete_kpistatus(kpistatus_id):
 # Action completion status delete function for setup template
 @app.route("/delete_completionstatus/<completionstatus_id>")
 def delete_completionstatus(completionstatus_id):
+    """delete_completionstatus for action functionality"""
+
     mongo.db.completionstatus.remove({"_id": ObjectId(completionstatus_id)})
     flash("Action comlpetion status was deleted")
     return redirect(url_for('setup'))
@@ -1214,6 +1243,8 @@ def delete_completionstatus(completionstatus_id):
 # Action delete function for user_dashboard=>edit template
 @app.route("/delete_action/<action_id>")
 def delete_action(action_id):
+    """delete_action functionality"""
+
     mongo.db.actions.remove({"_id": ObjectId(action_id)})
     flash("Action was deleted")
     return redirect(url_for(
@@ -1226,6 +1257,8 @@ def delete_action(action_id):
 # kpiinput template for admin only
 @app.route("/delete_kpiinput/<kpiinput_id>")
 def delete_kpiinput(kpiinput_id):
+    """delete_kpiinput functionality"""
+
     mongo.db.kpiinputs.remove(
         {"_id": ObjectId(kpiinput_id)}
         )
@@ -1236,6 +1269,7 @@ def delete_kpiinput(kpiinput_id):
 # kpi inputs page - add input page
 @app.route("/kpi_input", methods=["POST", "GET"])
 def kpi_input():
+    """kpi inputs page - add input page"""
 
     # prevent direct access from non-user
     if "user" in session:
@@ -1263,10 +1297,8 @@ def kpi_input():
                     request.form.get("search_kpiinput")
                     )
 
-                '''
-                using search variable to generate kpiintputs
-                for the table rendering
-                '''
+                # using search variable to generate kpiintputs
+                # for the table rendering
                 kpiintputs = list(
                     mongo.db.kpiinputs.find({
                         "$text": {"$search": search_kpiinput}
@@ -1282,12 +1314,10 @@ def kpi_input():
             # condition for non-admin when serhc button activated
             if request.method == "POST":
 
-                '''
-                variable for 4 fields index text search - input_kpiname,
-                input_kpiowner, input_kpistatus, input_weeknumber - mongodb:
-                input_kpiname_text_input_kpiowner_text_input_
-                weeknumber_text_input_status_text
-                '''
+                # variable for 4 fields index text search - input_kpiname,
+                # input_kpiowner, input_kpistatus, input_weeknumber - mongodb:
+                # input_kpiname_text_input_kpiowner_text_input_
+                # weeknumber_text_input_status_text
                 search_kpiinput = request.form.get("search_kpiinput")
 
                 # variable for search for 2 criterea user AND 4 fields text
@@ -1312,14 +1342,14 @@ def kpi_input():
         return redirect(url_for('logout'))
 
 
-# create copy kpiinput  function
 @app.route("/copy_kpiinput/<kpiinput_id>", methods=["POST", "GET"])
 def copy_kpiinput(kpiinput_id):
+    """create copy kpiinput function"""
 
     # prevent form direct access from non-user
     if "user" in session:
         # create kpiinput variable to prefill kpiinput input values in the form
-        input = mongo.db.kpiinputs.find_one({
+        inp = mongo.db.kpiinputs.find_one({
             "_id": ObjectId(kpiinput_id)
             })
 
@@ -1376,7 +1406,7 @@ def copy_kpiinput(kpiinput_id):
             return redirect(url_for('kpi_input'))
         return render_template(
             "copy_kpiinput.html",
-            input=input,
+            input=inp,
             user=user,
             owners=owners,
             kpis=kpis,
