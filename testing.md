@@ -370,3 +370,24 @@ Remaining erros of app.py and env.py:
             
         mongo.db.kpi.update({"kpi_name": request.form.get("input_kpiname")},{"$set": latestinput})
 * Result: fields are updated as I wanted - only those that I want to update - KPI collection
+
+#
+Issue 6: Console issue with materialise library can not be fixed, I ignored it because it relates to external library (date: 30.01.2022)
+
+Issue 7: Console issue related to Power Bi Content ignored because it relates to external library (date: 30.01.2022).
+Power bi login still works fine-I use corporate account to login. login happen automatically and shows this screen:
+
+
+How an external user sees it:
+![Power BI integrated thorugh iframe](static/img/pbi0.jpg)
+
+
+User with PowerBi corporate access:
+MS1 Select option:
+![Power BI integrated thorugh iframe](static/img/pbi1.jpg)
+
+MS2 Select option:
+![Power BI integrated thorugh iframe](static/img/pbi2.jpg)
+
+MS3 Select option (PBI Functionality embedded -see radio buttons):
+![Power BI integrated thorugh iframe](static/img/pbi3.jpg)
