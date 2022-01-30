@@ -17,59 +17,59 @@
         {% endblock %}
         <title>Meeitngs Hub</title>
     </head>
-    <header>
-        <!-- navigation for PC mode-->
-        <div class="navbar-fixed ">
-
-        
-        <nav class="blue-grey darken-4  text-shadow">
-            <div class="nav-wrapper">
-                <a href="{{url_for('logout')}}" class="brand-logo">M-Hub </a>
-                <a href="{{url_for('logout')}}" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
-                <ul class="right hide-on-med-and-down">
-                    <!--nav links -->
-                    {% if session.user %}
-                        <!--nav links visible to admin-->
-                        {% if session.user|lower=="admin"|lower %}
-                            <li><a href="{{ url_for('setup')}}">ADMIN SETUP</a></li>
-                            <li><a href="{{url_for('home')}}">MEETINGS</a></li>
-                        {% endif %}
-                        <!--nav links visible to logged in user-->
-                        <li><a href="{{url_for('user_dashboard', username=session['user'])}}">ACTION DASHBOARD</a></li>
-                        <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
-                        <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
-                        <!--nav links visible-->
-                        {% else %}
-                            <li><a href="{{url_for('login')}}">LOGIN</a></li>
-                            <li><a href="{{url_for('register')}}">REGISTER</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-        </div>
-        <!--navigation mobile sidenav -->
-        <ul class="sidenav" id="mobile-demo">
-            <li><h4 class="center-align blue-grey-text text-darken-2">Meetings Hub</h4></li>
-            <!--nav links -->
-            {% if session.user %}
-                <!--nav links visible to admin-->
-                {% if session.user|lower=="admin"|lower %}
-                    <li><a href="{{ url_for('setup')}}">ADMIN SETUP</a></li>
-                    <li><a href="{{url_for('home')}}">MEETINGS</a></li>
-                {% endif %}
-                <!--nav links visible to logged in user-->
-                <li><a href="{{url_for('user_dashboard', username=session['user'])}}">ACTION DASHBOARD</a></li>
-                <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
-                <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
-                <!--nav links visible to anybody-->
-                {% else %}
-                    <li><a href="{{url_for('login')}}">LOGIN</a></li>
-                    <li><a href="{{url_for('register')}}">REGISTER</a></li>
-            {% endif %}
-        </ul>
-    </header>
     <body>
-        <section>
+        <header>
+            <!-- navigation for PC mode-->
+            <div class="navbar-fixed ">
+    
+            
+            <nav class="blue-grey darken-4  text-shadow">
+                <div class="nav-wrapper">
+                    <a href="{{url_for('logout')}}" class="brand-logo">M-Hub </a>
+                    <a href="{{url_for('logout')}}" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <!--nav links -->
+                        {% if session.user %}
+                            <!--nav links visible to admin-->
+                            {% if session.user|lower=="admin"|lower %}
+                                <li><a href="{{ url_for('setup')}}">ADMIN SETUP</a></li>
+                                <li><a href="{{url_for('home')}}">MEETINGS</a></li>
+                            {% endif %}
+                            <!--nav links visible to logged in user-->
+                            <li><a href="{{url_for('user_dashboard', username=session['user'])}}">ACTION DASHBOARD</a></li>
+                            <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
+                            <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                            <!--nav links visible-->
+                            {% else %}
+                                <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                                <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+            </div>
+            <!--navigation mobile sidenav -->
+            <ul class="sidenav" id="mobile-demo">
+                <li><h4 class="center-align blue-grey-text text-darken-2">Meetings Hub</h4></li>
+                <!--nav links -->
+                {% if session.user %}
+                    <!--nav links visible to admin-->
+                    {% if session.user|lower=="admin"|lower %}
+                        <li><a href="{{ url_for('setup')}}">ADMIN SETUP</a></li>
+                        <li><a href="{{url_for('home')}}">MEETINGS</a></li>
+                    {% endif %}
+                    <!--nav links visible to logged in user-->
+                    <li><a href="{{url_for('user_dashboard', username=session['user'])}}">ACTION DASHBOARD</a></li>
+                    <li><a href="{{url_for('kpi_input')}}">KPI INPUTs</a></li>
+                    <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                    <!--nav links visible to any user-->
+                    {% else %}
+                        <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                        <li><a href="{{url_for('register')}}">REGISTER</a></li>
+                {% endif %}
+            </ul>
+        </header>
+        <div>
             <!--flash message-->
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -87,7 +87,7 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-        </section>
+        </div>
         <main class="container">
             <!--main content-->
             {% block content %}
