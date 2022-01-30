@@ -36,3 +36,9 @@
     width: 100%;
     height: 100%;
   }
+
+/* CSS Validation fixes */
+/*Validation fix2:   Value Error : letter-spacing only 0 can be a unit. You must put a unit after your number : 0.4*/
+.table-of-contents a {
+    letter-spacing:.4px;
+}
