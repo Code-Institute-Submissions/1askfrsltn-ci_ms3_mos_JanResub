@@ -29,7 +29,7 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 
-# set up moongo variable for mongo connection:
+# set up mongo variable for mongo connection:
 mongo = PyMongo(app)
 
 

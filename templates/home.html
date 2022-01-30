@@ -11,7 +11,7 @@
                     <option value=" " disabled selected> </option>
                     {%for meeting in meetings %}
                         <option value="{{ meeting.meeting_name }}" data-url="{{ meeting.meeting_dashboardlink}}">{{ meeting.meeting_name }}</option>
-                    {%endfor%}
+                    {% endfor %}
                 </select>
                 <label for="meeting_name">Select Meeitng</label>
             </div>
@@ -23,4 +23,18 @@
             </iframe>
         </div>
     </form> 
+    <script>
+        /* function provided by Kevin - from tutor support, the problem is with filter on a home page */
+        document.getElementById("meeting_name").onchange = function() {
+            let selectedElement = $('#meeting_name').find('option:selected');
+            let url = selectedElement.data('url');
+            document.getElementById('mdashboard').src = url;
+            /* section provided by Ger */
+            jQuery.event.special.touchstart = {
+                setup: function( _, ns, handle ) {
+                    this.addEventListener("touchstart", handle, { passive: !ns.includes("noPreventDefault") });
+                }
+            };
+        };
+    </script>
 {% endblock %}

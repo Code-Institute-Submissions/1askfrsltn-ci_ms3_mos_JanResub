@@ -292,8 +292,30 @@ Second problem though can be fixed with following code in css static folder:
 
 ### **[JavaScript](https://jshint.com/)**
 ![JSHint result](static/img/js_validation.jpg)
-* to fix that I had to go to gitpod settings and add json setting to enable esversion6 as recommended by r3media on youtube: https://www.youtube.com/watch?v=QDzeU1FUZRk&ab_channel=R3HABMEDIA. 
+
+**Problem 1:**
+* to fix the issue I had to go to gitpod settings and add json setting to enable esversion6 as recommended by r3media on youtube: https://www.youtube.com/watch?v=QDzeU1FUZRk&ab_channel=R3HABMEDIA. 
 * Instead I just deleted let, defining variables without let. It is also acceptable.
+
+**Problem 2:** 
+
+* Console error "Can not set property to null" resulted from the script on script.js file, because the script was executed before the values for the script was set, 
+* I fixed that problem by moving it to the bottom of the home page, I also contacted mentor Ger, wo explained me how to prevent this issue and recommended how to develop the code to fix it:
+
+        <script>
+        /* function provided by Kevin - from tutor support, the problem is with filter on a home page */
+        document.getElementById("meeting_name").onchange = function() {
+            let selectedElement = $('#meeting_name').find('option:selected');
+            let url = selectedElement.data('url');
+            document.getElementById('mdashboard').src = url;
+            /* section provided by Ger */
+            jQuery.event.special.touchstart = {
+                setup: function( _, ns, handle ) {
+                    this.addEventListener("touchstart", handle, { passive: !ns.includes("noPreventDefault") });
+                }
+            };
+        };
+    </script>
 
 ### **[Python](http://pep8online.com/checkresult)** - updated in January 2022
 File "app.py":
@@ -306,7 +328,7 @@ IMPORTANT COMMENT RELATED TO PYTHON CODE VALIDATION:
 Out of 456 pep8 errors that existed in "app.py" and "env.py" files, 453 have been successfully fixed. 
 From 3 remaining errors:
 - 2 related to env.py that was used and saved in gitignore,  according to the video in CI tutorial it can be ignored without consequences. 
-- 3rd error related to too many lines in the module is not critical according to Jo - CI mentor. 
+- 3rd error related to too many lines in the module - it is not critical according to Jo - CI mentor. 
 
 All 3 problems can be safely ignored .
 
