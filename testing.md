@@ -243,7 +243,7 @@ Pic 18: USER STORY 12: intuitively navigate through the pages (navbar and button
 #
 ## **6. Code validation**
 ### **[HTML](https://validator.w3.org/) and [CSS](https://jigsaw.w3.org/css-validator/)**
-No. | code | result | bugs section refno| HTML validation | CSS validation
+No. | code | result | bugs section refno| HTML validation | CSS validation*
 --  |--    |--      |-- |-- |--|
 1   | base | 2 issues | 1,2 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fadmin_setup) | [css link](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fregister&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en#errors)
 2   | register | same as p1 | 1,2 |[link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&acceptlanguage=&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fregister) | [css link](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fregister&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en#errors)
@@ -273,13 +273,45 @@ No. | code | result | bugs section refno| HTML validation | CSS validation
 28  | edit_user | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_user%2F6182d3b16e916b0fb4b8fac9#l22c20) | same as above
 29  | edit_workstream | same as p1 | 1 | [link](https://validator.w3.org/nu/?showsource=yes&showoutline=yes&showimagereport=yes&doc=https%3A%2F%2Fask-pft-meetinghub.herokuapp.com%2Fedit_workstream%2F6187b5b5ddb6ab726c8e6cf3#l22c20) | same as above
 
+Comment"*" There are 2 common css validation errors related to 2 external libraries
+1) **Font Awesome** - animation-delay value : 0
+2) **Materialise** - letter-spacing:.4 should be letter-spacing: 0.4px
+
+Because they relate to external libraries I ignored this validation errors.
+Second problem though can be fixed with following code in css static folder:
+
+        /* CSS Validation fixes */
+        /*Validation fix2:   Value Error : "letter-spacing only 0 can be a unit. You must put a unit after your number" : 0.4 */
+        .table-of-contents a {
+            letter-spacing: 0.4px;
+        }
+        a {
+            letter-spacing: 0.4px;
+        }
+
+
 ### **[JavaScript](https://jshint.com/)**
 ![JSHint result](static/img/js_validation.jpg)
 * to fix that I had to go to gitpod settings and add json setting to enable esversion6 as recommended by r3media on youtube: https://www.youtube.com/watch?v=QDzeU1FUZRk&ab_channel=R3HABMEDIA. 
 * Instead I just deleted let, defining variables without let. It is also acceptable.
 
 ### **[Python](http://pep8online.com/checkresult)** - updated in January 2022
-![Python pep8 test result](static/img/pep8_ok.jpg)
+File "app.py":
+![Python pep8 test result - app.py](static/img/pep8_ok.jpg)
+
+File "env.py":
+![Python pep8 test result - env.py](static/img/pep8_ok2.jpg)
+
+IMPORTANT COMMENT RELATED TO PYTHON CODE VALIDATION: 
+Out of 456 pep8 errors that existed in "app.py" and "env.py" files, 453 have been successfully fixed. 
+From 3 remaining errors:
+- 2 related to env.py that was used and saved in gitignore,  according to the video in CI tutorial it can be ignored without consequences. 
+- 3rd error related to too many lines in the module is not critical according to Jo - CI mentor. 
+
+All 3 problems can be safely ignored .
+
+Remaining erros of app.py and env.py:
+![Python pep8 test result - problems ignored](static/img/problemsinterminal.jpg)
 
 
 ## **6. Site Performance testing**
